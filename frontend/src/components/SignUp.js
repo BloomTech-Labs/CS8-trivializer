@@ -11,6 +11,9 @@ import {
 } from "./primitives/SignUp";
 import { signUp } from "../actions/index";
 
+//#TODO: ADD FORMAT VERIFICATION FOR EMAIL AND PASSWORD FIELDS
+
+
 class SignUp extends Component {
   onSubmit = formProps => {
     this.props.signUp(formProps, () => {
