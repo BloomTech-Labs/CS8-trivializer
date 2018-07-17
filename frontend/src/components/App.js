@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AppWrapper } from './primatives/App';
+import { AppWrapper } from './primitives/App';
 
 export default ({ children }) => {
   return (

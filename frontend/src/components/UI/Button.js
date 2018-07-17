@@ -1,5 +1,5 @@
 import React from 'react';
-import { ButtonWrapper } from '../primatives/UI/Button';
+import { ButtonWrapper } from '../primitives/UI/Button';
 const Button = (props) => {
     return <ButtonWrapper>{props.children}</ButtonWrapper>
 }
