@@ -9,7 +9,10 @@ import { injectGlobal } from 'styled-components';
 import reset from 'styled-reset';
 
 import registerServiceWorker from './registerServiceWorker';
+
 import Landing from './components/Landing.js';
+import SignUp from './components/SignUp';
+import SignIn from './components/SignIn';
 
 // InjectGlobal is akin to a index.css
 injectGlobal` 
@@ -37,6 +40,8 @@ ReactDOM.render(
         <BrowserRouter>
             <App>
                 <Route path='/' exact component={Landing} />
+                <Route path='/sign-up' component={SignUp} />
+                <Route path='/sign-in' component={SignIn} />
             </App>    
         </BrowserRouter>
     </Root>
