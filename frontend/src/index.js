@@ -4,13 +4,12 @@ import { BrowserRouter, Route } from 'react-router-dom';
 
 import Root from './Root';
 import App from './components/App';
-import Temporary from './components/Temporary'; // place holder route that will be deleted later
 
 import { injectGlobal } from 'styled-components';
 import reset from 'styled-reset';
 
 import registerServiceWorker from './registerServiceWorker';
-
+import Landing from './components/Landing.js';
 
 // InjectGlobal is akin to a index.css
 injectGlobal` 
@@ -37,7 +36,7 @@ ReactDOM.render(
     <Root>
         <BrowserRouter>
             <App>
-                <Route path='/' exact component={Temporary} />
+                <Route path='/' exact component={Landing} />
             </App>    
         </BrowserRouter>
     </Root>
