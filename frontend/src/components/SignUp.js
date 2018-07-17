@@ -22,7 +22,7 @@ class SignUp extends Component {
     return (
       <SignupWrapper>
         <h1>SIGN UP PAGE</h1>
-        <form>
+        <form onSubmit={handleSubmit(this.onSubmit)}>
           <fieldset>
             <LabelWrapper>
               {" "}
