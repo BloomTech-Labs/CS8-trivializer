@@ -7,7 +7,7 @@ const router = require('./router.js');
 const server = express();
 
 mongoose
-    .connect('mongodb://admin:admin1@ds239681.mlab.com:39681/trivializer-db')
+    .connect(config.db_url) // environment variable 
     .then(() => {
         console.log('CONNECTED TO MONGODB!')
     }).catch(err => {
@@ -27,7 +27,7 @@ const gameController = require('./games/gameController.js');
 const roundController = require('./rounds/roundController.js');
 
 
-const port = process.env.PORT || 5000;
+const port = config.port || 5000;
 server.listen(port, () => console.log(`API RUNNING ON ${port}`))
 
 
