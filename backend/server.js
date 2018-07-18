@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const router = require('./router.js');
+const config = require("./config");
 const server = express();
 
 mongoose
