@@ -13,6 +13,8 @@ import registerServiceWorker from './registerServiceWorker';
 import Landing from './components/Landing.js';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
+import Game from './components/Game';
+import Settings from './components/Settings';
 
 // InjectGlobal is akin to a index.css
 injectGlobal` 
@@ -42,6 +44,8 @@ ReactDOM.render(
                 <Route path='/' exact component={Landing} />
                 <Route path='/sign-up' component={SignUp} />
                 <Route path='/sign-in' component={SignIn} />
+                <Route path='/games' component={Game} />
+                <Route path='/settings' component={Settings} />
             </App>    
         </BrowserRouter>
     </Root>

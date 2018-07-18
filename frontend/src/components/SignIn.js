@@ -53,7 +53,6 @@ class SignIn extends Component {
   }
 }
 
-//TODO: MAP STATE TO PROPS
 function mapStateToProps(state) {
   return { errorMessage: state.auth.errorMessage };
 }
