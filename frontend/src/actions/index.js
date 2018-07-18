@@ -1,4 +1,5 @@
 import axios from "axios";
+import jwt_decode from "jwt-decode";
 import { ERROR, REGISTER_USER, AUTH_USER, UPDATING_SETTINGS, UPDATE_SETTINGS  } from "./types";
 
 export const signUp = (formProps, callback) => async dispatch => {
@@ -38,6 +39,9 @@ export const signOut = () => {
   };
 };
 
+const token = localStorage.getItem('token');
+const decoded = jwt_decode(token);
+console.log("JWT DECODED TOKEN", decoded.sub);
 // export const updateSettings = (formProps, callback) => async dispatch => {
 //   const token = localStorage.getItem("token");
 
