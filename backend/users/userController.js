@@ -1,6 +1,6 @@
 const express = require("express");
 const router = require("express").Router();
-const User = require('./userModel.js');
+const User = require("./userModel.js");
 
 router.post("/register", (req, res) => {
   const credentials = req.body;
@@ -13,4 +13,16 @@ router.post("/register", (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
-module.exports = router
+//var query = { name: 'borne' };
+//Model.findOneAndUpdate(query, { name: 'jason bourne' }, options, callback)
+
+
+router
+    .route('/update')
+    .put((req, res) => {
+      const {email} = req.body;
+      const settings = req.body;
+
+      User.findOneAndUpdate({email})
+    });
+module.exports = router;

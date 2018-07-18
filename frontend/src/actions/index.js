@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ERROR, REGISTER_USER, AUTH_USER } from "./types";
+import { ERROR, REGISTER_USER, AUTH_USER, UPDATING_SETTINGS, UPDATE_SETTINGS  } from "./types";
 
 export const signUp = (formProps, callback) => async dispatch => {
   try {
@@ -37,3 +37,11 @@ export const signOut = () => {
     payload: ""
   };
 };
+
+// export const updateSettings = (formProps, callback) => async dispatch => {
+//   const token = localStorage.getItem("token");
+
+//   try {
+
+//   }
+// }
