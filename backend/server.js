@@ -19,10 +19,7 @@ server.use(helmet());
 server.use(morgan('dev'));
 server.use(express.json());
 server.use(cors());
-console.log("hello!!!!!!!!!!!!");
-server.use('/api/user', userController);
-server.use('/api/game', gameController);
-server.use('/api/round', roundController);
+
 const setupRoutes = require('./router.js')(server); //Handles all of the jwt-simple and passport authentication
 
 const userController = require('./users/userController.js');
@@ -37,3 +34,6 @@ server.listen(port, () => console.log(`API RUNNING ON ${port}`))
 server.get('/', (req, res) => {
     res.status(200).json({ api: 'running' });
 });
+server.use('/api/user', userController);
+server.use('/api/game', gameController);
+server.use('/api/round', roundController);
