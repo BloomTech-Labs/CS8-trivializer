@@ -2,9 +2,6 @@ const express = require("express");
 const router = require("express").Router();
 const User = require("./userModel.js");
 
-//var query = { name: 'borne' };
-//Model.findOneAndUpdate(query, { name: 'jason bourne' }, options, callback)
-
 
 router
     .route('/update')
@@ -12,10 +9,20 @@ router
       console.log("whats up dude");
       res.status(200).json({"whats up": "dude"});
     })
-    // .put((req, res) => {
-    //   const {email} = req.body;
-    //   const settings = req.body;
+    .put((req, res) => {
+      const {token} = req.body;
+      const settings = req.body;
 
-    //   User.findOneAndUpdate({email})
-    // });
+      User.findByIdAndUpdate(token, settings)
+        .then(updated => {
+          if (updated === null) {
+            res.status(404).json(updated)
+          } else {
+            res.status(200).json(updated)
+          }
+        })
+        .catch(err => {
+          res.status(500).json("error updating user information", err);
+        })
+    });
 module.exports = router;
