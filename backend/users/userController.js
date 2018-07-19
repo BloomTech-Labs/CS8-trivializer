@@ -1,16 +1,28 @@
 const express = require("express");
 const router = require("express").Router();
-const User = require('./userModel.js');
+const User = require("./userModel.js");
 
-router.post("/register", (req, res) => {
-  const credentials = req.body;
-  const user = new User(credentials);
-  user
-    .save()
-    .then(inserted => {
-      res.status(201).json(inserted);
+
+router
+    .route('/update')
+    .get((req,res) => {
+      console.log("whats up dude");
+      res.status(200).json({"whats up": "dude"});
     })
-    .catch(err => res.status(500).json(err));
-});
+    .put((req, res) => {
+      const {token} = req.body;
+      const settings = req.body;
 
-module.exports = router
+      User.findByIdAndUpdate(token, settings)
+        .then(updated => {
+          if (updated === null) {
+            res.status(404).json(updated)
+          } else {
+            res.status(200).json(updated)
+          }
+        })
+        .catch(err => {
+          res.status(500).json("error updating user information", err);
+        })
+    });
+module.exports = router;

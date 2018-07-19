@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const router = require('./router.js');
+const config = require("./config");
 const server = express();
 
 mongoose
@@ -13,6 +14,7 @@ mongoose
     }).catch(err => {
         console.log(err, "UNABLE TO CONNECT TO DB")
     })
+
 
 
 server.use(helmet());

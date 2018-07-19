@@ -11,7 +11,7 @@ import { AUTH_USER } from "../actions/types";
 class SignIn extends Component {
   onSubmit = formProps => {
     this.props.signIn(formProps, () => {
-      this.props.history.push("/");
+      this.props.history.push("/games");
     });
   };
   render() {
@@ -53,7 +53,6 @@ class SignIn extends Component {
   }
 }
 
-//TODO: MAP STATE TO PROPS
 function mapStateToProps(state) {
   return { errorMessage: state.auth.errorMessage };
 }

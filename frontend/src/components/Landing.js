@@ -14,9 +14,6 @@ class Landing extends Component {
       <div>
         <button onClick={this.signUpRouteClick}>Sign Up</button>
         <button onClick={this.signInRouteClick}> Sign In</button>
-        {/* // Issue with Button component not getting the function inside of onClick */}
-        {/* <Button onClick={ () => {this.signUpRouteClick()} }>Sign Up</Button> */}
-        {/* <Button>Sign In</Button> */}
       </div>
     );
   }

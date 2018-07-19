@@ -20,6 +20,9 @@ const userSchema = new mongoose.Schema({
   createdAt: {
       type: Date,
       default: Date.now
+  },
+  metaName: {
+    type: String
   }
   // TODO: look into a "last modified" field
 });
