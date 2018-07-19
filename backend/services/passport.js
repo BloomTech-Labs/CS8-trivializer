@@ -24,11 +24,11 @@ const localLogin = new LocalStrategy(localOptions, function(
     }
 
     // compare passwords - is `password` equal to user.password?
-    user.comparePassword(password, function(err, isMatch) {
+    user.comparePassword(password, function(err, isValid) {
       if (err) {
         return done(err);
       }
-      if (!isMatch) {
+      if (!isValid) {
         return done(null, false);
       }
 
