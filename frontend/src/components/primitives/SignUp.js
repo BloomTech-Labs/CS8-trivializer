@@ -11,7 +11,6 @@ export const SignupWrapper = styled.div`
 
 export const LabelWrapper = styled.div`
   padding-top: 1.5rem;
-  border: 1px solid purple;
 `;
 
 export const ButtonWrapper = styled.div`
@@ -29,6 +28,6 @@ export const Button = styled.button`
 
 export const Label = styled.label`
   font-weight: 900;
-  font-size: 10rem;
+  font-size: 4rem;
   color: white;
 `;

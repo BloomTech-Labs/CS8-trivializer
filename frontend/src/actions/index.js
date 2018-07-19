@@ -39,12 +39,11 @@ export const signOut = () => {
   };
 };
 
-const token = localStorage.getItem('token');
-const decoded = jwt_decode(token);
-const jwtToken = decoded.sub;
-console.log("JWT DECODED TOKEN", decoded.sub);
 
 export const updateSettings = (formProps, callback) => async dispatch => {
+  const token = localStorage.getItem('token');
+  const decoded = jwt_decode(token);
+  const jwtToken = decoded.sub;
   try {
     const response = await axios.post(
       "https://trivializer.herokuapp.com/settings",
