@@ -16,4 +16,4 @@ class Game extends Component {
     }
 }
 
-export default requireAuth(Game);
+export default Game; //requireAuth()

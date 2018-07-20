@@ -1,7 +1,9 @@
-import React, { Component} from "react";
+import React, { Component } from "react";
 import { reduxForm, Field } from "redux-form";
+import jwt_decode from "jwt-decode";
 import { compose } from "redux";
 import { connect } from "react-redux";
+import { updateSettings, signOut } from "../actions/index";
 import {
   SettingsWrapper,
   LabelWrapper,
@@ -11,34 +13,69 @@ import {
 } from "./primitives/Settings";
 
 class Settings extends Component {
-//   onSubmit = formProps => {}; 
+   onSubmit = formProps => {
+    this.props.updateSettings(formProps);
+  }
+
+
+  
   render() {
+
+
+
+
+    const token = localStorage.getItem('token');
+    const decoded = jwt_decode(token);
+    const email = decoded.email;
+    const orgName = decoded.orgName;
+    console.log("ORG NAME", orgName);
+
+    console.log("EMAIL", email);
+    
     const { handleSubmit } = this.props;
     return (
       <SettingsWrapper>
         <h1>SETTINGS PAGE</h1>
-        {/* onSubmit={handleSubmit(this.onSubmit)} */}
-        <form> 
+        <form onSubmit={handleSubmit(this.onSubmit)}>
           <fieldset>
-            <LabelWrapper><Label>Organization Name</Label></LabelWrapper>
+            <LabelWrapper>
+              <Label>Organization Name</Label>
+            </LabelWrapper>
             <Field
-              name="name"
+              name="orgName"
+              placeholder={orgName}
               type="text"
               component="input"
               autoComplete="none"
             />
           </fieldset>
           <fieldset>
-            <LabelWrapper><Label>Email</Label></LabelWrapper>
+            <LabelWrapper>
+              <Label>Email</Label>
+            </LabelWrapper>
             <Field
               name="email"
               type="text"
               component="input"
               autoComplete="none"
+              placeholder={email}
             />
           </fieldset>
           <fieldset>
-            <LabelWrapper><Label>Current Password</Label></LabelWrapper>
+            <LabelWrapper>
+              <Label>Old Password</Label>
+            </LabelWrapper>
+            <Field
+              name="oldPassword"
+              type="password"
+              component="input"
+              autoComplete="none"
+            />
+          </fieldset>
+          <fieldset>
+            <LabelWrapper>
+              <Label>New Password</Label>
+            </LabelWrapper>
             <Field
               name="password"
               type="password"
@@ -46,16 +83,7 @@ class Settings extends Component {
               autoComplete="none"
             />
           </fieldset>
-          <fieldset>
-            <LabelWrapper><Label>New Password</Label></LabelWrapper>
-            <Field
-              name="password"
-              type="password"
-              component="input"
-              autoComplete="none"
-            />
-          </fieldset>
-          <Button>Save</Button>
+          <button>Save</button>
           <button
             onClick={() => {
               this.props.history.push("/");
@@ -64,6 +92,7 @@ class Settings extends Component {
             {" "}
             Home{" "}
           </button>
+          <button onClick={() => this.props.signOut()}>Sign Out</button>
         </form>
       </SettingsWrapper>
     );
@@ -75,7 +104,7 @@ function mapStateToProps(state) {
 export default compose(
   connect(
     mapStateToProps,
-    null //create action for Settings
+    { updateSettings, signOut } //create action for Settings
   ),
   reduxForm({ form: "settings" })
 )(Settings);

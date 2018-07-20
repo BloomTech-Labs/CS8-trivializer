@@ -4,7 +4,8 @@ const config = require('../config');
 
 function tokenForUser(user) {
   const timestamp = new Date().getTime();
-  return jwt.encode({ sub: user.id, iat: timestamp }, config.secret);
+  return jwt.encode({ sub: user.id, iat: timestamp, email:user.email, orgName: user.orgName, password: user.password }, config.secret);
+   // perhaps an issue with the token field editing the jwt
 }
 
 exports.signin = function(req, res, next) {
@@ -16,7 +17,6 @@ exports.signin = function(req, res, next) {
 exports.signup = function(req, res, next) {
   const email = req.body.email;
   const password = req.body.password;
-
   if (!email || !password) {
     return res.status(422).send({ error: 'You must provide email and password'});
   }
@@ -33,7 +33,7 @@ exports.signup = function(req, res, next) {
     // If a user with email does NOT exist, create and save user record
     const user = new User({
       email: email,
-      password: password
+      password: password,
     });
 
     user.save(function(err) {

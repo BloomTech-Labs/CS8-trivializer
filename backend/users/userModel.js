@@ -13,6 +13,9 @@ const userSchema = new mongoose.Schema({
     default: "Free",
     required: true
   },
+  orgName: {
+    type: String,
+  },
   email: {
     type: String,
     required: true
@@ -21,9 +24,6 @@ const userSchema = new mongoose.Schema({
       type: Date,
       default: Date.now
   },
-  metaName: {
-    type: String
-  }
   // TODO: look into a "last modified" field
 });
 

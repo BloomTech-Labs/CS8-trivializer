@@ -3,7 +3,14 @@ import { reduxForm, Field } from "redux-form";
 import { compose } from "redux";
 import { signIn } from "../actions/index";
 import { connect } from "react-redux";
-import Button from "./UI/Button";
+import {
+  SigninWrapper,
+  Label,
+  LabelWrapper,
+  ButtonWrapper,
+  Button,
+  Title
+} from "./primitives/SignIn";
 import { AUTH_USER } from "../actions/types";
 
 
@@ -17,11 +24,11 @@ class SignIn extends Component {
   render() {
     const { handleSubmit } = this.props;
     return (
-      <Fragment>
-        <h1>SIGN IN PAGE</h1>
+      <SigninWrapper>
+        <Title>SIGN IN PAGE</Title>
         <form onSubmit={handleSubmit(this.onSubmit)}>
           <fieldset>
-            <label>Email</label>
+            <LabelWrapper><Label>Email</Label></LabelWrapper>
             <Field
               name="email"
               type="text"
@@ -30,7 +37,7 @@ class SignIn extends Component {
             />
           </fieldset>
           <fieldset>
-            <label>Password</label>
+          <LabelWrapper><Label>Password</Label></LabelWrapper>
             <Field
               name="password"
               type="password"
@@ -38,17 +45,17 @@ class SignIn extends Component {
               autoComplete="none"
             />
           </fieldset>
-          <Button>Sign In</Button>
-          <button
+          <ButtonWrapper><Button>Sign In</Button></ButtonWrapper>
+          <ButtonWrapper><Button
             onClick={() => {
               this.props.history.push("/");
             }}
           >
             {" "}
             Home{" "}
-          </button>
+          </Button></ButtonWrapper>
         </form>
-      </Fragment>
+      </SigninWrapper>
     );
   }
 }

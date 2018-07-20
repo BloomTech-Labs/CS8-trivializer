@@ -29,7 +29,7 @@ const gameController = require('./games/gameController.js');
 const roundController = require('./rounds/roundController.js');
 
 
-const port = config.port || 5000;
+const port = 5000 || config.port;
 server.listen(port, () => console.log(`API RUNNING ON ${port}`))
 
 
