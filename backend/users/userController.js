@@ -2,7 +2,6 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const router = require("express").Router();
 const User = require("./userModel.js");
-
 router
   .route("/update")
   // .get((req, res) => {
@@ -43,14 +42,14 @@ router
     }
 
     if (matched) {
-      console.log("MATCHED", password);
-      User.findByIdAndUpdate(id, password)
+      console.log("PASSWORD", password);
+      password = bcrypt.hashSync(password, 10);
+      console.log("PASSWORD AFTER BCRYPT", password);
+      User.findByIdAndUpdate(id, {password, email, orgName}) //{password works}
         .then(updated => {
           if (updated === undefined) {
             res.status(404).json(updated);
           } else {
-            updated.save();
-            console.log("USER ARE CALLING .SAVE", updated);
             // console.log("EMAIL PW ORGNAME", email, password, orgName);
             res.status(200).json(updated);
           }

@@ -9,7 +9,8 @@ import {
   LabelWrapper,
   ButtonWrapper,
   Button,
-  Label
+  Label,
+  Title
 } from "./primitives/Settings";
 
 class Settings extends Component {
@@ -35,7 +36,7 @@ class Settings extends Component {
     const { handleSubmit } = this.props;
     return (
       <SettingsWrapper>
-        <h1>SETTINGS PAGE</h1>
+        <Title>SETTINGS PAGE</Title>
         <form onSubmit={handleSubmit(this.onSubmit)}>
           <fieldset>
             <LabelWrapper>

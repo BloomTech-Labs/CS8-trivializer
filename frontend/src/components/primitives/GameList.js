@@ -6,5 +6,4 @@ export const GameWrapper = styled.div`
     align-items: center;
     height: 100vh;
     width: 100vw;
-    border: 10px solid red;
 `
