@@ -18,7 +18,7 @@ router
     let matched = null;
 
     console.log("PASSWORD:", password);
-    console.log("OLD PASSWORD", oldPassword);
+    console.log("HASHED OLD PASSWORD", hashedPassword);
 
     if(oldPassword === undefined || hashedPassword === undefined) {
       matched = false;
@@ -43,12 +43,12 @@ router
     }
 
     if (matched) {
-      User.findByIdAndUpdate(id, {email, password, orgName})
+      console.log("MATCHED", password);
+      User.findByIdAndUpdate(id, password)
         .then(updated => {
           if (updated === undefined) {
             res.status(404).json(updated);
           } else {
-
             updated.save();
             console.log("USER ARE CALLING .SAVE", updated);
             // console.log("EMAIL PW ORGNAME", email, password, orgName);

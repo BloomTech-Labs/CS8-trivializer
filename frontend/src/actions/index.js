@@ -31,7 +31,7 @@ export const signIn = (formProps, callback) => async dispatch => {
     localStorage.setItem("token", response.data.token);
     callback();
   } catch (err) {
-    dispatch({ type: ERROR, payload: "user not found" });
+    dispatch({ type: ERROR, payload: err });
   }
 };
 
