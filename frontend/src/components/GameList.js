@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { GameWrapper } from './primitives/Game';
+import { GameWrapper } from './primitives/GameList';
 import requireAuth from '../hoc/requireAuth';
 
-class Game extends Component {
+class GameList extends Component {
     homeRouteClick = () => {
         this.props.history.push("/");
       };
@@ -16,4 +16,4 @@ class Game extends Component {
     }
 }
 
-export default Game; //requireAuth()
+export default GameList; //requireAuth()

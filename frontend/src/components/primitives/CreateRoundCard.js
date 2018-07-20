@@ -1,11 +1,13 @@
 import styled from "styled-components";
 
-export const SettingsWrapper = styled.div`
+export const CreateRoundCardWrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  /* flex-wrap: wrap; */
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 30%;
+  width: 200px;
+  border: 1.5px solid purple;
 `;
 
 export const LabelWrapper = styled.div`
@@ -16,22 +18,23 @@ export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0.4rem;
+  padding-top: 20px;
+`;
+
+export const Button = styled.button`
+  border-radius: 1%;
+  height: 30px;
+  width: 90%;
 `;
 
 export const Label = styled.label`
   font-weight: 900;
+  font-size: 1rem;
   color: white;
 `;
 
-export const Button = styled.button`
- border-radius: 1%;
- height: 30px;
- width: 90%;
-`;
-
 export const Title = styled.h1`
- font-size: 2rem;
- font-weight: 900;
- color: white;
+  font-size: 2rem;
+  font-weight: 900;
+  color: white;
 `;
