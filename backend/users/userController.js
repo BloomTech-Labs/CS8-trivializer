@@ -13,9 +13,12 @@ router
     const { id } = req.body;
     const settings = req.body.formProps;
     let { hashedPassword } = req.body;
-    let { oldPassword, password } = req.body.formProps;
+    let { oldPassword, password, email, orgName } = req.body.formProps;
 
     let matched = null;
+
+    console.log("PASSWORD:", password);
+    console.log("OLD PASSWORD", oldPassword);
 
     if(oldPassword === undefined || hashedPassword === undefined) {
       matched = false;
@@ -27,10 +30,10 @@ router
     if (oldPassword === undefined || password === undefined) {
       User.findByIdAndUpdate(id, settings)
         .then(updated => {
-          if (updated === null) {
+          if (updated === undefined) {
             res.status(404).json(updated);
           } else {
-            console.log("UPDATED", updated);
+            console.log("USER WITH NO PW CHANGE", updated);
             res.status(200).json(updated);
           }
         })
@@ -40,14 +43,15 @@ router
     }
 
     if (matched) {
-      User.findByIdAndUpdate(id, settings)
+      User.findByIdAndUpdate(id, {email, password, orgName})
         .then(updated => {
           if (updated === undefined) {
             res.status(404).json(updated);
           } else {
-            console.log("UPDATED PASSWORD", updated);
+
             updated.save();
-            console.log("UPDATED PASSWORD AFTER SAVE", updated);
+            console.log("USER ARE CALLING .SAVE", updated);
+            // console.log("EMAIL PW ORGNAME", email, password, orgName);
             res.status(200).json(updated);
           }
         })
