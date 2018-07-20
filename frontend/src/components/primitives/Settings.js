@@ -5,7 +5,6 @@ export const SettingsWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 10px solid black;
   height: 100vh;
 `;
 
