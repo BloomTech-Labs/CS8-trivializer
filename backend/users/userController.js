@@ -11,41 +11,53 @@ router
   // })
   .put((req, res) => {
     const { id } = req.body;
-    const settings = req.body;
+    const settings = req.body.formProps;
     let { hashedPassword } = req.body;
-    let {oldPassword} = req.body.formProps;
+    let { oldPassword, password } = req.body.formProps;
 
-    const user = User.findById(id);
+    let matched = null;
 
-    console.log("FORMPROPS", req.body.formProps);
-    
-    console.log("HASHEDPW", hashedPassword);
-    // console.log("OLDPW", req.body.formProps.oldPassword);
-    console.log("oldpassword", oldPassword);
-    console.log("ID", id);
-  
+    if(oldPassword === undefined || hashedPassword === undefined) {
+      matched = false;
+    } else {
+      matched = bcrypt.compareSync(oldPassword, hashedPassword);
+    }
 
-    const matched = bcrypt.compareSync(oldPassword, hashedPassword);
-    console.log(matched);
 
-    // if(oldPassword === password) {
+    if (oldPassword === undefined || password === undefined) {
+      User.findByIdAndUpdate(id, settings)
+        .then(updated => {
+          if (updated === null) {
+            res.status(404).json(updated);
+          } else {
+            console.log("UPDATED", updated);
+            res.status(200).json(updated);
+          }
+        })
+        .catch(err => {
+          res.status(500).json("error updating user information", err);
+        });
+    }
 
-    // }
+    if (matched) {
+      User.findByIdAndUpdate(id, settings)
+        .then(updated => {
+          if (updated === undefined) {
+            res.status(404).json(updated);
+          } else {
+            console.log("UPDATED PASSWORD", updated);
+            updated.save();
+            console.log("UPDATED PASSWORD AFTER SAVE", updated);
+            res.status(200).json(updated);
+          }
+        })
+        .catch(err => {
+          res.status(500).json("error updating user information", err);
+        });
+    }
 
     // if(password === undefined || null) {
     //   res.json({"put in a got damn password": "please"})
     // }
-   
-    User.findByIdAndUpdate(id, settings)
-      .then(updated => {
-        if (updated === null) {
-          res.status(404).json(updated);
-        } else {
-          res.status(200).json(updated);
-        }
-      })
-      .catch(err => {
-        res.status(500).json("error updating user information", err);
-      });
   });
 module.exports = router;

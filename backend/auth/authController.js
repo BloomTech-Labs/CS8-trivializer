@@ -5,6 +5,7 @@ const config = require('../config');
 function tokenForUser(user) {
   const timestamp = new Date().getTime();
   return jwt.encode({ sub: user.id, iat: timestamp, email:user.email, orgName: user.orgName, password: user.password }, config.secret);
+   // perhaps an issue with the token field editing the jwt
 }
 
 exports.signin = function(req, res, next) {

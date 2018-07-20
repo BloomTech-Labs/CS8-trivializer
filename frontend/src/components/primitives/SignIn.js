@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
-
-export const SignupWrapper = styled.div`
+export const SigninWrapper = styled.div`
  display: flex;
  flex-direction: column;
  justify-content: center;
@@ -38,4 +37,4 @@ export const Title = styled.h1`
  font-size: 2rem;
  font-weight: 900;
  color: white;
- `;
+`

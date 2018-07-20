@@ -3,7 +3,7 @@ import { reduxForm, Field } from "redux-form";
 import jwt_decode from "jwt-decode";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { updateSettings } from "../actions/index";
+import { updateSettings, signOut } from "../actions/index";
 import {
   SettingsWrapper,
   LabelWrapper,
@@ -77,7 +77,7 @@ class Settings extends Component {
               <Label>New Password</Label>
             </LabelWrapper>
             <Field
-              name="newPassword"
+              name="password"
               type="password"
               component="input"
               autoComplete="none"
@@ -92,6 +92,7 @@ class Settings extends Component {
             {" "}
             Home{" "}
           </button>
+          <button onClick={() => this.props.signOut()}>Sign Out</button>
         </form>
       </SettingsWrapper>
     );
@@ -103,7 +104,7 @@ function mapStateToProps(state) {
 export default compose(
   connect(
     mapStateToProps,
-    { updateSettings } //create action for Settings
+    { updateSettings, signOut } //create action for Settings
   ),
   reduxForm({ form: "settings" })
 )(Settings);

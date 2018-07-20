@@ -7,7 +7,8 @@ import {
   Label,
   LabelWrapper,
   ButtonWrapper,
-  Button
+  Button,
+  Title
 } from "./primitives/SignUp";
 import { signUp } from "../actions/index";
 
@@ -24,7 +25,7 @@ class SignUp extends Component {
     const { handleSubmit } = this.props;
     return (
       <SignupWrapper>
-        <h1>SIGN UP PAGE</h1>
+        <Title>SIGN UP PAGE</Title>
         <form onSubmit={handleSubmit(this.onSubmit)}>
           <fieldset>
             <LabelWrapper>
