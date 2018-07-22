@@ -45,7 +45,7 @@ router
       console.log("PASSWORD", password);
       password = bcrypt.hashSync(password, 10);
       console.log("PASSWORD AFTER BCRYPT", password);
-      User.findByIdAndUpdate(id, {password, email, orgName}) //{password works}
+      User.findByIdAndUpdate(id, {password, email: email, orgName: orgName}) //{password works}
         .then(updated => {
           if (updated === undefined) {
             res.status(404).json(updated);

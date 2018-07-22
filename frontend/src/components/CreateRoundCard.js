@@ -7,12 +7,12 @@ import {
   LabelWrapper,
   ButtonWrapper,
   Button,
-  Label,
+  Label
 } from "./primitives/CreateRoundCard";
 
 class CreateRoundCard extends Component {
   render() {
-       const { handleSubmit } = this.props;
+    const { handleSubmit } = this.props;
     return (
       <CreateRoundCardWrapper>
         <form>
@@ -32,60 +32,52 @@ class CreateRoundCard extends Component {
             <LabelWrapper>
               <Label># of Questions</Label>
             </LabelWrapper>
-            <Field
-              name="questions"
-              component="select"
-              >
-                <option />
-                <option value="ff0000">Red</option>
-                <option value="00ff00">Green</option>
-                <option value="0000ff">Blue</option>
+            <Field name="questions" component="select">
+              <option />
+              <option value="ff0000">Red</option>
+              <option value="00ff00">Green</option>
+              <option value="0000ff">Blue</option>
             </Field>
           </fieldset>
           <fieldset>
             <LabelWrapper>
               <Label>Category</Label>
             </LabelWrapper>
-            <Field
-              name="category"
-              component="select"
-              >
-                <option />
-                <option value="ff0000">Red</option>
-                <option value="00ff00">Green</option>
-                <option value="0000ff">Blue</option>
+            <Field name="category" component="select">
+              <option />
+              <option value="ff0000">Red</option>
+              <option value="00ff00">Green</option>
+              <option value="0000ff">Blue</option>
             </Field>
           </fieldset>
           <fieldset>
             <LabelWrapper>
               <Label>Difficulty</Label>
             </LabelWrapper>
-            <Field
-              name="difficulty"
-              component="select"
-              >
-                <option />
-                <option value="ff0000">Red</option>
-                <option value="00ff00">Green</option>
-                <option value="0000ff">Blue</option>
+            <Field name="difficulty" component="select">
+              <option />
+              <option value="ff0000">Red</option>
+              <option value="00ff00">Green</option>
+              <option value="0000ff">Blue</option>
             </Field>
           </fieldset>
           <fieldset>
             <LabelWrapper>
               <Label>Type</Label>
             </LabelWrapper>
-            <Field
-              name="type"
-              component="select"
-              >
-                <option />
-                <option value="ff0000">Red</option>
-                <option value="00ff00">Green</option>
-                <option value="0000ff">Blue</option>
+            <Field name="type" component="select">
+              <option />
+              <option value="ff0000">Red</option>
+              <option value="00ff00">Green</option>
+              <option value="0000ff">Blue</option>
             </Field>
           </fieldset>
-          <ButtonWrapper><Button>View</Button></ButtonWrapper>
-          <ButtonWrapper><Button>Delete</Button></ButtonWrapper>
+          <ButtonWrapper>
+            <Button>View</Button>
+          </ButtonWrapper>
+          <ButtonWrapper>
+            <Button>Delete</Button>
+          </ButtonWrapper>
         </form>
       </CreateRoundCardWrapper>
     );
@@ -93,13 +85,12 @@ class CreateRoundCard extends Component {
 }
 
 function mapStateToProps(state) {
-    return { errorMessage: state.auth.errorMessage };
-  }
-  export default compose(
-    connect(
-      mapStateToProps,
-      null //create action for createround
-    ),
-    reduxForm({ form: "createround" })
-  )(CreateRoundCard);
-
+  return { errorMessage: state.auth.errorMessage };
+}
+export default compose(
+  connect(
+    mapStateToProps,
+    null //create action for createround
+  ),
+  reduxForm({ form: "createround" })
+)(CreateRoundCard);
