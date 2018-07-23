@@ -16,7 +16,7 @@ class CreateRoundCard extends Component {
     onSubmit = (formProps) => {
       this.props.getThree(formProps);
   }
-    aR = () => {
+    aR = round => {
       this.props.addRound(this.props.round);
     }
 
@@ -44,7 +44,7 @@ class CreateRoundCard extends Component {
               <Label># of Questions</Label>
             </LabelWrapper>
             <Field
-              name="questions"
+              name="numberOfQuestions"
               component="select"
               >
                 <option>Number of Questions</option>
@@ -117,12 +117,12 @@ class CreateRoundCard extends Component {
           <ButtonWrapper><Button>View</Button></ButtonWrapper>
           <ButtonWrapper><Button>Delete</Button></ButtonWrapper>
           <ButtonWrapper><button>get questions</button></ButtonWrapper>
-          <div onClick={() => this.aR()}>Save Round</div>
+          <div onClick={() => this.aR(this.props.round)}>Save Round</div>
           
           
         </form>
    
-        {console.log("ROUND", this.props.round)} {/* delete later */}
+        { console.log("ROUND", this.props.round) /* delete later */}
       </CreateRoundCardWrapper>
     );
   }

@@ -96,12 +96,14 @@ export const addRound = round => dispatch => {
         })
 }
 
-export const getThree = (formProps) => dispatch => {
+export const getThree = formProps => dispatch => {
   dispatch({ type: FETCHING_THREE });
 //   console.log("FORM PROPS", formProps);
+  let questions = formProps.numberOfQuestions; 
   axios
-      .get(`https://opentdb.com/api.php?amount=${formProps.questions}&category=${formProps.category}&difficulty=${formProps.difficulty}&type=${formProps.type}`)
+      .get(`https://opentdb.com/api.php?amount=${questions}&category=${formProps.category}&difficulty=${formProps.difficulty}&type=${formProps.type}`)
       .then(response => {
+          console.log("RESPONSE", response);
           dispatch({ type: FETCHED_THREE, payload: response.data.results})
       })
       .catch(err => {
