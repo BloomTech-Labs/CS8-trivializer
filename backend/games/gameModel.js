@@ -29,7 +29,7 @@ const gameSchema = new mongoose.Schema({
   },
   rounds: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Rounds"
+    ref: "Rounds" // should be an array of round ID's
   }
 });
 

@@ -2,20 +2,23 @@ import React, { Component } from "react";
 import { reduxForm, Field } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { getThree } from '../actions';// delete later
+import { getThree, addRound } from '../actions';// delete later
 import {
   CreateRoundCardWrapper,
   LabelWrapper,
   ButtonWrapper,
   Button,
-  Label,
+  Label
 } from "./primitives/CreateRoundCard";
 
 class CreateRoundCard extends Component {
 
-    getRound = () => {
-      this.props.getThree();
+    onSubmit = (formProps) => {
+      this.props.getThree(formProps);
   }
+    aR = round => {
+      this.props.addRound(this.props.round);
+    }
 
   render() {
     const { handleSubmit } = this.props;
@@ -23,7 +26,7 @@ class CreateRoundCard extends Component {
     return (
         
       <CreateRoundCardWrapper>
-        <form>
+        <form onSubmit={handleSubmit(this.onSubmit)}>
           <fieldset>
             <LabelWrapper>
               <Label>Round Name</Label>
@@ -41,7 +44,7 @@ class CreateRoundCard extends Component {
               <Label># of Questions</Label>
             </LabelWrapper>
             <Field
-              name="questions"
+              name="numberOfQuestions"
               component="select"
               >
                 <option>Number of Questions</option>
@@ -113,10 +116,13 @@ class CreateRoundCard extends Component {
           </fieldset>
           <ButtonWrapper><Button>View</Button></ButtonWrapper>
           <ButtonWrapper><Button>Delete</Button></ButtonWrapper>
-          <ButtonWrapper><div onClick={()=> this.getRound()}>get questions</div></ButtonWrapper>
+          <ButtonWrapper><button>get questions</button></ButtonWrapper>
+          <div onClick={() => this.aR(this.props.round)}>Save Round</div>
+          
+          
         </form>
    
-        {console.log("ROUND", this.props.round)} {/* delete later */}
+        { console.log("ROUND", this.props.round) /* delete later */}
       </CreateRoundCardWrapper>
     );
   }
@@ -131,7 +137,7 @@ function mapStateToProps(state) {
   export default compose(
     connect(
       mapStateToProps,
-      { getThree } 
+      { getThree, addRound } 
     ),
     reduxForm({ form: "createround" })
   )(CreateRoundCard);

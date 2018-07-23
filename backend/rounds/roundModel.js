@@ -1,35 +1,22 @@
 const mongoose = require('mongoose');
 
+//round name, round category, number of questions
+
 const roundSchema = new mongoose.Schema({
-    name: {
+    roundName: {
         type: String,
-        required: true
+        default: "Trivializer Round"
     },
     numberOfQuestions: {
         type: Number,
-        required: true
     },
-    category: { // supplied by API
+    category: { 
         type: String,
-        required: true,
     },
-    difficulty: { //supplied by API
-        type:String,
-        required: true,
-    },
-    choiceType: {
-        type: String, //question, multiple choice or fill in the blank; api does not supply fill in the blank questions. only bools or choices.
-        required: true,
+    difficulty: {
+        type: String,
     },
     questions: { //supplied by API
-        type: Array,
-        required: true
-    },
-    correctAnswer: { //supplied by API
-        type: Array,
-        required: true,
-    },
-    incorrectAnswers: { //supplied by API
         type: Array,
         required: true
     },

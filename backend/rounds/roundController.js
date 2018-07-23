@@ -4,10 +4,13 @@ const router = require("express").Router();
 
 router.post('/create-round', (req, res) => {
     const settings = req.body;
+    
+    console.log("SETTINGS", req.body);
     const round = new Round(settings);
+    console.log("NEW ROUND GETTING PASSED SETTINGS", round);
     round
-        .save()
-        .then(inserted => {
+    .save()
+    .then(inserted => {
             res.status(201).json(inserted);
         })
         .catch(err => res.status(500).json(err));
