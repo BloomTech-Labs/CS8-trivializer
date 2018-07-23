@@ -14,16 +14,17 @@ import {
 } from "./primitives/Settings";
 
 class Settings extends Component {
-   onSubmit = formProps => {
-    this.props.updateSettings(formProps);
-  }
-
-
+  //  onSubmit = formProps => {
+  //   this.props.updateSettings(formProps);
+  // }
+  
+  onSubmit = formProps => {
+      this.props.updateSettings(formProps, () => {
+        this.props.history.push('/games');
+    });
+  } 
   
   render() {
-
-
-
 
     const token = localStorage.getItem('token');
     const decoded = jwt_decode(token);
@@ -36,6 +37,8 @@ class Settings extends Component {
     const { handleSubmit } = this.props;
     return (
       <SettingsWrapper>
+        {console.log(this.props)}
+
         <Title>SETTINGS PAGE</Title>
         <form onSubmit={handleSubmit(this.onSubmit)}>
           <fieldset>

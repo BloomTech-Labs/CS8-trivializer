@@ -7,7 +7,7 @@ export const CreateRoundCardWrapper = styled.div`
   align-items: center;
   height: 30%;
   width: 200px;
-  border: 1.5px solid purple;
+  /* border: 1.5px solid black; */
 `;
 
 export const LabelWrapper = styled.div`

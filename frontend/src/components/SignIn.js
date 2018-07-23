@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { reduxForm, Field } from "redux-form";
 import { compose } from "redux";
-import { signIn } from "../actions/index";
+import { signIn, getThree } from "../actions/index";
 import { connect } from "react-redux";
 import {
   SigninWrapper,
@@ -11,7 +11,6 @@ import {
   Button,
   Title
 } from "./primitives/SignIn";
-import { AUTH_USER } from "../actions/types";
 
 
 //#TODO: ADD FORMAT VERIFICATION FOR EMAIL AND PASSWORD FIELDS
@@ -21,6 +20,11 @@ class SignIn extends Component {
       this.props.history.push("/games");
     });
   };
+
+  getRound = () => {
+    this.props.getThree();
+  }
+
   render() {
     const { handleSubmit } = this.props;
     return (
@@ -46,6 +50,7 @@ class SignIn extends Component {
             />
           </fieldset>
           <ButtonWrapper><Button>Sign In</Button></ButtonWrapper>
+          <ButtonWrapper onClick={()=> {this.getRound()}}><div >Get Round</div></ButtonWrapper>
           <ButtonWrapper><Button
             onClick={() => {
               this.props.history.push("/");
@@ -55,18 +60,22 @@ class SignIn extends Component {
             Home{" "}
           </Button></ButtonWrapper>
         </form>
+        {console.log("checking round", this.props.round)}
       </SigninWrapper>
     );
   }
 }
 
 function mapStateToProps(state) {
-  return { errorMessage: state.auth.errorMessage };
+  return { 
+    round : state.round.round,
+    errorMessage: state.auth.errorMessage 
+  };
 }
 export default compose(
   connect(
     mapStateToProps,
-    { signIn }
+    { signIn, getThree }
   ),
   reduxForm({ form: "signin" })
 )(SignIn);

@@ -16,4 +16,4 @@ class GameList extends Component {
     }
 }
 
-export default GameList; //requireAuth()
+export default requireAuth(GameList); //requireAuth()
