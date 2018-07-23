@@ -1,39 +1,55 @@
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-import { ERROR, REGISTER_USER, AUTH_USER, UPDATING_SETTINGS, UPDATE_SETTINGS  } from "./types";
+import { 
+  ERROR, 
+  REGISTER_USER, 
+  AUTH_USER, 
+  UPDATING_SETTINGS, 
+  UPDATE_SETTINGS,  
+  FETCHING_THREE,
+  FETCHED_THREE,
+  SIGNING_IN,
+  SIGNING_UP
+  } from "./types";
 
-export const signUp = (formProps, callback) => async dispatch => {
-  try {
-    const response = await axios.post(
-      "http://localhost:5000/signup", // https://trivializer.herokuapp.com/signup
+
+export const signUp = (formProps, callback) => dispatch => {
+  dispatch({ type: SIGNING_UP }); 
+
+  axios
+      .post ("http://localhost:5000/signup", //https://trivializer.herokuapp.com/signin
       formProps
-    );
+      )
+      .then(response => {
+          dispatch({ type: AUTH_USER, payload: response.data.token })
+          localStorage.setItem("token", response.data.token)
+          callback();
+      })
+      
+      .catch(error => {
+          dispatch({ type: ERROR, errorMessage: 'Error signing in user'})
+      });
 
-    dispatch({ type: AUTH_USER, payload: response.data.token });
-    localStorage.setItem("token", response.data.token);
-    callback();
-  } catch (err) {
-    dispatch({ type: ERROR, payload: "email in use" });
-  }
 };
 
-export const signIn = (formProps, callback) => async dispatch => {
-  // const token = localStorage.getItem('token');
-  // const decoded = jwt_decode(token);
-  // const password = decoded.password;
-  // console.log("VERY SECURE PASSWORD", password);
-  try {
-    const response = await axios.post(
-      "http://localhost:5000/signin", //https://trivializer.herokuapp.com/signin
+export const signIn = (formProps, callback) => dispatch => {
+  dispatch({ type: SIGNING_IN }); 
+
+  axios
+      .post ("http://localhost:5000/signin", //https://trivializer.herokuapp.com/signin
       formProps
-    );
-    dispatch({ type: AUTH_USER, payload: response.data.token });
-    localStorage.setItem("token", response.data.token);
-    callback();
-  } catch (err) {
-    dispatch({ type: ERROR, payload: err });
-  }
+      )
+      .then(response => {
+          dispatch({ type: AUTH_USER, payload: response.data.token })
+          localStorage.setItem("token", response.data.token)
+          callback();
+      })
+      .catch(error => {
+          dispatch({ type: ERROR, errorMessage: 'Error signing in user'})
+      });
+
 };
+
 
 export const signOut = () => {
   localStorage.removeItem("token");
@@ -43,22 +59,35 @@ export const signOut = () => {
   };
 };
 
-
-export const updateSettings = (formProps, callback) => async dispatch => {
+export const updateSettings = (formProps, callback) => dispatch => {
   const token = localStorage.getItem('token');
   const decoded = jwt_decode(token);
   const hashedPassword = decoded.password;
   const id = decoded.sub;
 
-  try {
-    const response = await axios.put(
-      "http://localhost:5000/api/user/update", //https://trivializer.herokuapp.com/settings
-      {formProps, id, hashedPassword}
-    );
-    dispatch({type: UPDATING_SETTINGS })
-    dispatch({type: UPDATE_SETTINGS, payload: response.data })
-    callback();
-  } catch(err){
-    dispatch({type: ERROR, payload: "failed to update user settings"});
-  }
+  dispatch({ type: UPDATING_SETTINGS });
+
+  axios
+    .put(  "http://localhost:5000/api/user/update",{ formProps, id, hashedPassword })  //https://trivializer.herokuapp.com/settings
+    .then(response => {
+      dispatch({ type: UPDATE_SETTINGS, payload: response.data })
+      callback();
+    })
+    .catch(err => {
+      dispatch({ type: ERROR, errorMessage: 'Error updating user settings'})
+  });
+} 
+
+export const getThree = () => dispatch => {
+  dispatch({ type: FETCHING_THREE });
+
+  axios
+      .get('https://opentdb.com/api.php?amount=3')
+      .then(response => {
+          dispatch({ type: FETCHED_THREE, payload: response.data.results})
+      })
+      .catch(error => {
+          dispatch({ type: ERROR, errorMessage: 'Error Fetching the data'})
+      });
+
 };
