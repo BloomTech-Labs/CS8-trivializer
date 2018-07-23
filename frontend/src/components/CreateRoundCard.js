@@ -15,8 +15,10 @@ class CreateRoundCard extends Component {
 
     onSubmit = (formProps) => {
       this.props.getThree(formProps);
-      this.props.addRound(this.props.round);
   }
+    aR = () => {
+      this.props.addRound(this.props.round);
+    }
 
   render() {
     const { handleSubmit } = this.props;
@@ -115,6 +117,7 @@ class CreateRoundCard extends Component {
           <ButtonWrapper><Button>View</Button></ButtonWrapper>
           <ButtonWrapper><Button>Delete</Button></ButtonWrapper>
           <ButtonWrapper><button>get questions</button></ButtonWrapper>
+          <div onClick={() => this.aR()}>Save Round</div>
           
           
         </form>

@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 
 const roundSchema = new mongoose.Schema({
-    name: {
+    roundName: {
         type: String,
         required: true
     },
-    numberOfQuestions: {
-        type: Number,
-        required: true
-    },
+    // questions: {
+    //     type: Number,
+    //     required: true
+    // },
     category: { // supplied by API
         type: String,
         required: true,
@@ -17,7 +17,7 @@ const roundSchema = new mongoose.Schema({
         type:String,
         required: true,
     },
-    choiceType: {
+    type: {
         type: String, //question, multiple choice or fill in the blank; api does not supply fill in the blank questions. only bools or choices.
         required: true,
     },
