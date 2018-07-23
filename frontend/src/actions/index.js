@@ -9,7 +9,9 @@ import {
   FETCHING_THREE,
   FETCHED_THREE,
   SIGNING_IN,
-  SIGNING_UP
+  SIGNING_UP,
+  ADDING_ROUND,
+  ADDED_ROUND
   } from "./types";
 
 
@@ -26,8 +28,8 @@ export const signUp = (formProps, callback) => dispatch => {
           callback();
       })
       
-      .catch(error => {
-          dispatch({ type: ERROR, errorMessage: 'Error signing in user'})
+      .catch(err => {
+          dispatch({ type: ERROR, errorMessage: 'Error signing in user', err})
       });
 
 };
@@ -44,8 +46,8 @@ export const signIn = (formProps, callback) => dispatch => {
           localStorage.setItem("token", response.data.token)
           callback();
       })
-      .catch(error => {
-          dispatch({ type: ERROR, errorMessage: 'Error signing in user'})
+      .catch(err => {
+          dispatch({ type: ERROR, errorMessage: 'Error signing in user', err})
       });
 
 };
@@ -58,6 +60,8 @@ export const signOut = () => {
     payload: ""
   };
 };
+
+
 
 export const updateSettings = (formProps, callback) => dispatch => {
   const token = localStorage.getItem('token');
@@ -74,20 +78,34 @@ export const updateSettings = (formProps, callback) => dispatch => {
       callback();
     })
     .catch(err => {
-      dispatch({ type: ERROR, errorMessage: 'Error updating user settings'})
+      dispatch({ type: ERROR, errorMessage: 'Error updating user settings', err})
   });
 } 
 
-export const getThree = () => dispatch => {
-  dispatch({ type: FETCHING_THREE });
 
+export const addRound = round => dispatch => {
+    dispatch({ type: ADDING_ROUND });
+    console.log("ROUND", round);
+    axios
+        .post('http://localhost:5000/api/round/create-round', round)
+        .then( response => {
+            dispatch({type: ADDED_ROUND, payload: response.data })
+        })
+        .catch(err => {
+            dispatch({type: ERROR, errorMessage: "error adding round", err})
+        })
+}
+
+export const getThree = (formProps) => dispatch => {
+  dispatch({ type: FETCHING_THREE });
+  console.log("FORM PROPS", formProps);
   axios
-      .get('https://opentdb.com/api.php?amount=3')
+      .get(`https://opentdb.com/api.php?amount=${formProps.questions}}&category=${formProps.category}&difficulty=${formProps.difficulty}&type=${formProps.type}`)
       .then(response => {
           dispatch({ type: FETCHED_THREE, payload: response.data.results})
       })
-      .catch(error => {
-          dispatch({ type: ERROR, errorMessage: 'Error Fetching the data'})
+      .catch(err => {
+          dispatch({ type: ERROR, errorMessage: 'Error Fetching the data', err})
       });
 
 };

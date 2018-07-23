@@ -9,4 +9,7 @@ export const FETCHED_THREE = "fetched_three";
 export const SIGNING_UP = "signing_up";
 export const SIGNING_IN = "signing_in";
 
+export const ADDING_ROUND = "adding_round";
+export const ADDED_ROUND = "added_round";
+
 export const ERROR = "error";

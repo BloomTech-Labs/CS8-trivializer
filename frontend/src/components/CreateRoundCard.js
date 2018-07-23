@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { reduxForm, Field } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { getThree } from '../actions';// delete later
+import { getThree, addRound } from '../actions';// delete later
 import {
   CreateRoundCardWrapper,
   LabelWrapper,
@@ -13,20 +13,18 @@ import {
 
 class CreateRoundCard extends Component {
 
-    getRound = () => {
-      this.props.getThree();
+    onSubmit = (formProps) => {
+      this.props.getThree(formProps);
+      this.props.addRound(this.props.round);
   }
 
   render() {
     const { handleSubmit } = this.props;
-<<<<<<< HEAD
-=======
   
->>>>>>> af53d10ea4d8e44aa3d860a5f67f0a201bce860c
     return (
         
       <CreateRoundCardWrapper>
-        <form>
+        <form onSubmit={handleSubmit(this.onSubmit)}>
           <fieldset>
             <LabelWrapper>
               <Label>Round Name</Label>
@@ -43,13 +41,6 @@ class CreateRoundCard extends Component {
             <LabelWrapper>
               <Label># of Questions</Label>
             </LabelWrapper>
-<<<<<<< HEAD
-            <Field name="questions" component="select">
-              <option />
-              <option value="ff0000">Red</option>
-              <option value="00ff00">Green</option>
-              <option value="0000ff">Blue</option>
-=======
             <Field
               name="questions"
               component="select"
@@ -58,20 +49,12 @@ class CreateRoundCard extends Component {
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
->>>>>>> af53d10ea4d8e44aa3d860a5f67f0a201bce860c
             </Field>
           </fieldset>
           <fieldset>
             <LabelWrapper>
               <Label>Category</Label>
             </LabelWrapper>
-<<<<<<< HEAD
-            <Field name="category" component="select">
-              <option />
-              <option value="ff0000">Red</option>
-              <option value="00ff00">Green</option>
-              <option value="0000ff">Blue</option>
-=======
             <Field
               name="category"
               component="select"
@@ -101,20 +84,12 @@ class CreateRoundCard extends Component {
                 <option value="30">Science: Gadgets</option>
                 <option value="31">Entertainment: Japanese Anime & Manga</option>
                 <option value="32">Entertainment: Cartoon & Animation</option>                     
->>>>>>> af53d10ea4d8e44aa3d860a5f67f0a201bce860c
             </Field>
           </fieldset>
           <fieldset>
             <LabelWrapper>
               <Label>Difficulty</Label>
             </LabelWrapper>
-<<<<<<< HEAD
-            <Field name="difficulty" component="select">
-              <option />
-              <option value="ff0000">Red</option>
-              <option value="00ff00">Green</option>
-              <option value="0000ff">Blue</option>
-=======
             <Field
               name="difficulty"
               component="select"
@@ -123,28 +98,12 @@ class CreateRoundCard extends Component {
                 <option value="easy">Easy</option>
                 <option value="medium">Medium</option>
                 <option value="hard">Hard</option>
->>>>>>> af53d10ea4d8e44aa3d860a5f67f0a201bce860c
             </Field>
           </fieldset>
           <fieldset>
             <LabelWrapper>
               <Label>Type</Label>
             </LabelWrapper>
-<<<<<<< HEAD
-            <Field name="type" component="select">
-              <option />
-              <option value="ff0000">Red</option>
-              <option value="00ff00">Green</option>
-              <option value="0000ff">Blue</option>
-            </Field>
-          </fieldset>
-          <ButtonWrapper>
-            <Button>View</Button>
-          </ButtonWrapper>
-          <ButtonWrapper>
-            <Button>Delete</Button>
-          </ButtonWrapper>
-=======
             <Field
               name="type"
               component="select"
@@ -155,8 +114,9 @@ class CreateRoundCard extends Component {
           </fieldset>
           <ButtonWrapper><Button>View</Button></ButtonWrapper>
           <ButtonWrapper><Button>Delete</Button></ButtonWrapper>
-          <ButtonWrapper><div onClick={()=> this.getRound()}>get questions</div></ButtonWrapper>
->>>>>>> af53d10ea4d8e44aa3d860a5f67f0a201bce860c
+          <ButtonWrapper><button>get questions</button></ButtonWrapper>
+          
+          
         </form>
    
         {console.log("ROUND", this.props.round)} {/* delete later */}
@@ -166,17 +126,6 @@ class CreateRoundCard extends Component {
 }
 
 function mapStateToProps(state) {
-<<<<<<< HEAD
-  return { errorMessage: state.auth.errorMessage };
-}
-export default compose(
-  connect(
-    mapStateToProps,
-    null //create action for createround
-  ),
-  reduxForm({ form: "createround" })
-)(CreateRoundCard);
-=======
     return { 
       round: state.round.round,  
       errorMessage: state.auth.errorMessage
@@ -185,9 +134,8 @@ export default compose(
   export default compose(
     connect(
       mapStateToProps,
-      { getThree } 
+      { getThree, addRound } 
     ),
     reduxForm({ form: "createround" })
   )(CreateRoundCard);
 
->>>>>>> af53d10ea4d8e44aa3d860a5f67f0a201bce860c

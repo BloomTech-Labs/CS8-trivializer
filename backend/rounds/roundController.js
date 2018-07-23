@@ -4,6 +4,7 @@ const router = require("express").Router();
 
 router.post('/create-round', (req, res) => {
     const settings = req.body;
+    console.log("ROUND", settings);
     const round = new Round(settings);
     round
         .save()
