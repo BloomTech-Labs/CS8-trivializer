@@ -18,7 +18,7 @@ import { signUp } from "../actions/index";
 class SignUp extends Component {
   onSubmit = formProps => {
     this.props.signUp(formProps, () => {
-      this.props.history.push("/");
+      this.props.history.push("/games");
     });
   };
   render() {
