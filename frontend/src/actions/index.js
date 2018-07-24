@@ -17,7 +17,7 @@ import {
 
   } from "./types";
 
-
+axios.defaults.withCredentials = true;
 export const signUp = (formProps, callback) => dispatch => {
   dispatch({ type: SIGNING_UP }); 
 
