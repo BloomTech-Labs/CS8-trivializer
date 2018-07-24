@@ -7,15 +7,18 @@ const roundSchema = new mongoose.Schema({
         type: String,
         default: "Trivializer Round"
     },
-    // numberOfQuestions: {
-    //     type: Number,
-    // },
-    // category: { 
-    //     type: String,
-    // },
-    // difficulty: {
-    //     type: String,
-    // },
+    numberOfQuestions: {
+        type: String,
+    },
+    category: { 
+        type: String,
+    },
+    difficulty: {
+        type: String,
+    },
+    type: {
+        type: String,
+    },
     questions: { //supplied by API
         type: Array,
         required: true

@@ -2,12 +2,8 @@ import React, { Component } from "react";
 import { reduxForm, Field } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
-<<<<<<< HEAD
-import { getThree, addRound } from "../actions"; // delete later
-=======
-import { getThree, addRound } from '../actions';// delete later
+import { getThree, addRound, getRounds } from '../actions';// delete later
 
->>>>>>> 3ea1f9060c8cc03330b9dcfa1b913c744f0d7297
 import {
   CreateRoundCardWrapper,
   LabelWrapper,
@@ -17,14 +13,11 @@ import {
 } from "./primitives/CreateRoundCard";
 
 class CreateRoundCard extends Component {
-<<<<<<< HEAD
-  onSubmit = formProps => {
-    this.props.getThree(formProps);
-  };
-  aR = (round, formProps) => {
-    this.props.addRound(round, formProps);
-  };
-=======
+
+    componentDidMount() { //keep in mind we may need to move
+      this.props.getRounds();
+    }
+
 
     onSubmit = (formProps) => {
       this.props.getThree(formProps);
@@ -33,7 +26,6 @@ class CreateRoundCard extends Component {
     aR = round => {
       this.props.addRound(round);
     }
->>>>>>> 3ea1f9060c8cc03330b9dcfa1b913c744f0d7297
 
   render() {
     const { handleSubmit } = this.props;
@@ -128,11 +120,9 @@ class CreateRoundCard extends Component {
           <div onClick={() => this.aR(this.props.round)}>Save Round</div>
         </form>
 
-        {console.log("DONT KNOW", this.props.maybeForm) /* delete later */}
-        {/* {checkIfFormObject()} */}
-        {console.log("FORMPROPS MAYBE?", this.props.form) /* delete later */}
+        {console.log("ROUND", this.props.round) /* delete later */}
 
-        {/* { console.log("STORED", this.props.storedRound)} */}
+        { console.log("STORED", this.props.storedRound)}
       </CreateRoundCardWrapper>
     );
   }
@@ -143,19 +133,13 @@ function mapStateToProps(state) {
   return {
     storedRound: state.round.storedRound,
     round: state.round.round,
-    maybeForm: state.form,
     errorMessage: state.auth.errorMessage
   };
 }
-// function checkIfFormObject() {
-//   if (this.props.maybeForm) {
-//     console.log("THIS IS FORM VALUE", typeof(this.props.maybeForm));
-//   }
-// }
 export default compose(
   connect(
     mapStateToProps,
-    { getThree, addRound }
+    { getThree, addRound, getRounds }
   ),
   reduxForm({ form: "createround" })
 )(CreateRoundCard);
