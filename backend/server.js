@@ -22,7 +22,7 @@ server.use(helmet());
 server.use(morgan('dev'));
 server.use(express.json());
 server.options('*', cors())
-server.use(cors());
+// server.use(cors());
   
 
 
