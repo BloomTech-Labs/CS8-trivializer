@@ -1,4 +1,6 @@
 import axios from "axios";
+const config = require("./config");
+const deployConfig = require("./deploy-config");
 import jwt_decode from "jwt-decode";
 import { 
   ERROR, 
@@ -19,7 +21,7 @@ export const signUp = (formProps, callback) => dispatch => {
   dispatch({ type: SIGNING_UP }); 
 
   axios
-      .post ("http://localhost:5000/signup", //https://trivializer.herokuapp.com/signin
+      .post (deployConfig.signUpRoute, //route to sign up 
       formProps
       )
       .then(response => {
@@ -38,7 +40,7 @@ export const signIn = (formProps, callback) => dispatch => {
   dispatch({ type: SIGNING_IN }); 
 
   axios
-      .post ("http://localhost:5000/signin", //https://trivializer.herokuapp.com/signin
+      .post (deployConfig.signInRoute, //https://trivializer.herokuapp.com/signin
       formProps
       )
       .then(response => {
@@ -72,7 +74,7 @@ export const updateSettings = (formProps, callback) => dispatch => {
   dispatch({ type: UPDATING_SETTINGS });
 
   axios
-    .put(  "http://localhost:5000/api/user/update",{ formProps, id, hashedPassword })  //https://trivializer.herokuapp.com/settings
+    .put(  deployConfig.updateRoute,{ formProps, id, hashedPassword })  //https://trivializer.herokuapp.com/settings
     .then(response => {
       dispatch({ type: UPDATE_SETTINGS, payload: response.data })
       callback();
@@ -87,7 +89,7 @@ export const addRound = round => dispatch => {
     dispatch({ type: ADDING_ROUND });
     console.log("ROUND", round);
     axios
-        .post('http://localhost:5000/api/round/create-round', round)
+        .post(deployConfig.createRoundRoute, round)
         .then( response => {
             dispatch({type: ADDED_ROUND, payload: response.data })
         })

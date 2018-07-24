@@ -41,24 +41,6 @@ router
         });
     }
 
-    // if (matched) {
-    //   console.log("PASSWORD", password);
-    //   password = bcrypt.hashSync(password, 10);
-    //   console.log("PASSWORD AFTER BCRYPT", password);
-    //   User.findByIdAndUpdate(id, { password, email, orgName }) //{password works}
-    //     .then(updated => {
-    //       if (updated === undefined) {
-    //         res.status(404).json(updated);
-    //       } else {
-    //         // console.log("EMAIL PW ORGNAME", email, password, orgName);
-    //         res.status(200).json(updated);
-    //       }
-    //     })
-    //     .catch(err => {
-    //       res.status(500).json("error updating user information", err);
-    //     });
-    // }
-
     if (matched) {
       console.log("PASSWORD", password);
       password = bcrypt.hashSync(password, 10);
