@@ -3,6 +3,7 @@ import { reduxForm, Field } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { getThree, addRound } from '../actions';// delete later
+
 import {
   CreateRoundCardWrapper,
   LabelWrapper,
@@ -15,6 +16,7 @@ class CreateRoundCard extends Component {
 
     onSubmit = (formProps) => {
       this.props.getThree(formProps);
+      
   }
     aR = round => {
       this.props.addRound(round);

@@ -119,10 +119,12 @@ export const getThree = formProps => dispatch => {
       .get(`https://opentdb.com/api.php?amount=${questions}&category=${formProps.category}&difficulty=${formProps.difficulty}&type=${formProps.type}`)
       .then(response => {
           console.log("RESPONSE", response);
-          dispatch({ type: FETCHED_THREE, payload: response.data.results})
+          dispatch({ type: FETCHED_THREE, payload: {formProps, questions: response.data.results}})
       })
       .catch(err => {
           dispatch({ type: ERROR, errorMessage: 'Error Fetching the data', err})
       });
 
 };
+
+
