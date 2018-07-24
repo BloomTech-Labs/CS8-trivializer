@@ -22,6 +22,9 @@ server.use(helmet());
 server.use(morgan('dev'));
 server.use(express.json());
 server.use(cors());
+server.options('/', cors())
+  
+
 
 const setupRoutes = require('./router.js')(server); //Handles all of the jwt-simple and passport authentication
 
