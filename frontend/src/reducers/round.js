@@ -1,8 +1,9 @@
-import { FETCHING_THREE, FETCHED_THREE, ERROR, ADDING_ROUND, ADDED_ROUND } from '../actions/types';
+import { FETCHING_THREE, FETCHED_THREE, ERROR, ADDING_ROUND, ADDED_ROUND, FETCHING_ROUND, FETCHED_ROUND } from '../actions/types';
 
 const INITIAL_STATE = {
-    round: [],
+    round: null,
     addingRound: false,
+    storedRound: [],
     fetchingRound: false,
     errorMessage: '',
 };
@@ -10,6 +11,10 @@ const INITIAL_STATE = {
 export default function(state=INITIAL_STATE, action) {
     // console.log("STATE", state);
     switch(action.type) {
+        case FETCHING_ROUND:
+            return { ...state, fetchingRound: true };
+        case FETCHED_ROUND:
+            return { ...state, storedRound: [...state.storedRound, action.payload] };
         case ADDING_ROUND:
             return { ...state, addingRound: true };
         case ADDED_ROUND:

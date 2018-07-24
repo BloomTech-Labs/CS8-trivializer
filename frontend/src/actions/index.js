@@ -11,7 +11,10 @@ import {
   SIGNING_IN,
   SIGNING_UP,
   ADDING_ROUND,
-  ADDED_ROUND
+  ADDED_ROUND,
+  FETCHING_ROUND,
+  FETCHED_ROUND
+
   } from "./types";
 
 
@@ -61,7 +64,19 @@ export const signOut = () => {
   };
 };
 
+export const getRounds = () => dispatch => {
+    dispatch({ type: FETCHING_ROUND });
+    
+    axios
+        .post('http://localhost:5000/api/round/get')
+        .then( response => {
+            dispatch({type: FETCHED_ROUND, payload: response.data })
 
+        })
+        .catch(err => {
+            dispatch({type: ERROR, errorMessage: "error adding round", err})
+        })
+}
 
 export const updateSettings = (formProps, callback) => dispatch => {
   const token = localStorage.getItem('token');
