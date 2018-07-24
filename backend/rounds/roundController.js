@@ -2,16 +2,33 @@
 const Round = require('./roundModel.js');
 const router = require("express").Router();
 
-router.post('/create-round', (req, res) => {
-    const settings = req.body;
+router
+    .get('/get', (req, res) => {
+
+        Round
+            .find({})
+            .then(round => {
+                res.status(200).json(round);
+            })
+            .catch(err => {
+                res.status(500).json(err);
+            });
+        })
+
+router
+    .post('/create-round', (req, res) => {
+        const settings = req.body;
     
-    console.log("SETTINGS", req.body);
-    const round = new Round(settings);
-    console.log("NEW ROUND GETTING PASSED SETTINGS", round);
-    round
-    .save()
-    .then(inserted => {
-            res.status(201).json(inserted);
+        console.log("SETTINGS", req.body);
+        const round = new Round(settings);
+        console.log("NEW ROUND GETTING PASSED SETTINGS", round);
+        round
+        .save()       
+        .then(inserted => {
+            console.log("rnd", inserted)
+                console.log ("req.body: Questions", req.body)
+                inserted.questions = req.body
+                res.status(201).json(inserted);
         })
         .catch(err => res.status(500).json(err));
 })
