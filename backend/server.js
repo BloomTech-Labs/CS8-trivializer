@@ -5,10 +5,11 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const router = require('./router.js');
 const config = require("./config");
+const deployConfig = require("./deploy-config");
 const server = express();
 
 mongoose
-    .connect(config.db_url) // environment variable 
+    .connect(deployConfig.db_url) // environment variable 
     .then(() => {
         console.log('CONNECTED TO MONGODB!')
     }).catch(err => {
