@@ -8,7 +8,7 @@ const roundSchema = new mongoose.Schema({
         default: "Trivializer Round"
     },
     numberOfQuestions: {
-        type: Number,
+        type: String,
     },
     category: { 
         type: String,
@@ -16,14 +16,17 @@ const roundSchema = new mongoose.Schema({
     difficulty: {
         type: String,
     },
+    type: {
+        type: String,
+    },
     questions: { //supplied by API
         type: Array,
         required: true
     },
-    game: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Game',
-    }
+    // game: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'Game',
+    // }
 })
 
 module.exports = mongoose.model('Round', roundSchema)

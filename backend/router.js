@@ -12,3 +12,5 @@ module.exports = function(server) {
   server.post('/signin', requireSignin, Authentication.signin);
   server.post('/signup', Authentication.signup);
 }
+
+ //blah blah

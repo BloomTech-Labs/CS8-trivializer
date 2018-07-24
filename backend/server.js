@@ -6,6 +6,7 @@ const cors = require('cors');
 const router = require('./router.js');
 const config = require("./config");
 const server = express();
+server.options('*', cors());
 
 mongoose
     .connect(config.db_url) // environment variable 
@@ -20,7 +21,7 @@ mongoose
 server.use(helmet());
 server.use(morgan('dev'));
 server.use(express.json());
-server.use(cors());
+// server.use(cors());
 
 const setupRoutes = require('./router.js')(server); //Handles all of the jwt-simple and passport authentication
 

@@ -17,12 +17,12 @@ import {
 
   } from "./types";
 
-
+axios.defaults.withCredentials = true;
 export const signUp = (formProps, callback) => dispatch => {
   dispatch({ type: SIGNING_UP }); 
 
   axios
-      .post ("http://localhost:5000/signup", //https://trivializer.herokuapp.com/signin
+      .post ("https://trivializer.herokuapp.com/signup", //https://trivializer.herokuapp.com/signin
       formProps
       )
       .then(response => {
@@ -41,7 +41,7 @@ export const signIn = (formProps, callback) => dispatch => {
   dispatch({ type: SIGNING_IN }); 
 
   axios
-      .post ("http://localhost:5000/signin", //https://trivializer.herokuapp.com/signin
+      .post ("https://trivializer.herokuapp.com/signin", //https://trivializer.herokuapp.com/signin
       formProps
       )
       .then(response => {
@@ -68,7 +68,7 @@ export const getRounds = () => dispatch => {
     dispatch({ type: FETCHING_ROUND });
     
     axios
-        .post('http://localhost:5000/api/round/get')
+        .get('https://trivializer.herokuapp.com/api/round/get')
         .then( response => {
             dispatch({type: FETCHED_ROUND, payload: response.data })
 
@@ -87,7 +87,7 @@ export const updateSettings = (formProps, callback) => dispatch => {
   dispatch({ type: UPDATING_SETTINGS });
 
   axios
-    .put(  "http://localhost:5000/api/user/update",{ formProps, id, hashedPassword })  //https://trivializer.herokuapp.com/settings
+    .put(  "https://trivializer.herokuapp.com/settings",{ formProps, id, hashedPassword })  //https://trivializer.herokuapp.com/settings
     .then(response => {
       dispatch({ type: UPDATE_SETTINGS, payload: response.data })
       callback();
@@ -98,11 +98,11 @@ export const updateSettings = (formProps, callback) => dispatch => {
 } 
 
 
-export const addRound = round => dispatch => {
+export const addRound = (round, formProps) => dispatch => {
     dispatch({ type: ADDING_ROUND });
-    console.log("ROUND", round);
+
     axios
-        .post('http://localhost:5000/api/round/create-round', round)
+        .post('https://trivializer.herokuapp.com/api/round/create-round', round)
         .then( response => {
             dispatch({type: ADDED_ROUND, payload: response.data })
         })
@@ -113,13 +113,12 @@ export const addRound = round => dispatch => {
 
 export const getThree = formProps => dispatch => {
   dispatch({ type: FETCHING_THREE });
-//   console.log("FORM PROPS", formProps);
   let questions = formProps.numberOfQuestions; 
+  let { roundName, numberOfQuestions, category, difficulty, type } = formProps;
   axios
       .get(`https://opentdb.com/api.php?amount=${questions}&category=${formProps.category}&difficulty=${formProps.difficulty}&type=${formProps.type}`)
       .then(response => {
-          console.log("RESPONSE", response);
-          dispatch({ type: FETCHED_THREE, payload: {formProps, questions: response.data.results}})
+          dispatch({ type: FETCHED_THREE, payload: { roundName, numberOfQuestions, category, difficulty, type, questions: response.data.results }})
       })
       .catch(err => {
           dispatch({ type: ERROR, errorMessage: 'Error Fetching the data', err})
