@@ -2,7 +2,12 @@ import React, { Component } from "react";
 import { reduxForm, Field } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
+<<<<<<< HEAD
 import { getThree, addRound } from "../actions"; // delete later
+=======
+import { getThree, addRound } from '../actions';// delete later
+
+>>>>>>> 3ea1f9060c8cc03330b9dcfa1b913c744f0d7297
 import {
   CreateRoundCardWrapper,
   LabelWrapper,
@@ -12,12 +17,23 @@ import {
 } from "./primitives/CreateRoundCard";
 
 class CreateRoundCard extends Component {
+<<<<<<< HEAD
   onSubmit = formProps => {
     this.props.getThree(formProps);
   };
   aR = (round, formProps) => {
     this.props.addRound(round, formProps);
   };
+=======
+
+    onSubmit = (formProps) => {
+      this.props.getThree(formProps);
+      
+  }
+    aR = round => {
+      this.props.addRound(round);
+    }
+>>>>>>> 3ea1f9060c8cc03330b9dcfa1b913c744f0d7297
 
   render() {
     const { handleSubmit } = this.props;

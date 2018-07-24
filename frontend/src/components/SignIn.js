@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { reduxForm, Field } from "redux-form";
 import { compose } from "redux";
-import { signIn, getThree } from "../actions/index";
+import { signIn } from "../actions/index";
 import { connect } from "react-redux";
 import {
   SigninWrapper,
@@ -75,7 +75,7 @@ function mapStateToProps(state) {
 export default compose(
   connect(
     mapStateToProps,
-    { signIn, getThree }
+    { signIn }
   ),
   reduxForm({ form: "signin" })
 )(SignIn);
