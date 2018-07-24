@@ -18,9 +18,8 @@ router
 router
     .post('/create-round', (req, res) => {
         const settings = req.body;
-    
         console.log("SETTINGS", req.body);
-        const round = new Round(settings);
+        const round = new Round({questions: settings, roundName: settings.roundName});
         console.log("NEW ROUND GETTING PASSED SETTINGS", round);
         round
         .save()       
