@@ -1,21 +1,21 @@
 import axios from "axios";
-const config = require("./config");
-const deployConfig = require("./deploy-config");
 import jwt_decode from "jwt-decode";
 import { 
-  ERROR, 
-  REGISTER_USER, 
-  AUTH_USER, 
-  UPDATING_SETTINGS, 
-  UPDATE_SETTINGS,  
-  FETCHING_THREE,
-  FETCHED_THREE,
-  SIGNING_IN,
-  SIGNING_UP,
-  ADDING_ROUND,
-  ADDED_ROUND
-  } from "./types";
+    ERROR, 
+    REGISTER_USER, 
+    AUTH_USER, 
+    UPDATING_SETTINGS, 
+    UPDATE_SETTINGS,  
+    FETCHING_THREE,
+    FETCHED_THREE,
+    SIGNING_IN,
+    SIGNING_UP,
+    ADDING_ROUND,
+    ADDED_ROUND
+} from "./types";
 
+const config = require("../config");
+const deployConfig = require("../deploy-config");
 
 export const signUp = (formProps, callback) => dispatch => {
   dispatch({ type: SIGNING_UP }); 
