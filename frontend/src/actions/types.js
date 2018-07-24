@@ -12,4 +12,7 @@ export const SIGNING_IN = "signing_in";
 export const ADDING_ROUND = "adding_round";
 export const ADDED_ROUND = "added_round";
 
+export const FETCHING_ROUND = "getting_round";
+export const FETCHED_ROUND = "get_round";
+
 export const ERROR = "error";

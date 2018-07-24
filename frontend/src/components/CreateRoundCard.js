@@ -17,7 +17,7 @@ class CreateRoundCard extends Component {
       this.props.getThree(formProps);
   }
     aR = round => {
-      this.props.addRound(this.props.round);
+      this.props.addRound(round);
     }
 
   render() {
@@ -123,6 +123,7 @@ class CreateRoundCard extends Component {
         </form>
    
         { console.log("ROUND", this.props.round) /* delete later */}
+        { console.log("STORED", this.props.storedRound)}
       </CreateRoundCardWrapper>
     );
   }
@@ -130,6 +131,7 @@ class CreateRoundCard extends Component {
 
 function mapStateToProps(state) {
     return { 
+      storedRound: state.round.storedRound,
       round: state.round.round,  
       errorMessage: state.auth.errorMessage
      };
