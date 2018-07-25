@@ -6,7 +6,6 @@ const cors = require('cors');
 const router = require('./router.js');
 const config = require("./config");
 const server = express();
-server.options('*', cors());
 
 mongoose
     .connect(config.db_url) // environment variable 
@@ -21,7 +20,8 @@ mongoose
 server.use(helmet());
 server.use(morgan('dev'));
 server.use(express.json());
-// server.use(cors());
+server.use(cors());
+// server.use(cors({credentials: true, origin: 'https://jolly-lewin-bc4120.netlify.com'})); //change to local host for testing
 
 const setupRoutes = require('./router.js')(server); //Handles all of the jwt-simple and passport authentication
 
@@ -30,7 +30,7 @@ const gameController = require('./games/gameController.js');
 const roundController = require('./rounds/roundController.js');
 
 
-const port = 5000 || config.port;
+const port = process.env.PORT || 5000;
 server.listen(port, () => console.log(`API RUNNING ON ${port}`))
 
 
