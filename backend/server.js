@@ -6,7 +6,6 @@ const cors = require('cors');
 const router = require('./router.js');
 const config = require("./config");
 const server = express();
-// server.options('http://localhost:3000', cors());
 
 mongoose
     .connect(config.db_url) // environment variable 
@@ -21,7 +20,7 @@ mongoose
 server.use(helmet());
 server.use(morgan('dev'));
 server.use(express.json());
-server.use(cors({credentials: true, origin: 'http://localhost:3000'}));
+server.use(cors({credentials: true, origin: ' https://jolly-lewin-bc4120.netlify.com/'})); //change to local host for testing
 
 const setupRoutes = require('./router.js')(server); //Handles all of the jwt-simple and passport authentication
 
