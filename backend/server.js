@@ -21,7 +21,7 @@ mongoose
 server.use(helmet());
 server.use(morgan('dev'));
 server.use(express.json());
-// server.use(cors());
+server.use(cors());
 
 const setupRoutes = require('./router.js')(server); //Handles all of the jwt-simple and passport authentication
 
@@ -30,7 +30,7 @@ const gameController = require('./games/gameController.js');
 const roundController = require('./rounds/roundController.js');
 
 
-const port = 5000 || config.port;
+const port = process.env.PORT || 5000;
 server.listen(port, () => console.log(`API RUNNING ON ${port}`))
 
 
