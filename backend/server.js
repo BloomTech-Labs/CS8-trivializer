@@ -20,7 +20,7 @@ mongoose
 server.use(helmet());
 server.use(morgan('dev'));
 server.use(express.json());
-server.use(cors()); //change to local host for testing
+server.use(cors());
 // server.use(cors({credentials: true, origin: 'https://jolly-lewin-bc4120.netlify.com'})); //change to local host for testing
 
 const setupRoutes = require('./router.js')(server); //Handles all of the jwt-simple and passport authentication

@@ -102,7 +102,7 @@ export const addRound = (round, formProps) => dispatch => {
     dispatch({ type: ADDING_ROUND });
 
     axios
-        .post('https://fathomless-lowlands-45973.herokuapp.com/create-round', round)
+        .post('https://fathomless-lowlands-45973.herokuapp.com/api/round/create-round', round)
         .then( response => {
             dispatch({type: ADDED_ROUND, payload: response.data })
         })
