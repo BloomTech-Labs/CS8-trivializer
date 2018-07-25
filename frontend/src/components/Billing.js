@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
 import { Elements, injectStripe, CardElement } from "react-stripe-elements";
-
+import { BillingWrapper } from './primitives/Billing';
 
 const createOptions = (fontSize, padding) => {
   return {
@@ -39,18 +39,14 @@ class Billing extends Component {
   
   render() {
     return (
-      <Elements>
-        <div>Hello from Billing</div>
-        {/* Form here */}
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            <CardElement
-              { ...createOptions(this.props.fontSize) }
-              />
-          </label>
-          <button>Pay</button>
-        </form>
-      </Elements>
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          <CardElement
+            { ...createOptions(this.props.fontSize) }
+            />
+        </label>
+        <button>Pay</button>
+      </form>
     )
   }
 }
@@ -60,9 +56,11 @@ const CardForm = injectStripe(Billing);
 class Checkout extends Component {
   render() {
     return(
-      <Elements>
-        <CardForm fontSize="40px" />
-      </Elements>
+      <BillingWrapper>
+        <Elements>
+          <CardForm fontSize="40px" />
+        </Elements>
+      </BillingWrapper>
     )
   }
 }
