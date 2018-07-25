@@ -71,7 +71,6 @@ class SignUp extends Component {
   }
 }
 
-//TODO: MAP STATE TO PROPS
 function mapStateToProps(state) {
   return { erorrMessage: state.auth.erorrMessage };
 }
