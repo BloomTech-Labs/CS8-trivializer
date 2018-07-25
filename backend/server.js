@@ -20,8 +20,8 @@ mongoose
 server.use(helmet());
 server.use(morgan('dev'));
 server.use(express.json());
-server.use(cors());
-// server.use(cors({credentials: true, origin: 'https://jolly-lewin-bc4120.netlify.com'})); //change to local host for testing
+// server.use(cors());
+server.use(cors({credentials: true, origin: '*'})); //change to local host for testing
 
 const setupRoutes = require('./router.js')(server); //Handles all of the jwt-simple and passport authentication
 
@@ -35,7 +35,7 @@ server.listen(port, () => console.log(`API RUNNING ON ${port}`))
 
 
 server.get('/', (req, res) => {
-    res.status(200).json({ api: 'running' });
+    res.status(200).json({ api: 'RUNNING' });
 });
 server.use('/api/user', userController);
 server.use('/api/game', gameController);
