@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
-import { Elements, injectStripe, CardElement } from "react-stripe-elements";
+import { Elements, injectStripe, CardElement, PaymentRequestButtonElement } from "react-stripe-elements";
 import { BillingWrapper } from './primitives/Billing';
 
 const createOptions = (fontSize, padding) => {
@@ -22,6 +22,58 @@ const createOptions = (fontSize, padding) => {
     },
   };
 };
+
+class PaymentRequestForm extends React.Component {
+  constructor(props) {
+    super(props);
+
+    // For full documentation of the available paymentRequest options, see:
+    // https://stripe.com/docs/stripe.js#the-payment-request-object
+    const paymentRequest = props.stripe.paymentRequest({
+      country: 'US',
+      currency: 'usd',
+      total: {
+        label: 'Demo total',
+        amount: 1000,
+      },
+    });
+
+    paymentRequest.on('token', ({complete, token, ...data}) => {
+      console.log('Received Stripe token: ', token);
+      console.log('Received customer information: ', data);
+      complete('success');
+    });
+
+    paymentRequest.canMakePayment().then((result) => {
+      this.setState({canMakePayment: !!result});
+    });
+
+    this.state = {
+      canMakePayment: false,
+      paymentRequest,
+    };
+  }
+
+  render() {
+    return this.state.canMakePayment ? (
+      <PaymentRequestButtonElement
+        paymentRequest={this.state.paymentRequest}
+        className="PaymentRequestButton"
+        style={{
+          // For more details on how to style the Payment Request Button, see:
+          // https://stripe.com/docs/elements/payment-request-button#styling-the-element
+          paymentRequestButton: {
+            theme: 'light',
+            height: '64px',
+          },
+        }}
+      />
+    ) : null;
+  }
+}
+// export default injectStripe(PaymentRequestForm);
+const PayRequest = injectStripe(PaymentRequestForm);
+
 
 class Billing extends Component {
   handleSubmit = ev => {
@@ -54,11 +106,19 @@ class Billing extends Component {
 const CardForm = injectStripe(Billing);
 
 class Checkout extends Component {
+  state = {
+    canMakePayment: false,
+    paymentRequest: null,
+  }
+  
   render() {
     return(
       <BillingWrapper>
         <Elements>
           <CardForm fontSize="40px" />
+        </Elements>
+        <Elements>
+          <PayRequest />
         </Elements>
       </BillingWrapper>
     )
