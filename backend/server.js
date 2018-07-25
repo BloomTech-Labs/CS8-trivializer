@@ -6,7 +6,7 @@ const cors = require('cors');
 const router = require('./router.js');
 const config = require("./config");
 const server = express();
-// server.options('*', cors());
+server.options('http://localhost:3000', cors());
 
 mongoose
     .connect(config.db_url) // environment variable 
