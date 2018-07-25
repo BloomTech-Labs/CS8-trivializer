@@ -87,7 +87,7 @@ export const updateSettings = (formProps, callback) => dispatch => {
   dispatch({ type: UPDATING_SETTINGS });
 
   axios
-    .put(  "https://fathomless-lowlands-45973.herokuapp.com/settings",{ formProps, id, hashedPassword })  //https://trivializer.herokuapp.com/settings
+    .put(  "https://fathomless-lowlands-45973.herokuapp.com/api/user/update",{ formProps, id, hashedPassword })  //https://trivializer.herokuapp.com/settings
     .then(response => {
       dispatch({ type: UPDATE_SETTINGS, payload: response.data })
       callback();
