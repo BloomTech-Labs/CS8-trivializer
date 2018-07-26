@@ -17,7 +17,8 @@ import {
     CREATING_GAME,
     CREATED_GAME,
     FETCHING_GAMES, 
-    FETCHED_GAMES
+    FETCHED_GAMES,
+    FETCHED_QUESTIONS
 
   } from "./types";
 
@@ -160,4 +161,17 @@ export const getGames = userId => dispatch => {
             dispatch({ type: ERROR, errorMessage: 'Error fetching stored games array'});
         });
 
+}
+
+export const getQuestions = questionId => dispatch => {
+    console.log("action id", questionId)
+    axios
+    .get('http://localhost:5000/api/round/get')
+    .then( response => {
+        dispatch({type: FETCHED_QUESTIONS, payload: {questionId: questionId, rounds:response.data} })
+
+    })
+    .catch(err => {
+        dispatch({type: ERROR, errorMessage: "error adding round", err})
+    })
 }

@@ -4,6 +4,8 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import { getThree, addRound, createGame } from '../actions';// delete later
 
+import { withRouter } from 'react-router';
+
 import RoundCard from './RoundCard';
 
 import {
@@ -47,6 +49,7 @@ class CreateRoundCard extends Component {
              questions={r.questions}
              roundName={r.roundName}
              gameId={gameId}
+             
                />
             
         )
@@ -150,7 +153,7 @@ class CreateRoundCard extends Component {
           </div>
         {console.log("storedRound CRC", this.props.storedRound)}
 
-        { console.log("STORED", this.props.storedRound)}
+        {/* { console.log("STORED", this.props)} */}
         {console.log("GAMEID", gameId)}
       </CreateRoundCardWrapper>
     );
@@ -171,4 +174,4 @@ export default compose(
     { getThree, addRound, createGame }
   ),
   reduxForm({ form: "createround" })
-)(CreateRoundCard);
+)(withRouter(CreateRoundCard));

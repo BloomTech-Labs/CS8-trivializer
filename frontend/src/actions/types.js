@@ -22,4 +22,6 @@ export const CREATED_GAME = "created_game";
 export const FETCHING_GAMES = "fetching_games";
 export const FETCHED_GAMES = "fetched_games";
 
+export const FETCHED_QUESTIONS = 'fetched_questions';
+
 export const ERROR = "error";

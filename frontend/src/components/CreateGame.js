@@ -12,7 +12,9 @@ import {
   ButtonWrapper,
   Button,
   Label,
-  Title
+  Title,
+  GameCardWrapper
+
 } from "./primitives/CreateGame";
 import CreateRoundCard from "./CreateRoundCard";
 
@@ -51,23 +53,24 @@ class CreateGame extends Component {
     elements.push( <CreateRoundCard gameId={this.props.match.params.id} /> );
     }
 
-  //   let list;
+    let list;
 
-  //   if (list) {
-  //   return( list = this.props.storedRound.map(()=> {
-  //     return (
-  //       <CreateRoundCard game={this.props.match.params.id}/>
-  //     )
-  //   })
-  // )
-  // }
+    if (list) {
+    return( list = this.props.storedRound.map((r)=> {
+      return (
+        
+        <CreateRoundCard roundId={r._id}/>
+      )
+    })
+  )
+  }
     const { handleSubmit } = this.props;
     return (
       <CreateGameWrapper>
           <Nav>
           <Link onClick={()=> this.props.history.push('/games')}>Games List</Link>
               <Link onClick={()=> this.props.history.push('/settings')}>Settings</Link>
-              <Link>Billing</Link>
+              <Link onClick={()=> this.props.history.push('/billing')}>Billing</Link>
           </Nav> 
         <Title>GAME CREATION SCREEN</Title>
         <form>
@@ -118,14 +121,15 @@ class CreateGame extends Component {
 
 
           {/* test below */}
-          <div> 
+          <GameCardWrapper> 
           {/* {list} */}
           {elements}
-          </div>
+          </GameCardWrapper>
           
         {console.log("PARAMMY", this.props.match.params.id)}  
         {console.log("StoredROUND", this.state.storedRound)}
       </CreateGameWrapper>
+      
     );
   }
 }

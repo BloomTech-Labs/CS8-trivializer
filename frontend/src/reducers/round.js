@@ -1,9 +1,10 @@
-import { FETCHING_THREE, FETCHED_THREE, ERROR, ADDING_ROUND, ADDED_ROUND, FETCHING_ROUND, FETCHED_ROUND } from '../actions/types';
+import { FETCHING_THREE, FETCHED_THREE, ERROR, ADDING_ROUND, ADDED_ROUND, FETCHING_ROUND, FETCHED_ROUND, FETCHED_QUESTIONS } from '../actions/types';
 
 const INITIAL_STATE = {
     addingRound: false,
     round: null,
     storedRound: [],
+    storedQuestions: [],
     fetchingRound: false,
     errorMessage: '',
 };
@@ -11,6 +12,8 @@ const INITIAL_STATE = {
 export default function(state=INITIAL_STATE, action) {
 
     switch(action.type) {
+        case FETCHED_QUESTIONS:
+            return {...state, storedQuestions: action.payload.rounds.map(round => { if (round._id === action.payload.questionId){return round.questions}  }).filter(item=> item !== undefined)}
         case FETCHING_ROUND:
             return { ...state, fetchingRound: true };
         case FETCHED_ROUND:

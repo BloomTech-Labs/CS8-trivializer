@@ -2,12 +2,12 @@ import styled from "styled-components";
 
 export const RoundCardWrapper = styled.div`
   display: flex;
-  /* flex-wrap: wrap; */
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   height: 30%;
-  width: 200px;
-  /* border: 1.5px solid black; */
+  width: 300px;
+  border: 1.5px solid black;
 `;
 
 export const LabelWrapper = styled.div`

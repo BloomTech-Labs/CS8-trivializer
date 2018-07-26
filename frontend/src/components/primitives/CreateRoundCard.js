@@ -6,8 +6,7 @@ export const CreateRoundCardWrapper = styled.div`
   justify-content: center;
   align-items: center;
   height: 30%;
-  width: 200px;
-  /* border: 1.5px solid black; */
+  width: 300px;
 `;
 
 export const LabelWrapper = styled.div`
@@ -38,3 +37,5 @@ export const Title = styled.h1`
   font-weight: 900;
   color: white;
 `;
+
+

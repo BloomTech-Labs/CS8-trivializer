@@ -3,6 +3,7 @@ import { reduxForm, Field } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { getThree, addRound } from '../actions';
+import { withRouter } from 'react-router';
 
 import {
     RoundCardWrapper,
@@ -29,7 +30,7 @@ class RoundCard extends Component {
        const { handleSubmit } = this.props;
 
     return (
-      <RoundCardWrapper >
+      <RoundCardWrapper onClick={()=> {this.props.history.push(`/questions/${this.props.id}`)}}>
         <form onSubmit={handleSubmit(this.onSubmit)}>
           <fieldset>
             <LabelWrapper>
@@ -143,5 +144,5 @@ export default compose(
     { getThree, addRound }
   ),
   reduxForm({ form: "createround" })
-)(RoundCard);
+)(withRouter(RoundCard));
   

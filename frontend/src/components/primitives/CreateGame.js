@@ -6,7 +6,6 @@ export const CreateGameWrapper = styled.div`
  justify-content: center;
  align-items: center;
  height: 100vh;
-
 `;
 
 export const LabelWrapper = styled.div`
@@ -37,4 +36,16 @@ export const Title = styled.h1`
  font-size: 2rem;
  font-weight: 900;
  color: white;
+`
+
+export const GameCardWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+
+  width: 100vw;
+  height: 100%;
+  overflow: auto;
 `
