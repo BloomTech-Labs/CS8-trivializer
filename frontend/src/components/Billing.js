@@ -102,7 +102,8 @@ class Billing extends Component {
     const decoded = jwt_decode(localToken);
     const userId = decoded.sub;
     axios
-      .post("http://localhost:5000/api/charge", {
+      // .post("http:localhost:5000/api/charge", {
+      .post("https://fathomless-lowlands-45973.herokuapp.com/api/charge", {
         description,
         source: token.id,
         currency: "USD",
