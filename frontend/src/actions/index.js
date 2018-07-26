@@ -17,12 +17,12 @@ import {
 
   } from "./types";
 
-axios.defaults.withCredentials = true;
+// axios.defaults.withCredentials = true;
 export const signUp = (formProps, callback) => dispatch => {
   dispatch({ type: SIGNING_UP }); 
 
   axios
-      .post ("https://trivializer.herokuapp.com/signup", //https://trivializer.herokuapp.com/signin
+      .post ("http://localhost:5000/signup", //https://trivializer.herokuapp.com/signin
       formProps
       )
       .then(response => {
@@ -41,7 +41,7 @@ export const signIn = (formProps, callback) => dispatch => {
   dispatch({ type: SIGNING_IN }); 
 
   axios
-      .post ("https://trivializer.herokuapp.com/signin", //https://trivializer.herokuapp.com/signin
+      .post ("http://localhost:5000/signin", //https://trivializer.herokuapp.com/signin
       formProps
       )
       .then(response => {
@@ -64,11 +64,18 @@ export const signOut = () => {
   };
 };
 
+export const updateUser = user => {
+    return {
+      type: AUTH_USER,
+      payload: user,
+    };
+}
+
 export const getRounds = () => dispatch => {
     dispatch({ type: FETCHING_ROUND });
     
     axios
-        .get('https://trivializer.herokuapp.com/api/round/get')
+        .get('http://localhost:5000/api/round/get')
         .then( response => {
             dispatch({type: FETCHED_ROUND, payload: response.data })
 
@@ -87,7 +94,7 @@ export const updateSettings = (formProps, callback) => dispatch => {
   dispatch({ type: UPDATING_SETTINGS });
 
   axios
-    .put(  "https://trivializer.herokuapp.com/settings",{ formProps, id, hashedPassword })  //https://trivializer.herokuapp.com/settings
+    .put(  "http://localhost:5000/settings",{ formProps, id, hashedPassword })  //https://trivializer.herokuapp.com/settings
     .then(response => {
       dispatch({ type: UPDATE_SETTINGS, payload: response.data })
       callback();
@@ -102,7 +109,7 @@ export const addRound = (round, formProps) => dispatch => {
     dispatch({ type: ADDING_ROUND });
 
     axios
-        .post('https://trivializer.herokuapp.com/api/round/create-round', round)
+        .post('http://localhost:5000/api/round/create-round', round)
         .then( response => {
             dispatch({type: ADDED_ROUND, payload: response.data })
         })
