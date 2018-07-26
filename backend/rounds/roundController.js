@@ -19,14 +19,12 @@ router
     .post('/create-round', (req, res) => {
         const { gameId } = req.body;
         const { roundName, numberOfQuestions, category, difficulty, type, questions } = req.body.round;
-
-        console.log(roundName)
+        
         const round = new Round({gameId, roundName, numberOfQuestions, category, difficulty, type, questions });
 
         round
         .save()       
         .then(inserted => {
-            console.log("rnd", inserted)
                 console.log ("INSERTED", inserted);
                 inserted.questions = req.body
                 res.status(201).json(inserted);

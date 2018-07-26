@@ -9,12 +9,12 @@ const INITIAL_STATE = {
 };
 
 export default function(state=INITIAL_STATE, action) {
-    // console.log("STATE", state);
+
     switch(action.type) {
         case FETCHING_ROUND:
             return { ...state, fetchingRound: true };
         case FETCHED_ROUND:
-            return { ...state, storedRound: [...state.storedRound, action.payload] };
+            return { ...state, storedRound:  action.payload.rounds.filter(round => round.gameId === action.payload.gameId ) };
         case ADDING_ROUND:
             return { ...state, addingRound: true };
         case ADDED_ROUND:

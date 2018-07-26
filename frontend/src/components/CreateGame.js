@@ -3,6 +3,8 @@ import { reduxForm, Field } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { getRounds } from '../actions';
+import { withRouter } from 'react-router';
+import { Nav, Link } from './primitives/Nav';
 
 import {
   CreateGameWrapper,
@@ -23,7 +25,8 @@ class CreateGame extends Component {
   }
   
   componentDidMount = () => {
-    this.props.getRounds()
+    let gameId = this.props.match.params.id;
+    this.props.getRounds(gameId)
   }
 
   onSubmit = formProps => {
@@ -35,6 +38,11 @@ class CreateGame extends Component {
     this.setState({ count: this.state.count + 1 })
   }
 
+  signOutHandler = () => {
+    this.props.signOut(); 
+    this.props.history.push('/');
+  }
+
   render() {
     
     let elements = []; // array that olds round components that haven't been saved yet
@@ -43,19 +51,24 @@ class CreateGame extends Component {
     elements.push( <CreateRoundCard gameId={this.props.match.params.id} /> );
     }
 
-    let list;
+  //   let list;
 
-    if (list) {
-    return( list = this.props.getRound.map(()=> {
-      return (
-        <CreateRoundCard game={this.props.match.params.id}/>
-      )
-    })
-  )
-  }
+  //   if (list) {
+  //   return( list = this.props.storedRound.map(()=> {
+  //     return (
+  //       <CreateRoundCard game={this.props.match.params.id}/>
+  //     )
+  //   })
+  // )
+  // }
     const { handleSubmit } = this.props;
     return (
       <CreateGameWrapper>
+          <Nav>
+          <Link onClick={()=> this.props.history.push('/games')}>Games List</Link>
+              <Link onClick={()=> this.props.history.push('/settings')}>Settings</Link>
+              <Link>Billing</Link>
+          </Nav> 
         <Title>GAME CREATION SCREEN</Title>
         <form>
           <fieldset>
@@ -100,15 +113,13 @@ class CreateGame extends Component {
           <Button>Print Answer Key</Button>
         </ButtonWrapper>
 
-        {/* <div>
-        <CreateRoundCard />
-        </div> */}
-        <div onClick={this.increment}>++counter</div>
+      
+        <div onClick={this.increment}>ADD ROUND</div>
 
 
           {/* test below */}
           <div> 
-          {list}
+          {/* {list} */}
           {elements}
           </div>
           
@@ -121,7 +132,7 @@ class CreateGame extends Component {
 
 function mapStateToProps(state) {
   return {
-    storedRound: state.round.storedRound, 
+    storedRound: state.round.storedRound,
     errorMessage: state.auth.errorMessage 
   };
 }
@@ -131,4 +142,4 @@ export default compose(
   { getRounds }
   ),
   reduxForm({ form: "creategame" })
-)(CreateGame);
+)(withRouter(CreateGame));

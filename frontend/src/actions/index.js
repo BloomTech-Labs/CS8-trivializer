@@ -68,13 +68,13 @@ export const signOut = () => {
   };
 };
 
-export const getRounds = () => dispatch => {
+export const getRounds = gameId => dispatch => {
     dispatch({ type: FETCHING_ROUND });
     
     axios
         .get('http://localhost:5000/api/round/get')
         .then( response => {
-            dispatch({type: FETCHED_ROUND, payload: response.data })
+            dispatch({type: FETCHED_ROUND, payload: {gameId: gameId, rounds:response.data} })
 
         })
         .catch(err => {
@@ -147,14 +147,14 @@ export const createGame = userId => dispatch => {
         });
 };
 
-export const getGames = (userId) => dispatch => {
+export const getGames = userId => dispatch => {
     dispatch({ type: FETCHING_GAMES });
-        console.log("USER ACTION", userId)
+        
     axios
         .get('http://localhost:5000/api/game/get')
         .then(response => {
             console.log("getgames action",response)
-            dispatch({ type: FETCHED_GAMES, payload: {userId: userId, games: response.data} });
+            dispatch({ type: FETCHED_GAMES, payload: { userId: userId, games:response.data }});
         })
         .catch(err => {
             dispatch({ type: ERROR, errorMessage: 'Error fetching stored games array'});

@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { reduxForm, Field } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
+
+import { withRouter } from 'react-router';
+import { Nav, Link } from './primitives/Nav';
 import {
   SignupWrapper,
   Label,
@@ -25,6 +28,14 @@ class SignUp extends Component {
     const { handleSubmit } = this.props;
     return (
       <SignupWrapper>
+
+          <Nav>
+                <Link onClick={()=> this.props.history.push('/games')}>Games List</Link>
+                <Link onClick={()=> this.props.history.push('/settings')}>Settings</Link>
+                <Link onClick={()=> this.props.history.push('/sign-in')}>Sign-In</Link>
+                <Link onClick={()=> this.props.history.push('/billing')}>Billing</Link>
+          </Nav> 
+
         <Title>SIGN UP PAGE</Title>
         <form onSubmit={handleSubmit(this.onSubmit)}>
           <fieldset>
@@ -82,4 +93,4 @@ export default compose(
     { signUp }
   ),
   reduxForm({ form: "signup" })
-)(SignUp);
+)(withRouter(SignUp));

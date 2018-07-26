@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
-import { GameWrapper, ListWrapper } from './primitives/GameList';
+
+import { GameWrapper, ListWrapper, Button, ButtonWrapper } from './primitives/GameList';
+import { Nav, Link } from './primitives/Nav';
+
 import requireAuth from '../hoc/requireAuth';
 
 import { connect } from 'react-redux';
 import { compose } from 'react';
 import { createGame, getGames } from '../actions';
+import { withRouter } from 'react-router';
+
 
 import GameCard from './GameCard';
 
@@ -13,7 +18,11 @@ import jwt_decode from "jwt-decode";
 class GameList extends Component {
  
     componentDidMount() {
-        this.props.getGames();
+        const token = localStorage.getItem('token');
+        const decoded = jwt_decode(token);
+        const userId = decoded.sub;
+
+        this.props.getGames(userId);
         
     }
 
@@ -43,17 +52,24 @@ class GameList extends Component {
         
     
     
-        return(
+        return( 
             <GameWrapper>
-                <h1 onClick={()=> this.createGameHandler(userId)}>ADD NEW GAME</h1>
-                <h1>WELCOME TO THE GAME ZONE KID!!!!!!!!!</h1>
-                <button onClick={this.homeRouteClick}></button>
+                <Nav>
+                    <Link onClick={()=> this.props.history.push('/settings')}>Settings</Link>
+                    <Link onClick={()=> this.props.history.push('/sign-in')}>Sign-In</Link>
+                    <Link onClick={()=> this.props.history.push('/sign-up')}>Sign-Up</Link>
+                    <Link onClick={()=> this.props.history.push('/billing')}>Billing</Link>
+                </Nav>    
+
+
+                <Button><Button onClick={()=> this.createGameHandler(userId)}><h1>ADD NEW GAME</h1></Button></Button>
+    
 
                 <ListWrapper>
                 {list}
                 </ListWrapper>
-                {console.log("STORED ID", userId)}
-                {console.log("STORED GAMES", this.props.storedGames)}
+                
+                {console.log("STOREDROUNDS GL", this.props.storedGame)}
             </GameWrapper>
         )
     }
@@ -61,19 +77,12 @@ class GameList extends Component {
 
 function mapStateToProps(state) {
     return { 
+        storedRound: state.round.storedRound,
         storedGames: state.game.storedGames,  
         erorrMessage: state.auth.erorrMessage 
     };
   }
   
-//   export default compose(
-//     connect(
-//       mapStateToProps,
-//       { getRounds }
-//     ),
-   
-//   )(requireAuth(GameList));
+  export default connect(mapStateToProps, { createGame, getGames })(withRouter(GameList));
 
-  export default connect(mapStateToProps, { createGame, getGames })(GameList);
-
-// export default requireAuth(GameList); 
+ 

@@ -1,60 +1,35 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import { reduxForm, Field } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { getThree, addRound, createGame } from '../actions';// delete later
-
-import RoundCard from './RoundCard';
+import { getThree, addRound } from '../actions';
 
 import {
-  CreateRoundCardWrapper,
-  LabelWrapper,
-  ButtonWrapper,
-  Button,
-  Label
-} from "./primitives/CreateRoundCard";
+    RoundCardWrapper,
+    LabelWrapper,
+    ButtonWrapper,
+    Button,
+    Label
+  } from "./primitives/RoundCard";
 
-import './primitives/CreateRoundCard';
+class RoundCard extends Component {
+   
+     onSubmit = (formProps) => {
+        this.props.getThree(formProps);
+        
+    }
 
-class CreateRoundCard extends Component {
-
-    onSubmit = (formProps) => {
-      this.props.getThree(formProps);
-      
-  }
     aR = (round, gameId )=> {
-      this.props.addRound(round, gameId);
-    }
+        this.props.addRound(round, gameId);
+      }
 
-    cG = () => {
-      this.props.createGame();
-    }
-
-  render() {
-    const { handleSubmit } = this.props;
-    const gameId = this.props.gameId;
-
-  
     
-    let list =  this.props.storedRound.map((r, i) => { 
-        return (
-            <RoundCard
-             key={r._id} 
-             id={r._id}
-             category={r.category}
-             difficulty={r.difficulty}
-             numberOfQuestions={r.numberOfQuestions}
-             questions={r.questions}
-             roundName={r.roundName}
-             gameId={gameId}
-               />
-            
-        )
-    });
-  
+
+    render(){
+       const { handleSubmit } = this.props;
 
     return (
-      <CreateRoundCardWrapper>
+      <RoundCardWrapper >
         <form onSubmit={handleSubmit(this.onSubmit)}>
           <fieldset>
             <LabelWrapper>
@@ -62,7 +37,7 @@ class CreateRoundCard extends Component {
             </LabelWrapper>
             <Field
               name="roundName"
-              placeholder="Round Name"
+              placeholder={this.props.roundName}
               type="text"
               component="input"
               autoComplete="none"
@@ -73,7 +48,7 @@ class CreateRoundCard extends Component {
               <Label># of Questions</Label>
             </LabelWrapper>
             <Field name="numberOfQuestions" component="select">
-              <option>Number of Questions</option>
+              <option value={this.props.numberOfQuestions}></option>
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -84,7 +59,7 @@ class CreateRoundCard extends Component {
               <Label>Category</Label>
             </LabelWrapper>
             <Field name="category" component="select">
-              <option>Any Category</option>
+              <option value={this.props.category}></option>
               <option value="9">General Knowledge</option>
               <option value="10">Entertainment: Books</option>
               <option value="11">Entertainment: Film</option>
@@ -116,7 +91,7 @@ class CreateRoundCard extends Component {
               <Label>Difficulty</Label>
             </LabelWrapper>
             <Field name="difficulty" component="select">
-              <option>Any Difficulty</option>
+              <option value={this.props.difficulty}></option>
               <option value="easy">Easy</option>
               <option value="medium">Medium</option>
               <option value="hard">Hard</option>
@@ -127,6 +102,7 @@ class CreateRoundCard extends Component {
               <Label>Type</Label>
             </LabelWrapper>
             <Field name="type" component="select">
+              <option value={this.props.type}></option>
               <option value="multiple">Multiple Choice</option>
               <option value="boolean">True / False</option>
             </Field>
@@ -140,35 +116,32 @@ class CreateRoundCard extends Component {
           <ButtonWrapper>
             <button>get questions</button>
           </ButtonWrapper>
-          <div onClick={() => this.aR(gameId, this.props.round)}>Save Round</div>
+          <div onClick={() => this.aR(this.props.gameId, this.props.round)}>Save Round</div>
           <ButtonWrapper><div onClick={() => this.cG()}>CREATE GAME</div></ButtonWrapper>
         </form>
 
     
-        <div>
-          {list}
-          </div>
-        {console.log("storedRound CRC", this.props.storedRound)}
 
-        { console.log("STORED", this.props.storedRound)}
-        {console.log("GAMEID", gameId)}
-      </CreateRoundCardWrapper>
+        {console.log("storedRound RC", this.props.storedRound)}
+
+        {/* { console.log("STORED", this.props.storedRound)} */}
+        
+      </RoundCardWrapper>
     );
   }
-}
 
+}
 
 function mapStateToProps(state) {
   return {
-    storedRound: state.round.storedRound,
-    round: state.round.round,
     errorMessage: state.auth.errorMessage
   };
 }
 export default compose(
   connect(
     mapStateToProps,
-    { getThree, addRound, createGame }
+    { getThree, addRound }
   ),
   reduxForm({ form: "createround" })
-)(CreateRoundCard);
+)(RoundCard);
+  

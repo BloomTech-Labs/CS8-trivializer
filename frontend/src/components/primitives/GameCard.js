@@ -2,7 +2,10 @@ import styled from 'styled-components';
 
 export const GameCardWrapper = styled.div`
     border: solid black;
-    width: 10%;
-    height: 10%;
+    overflow: hidden;
+    font-size: 2rem;
+    width: 100px;
+    height: 100px;
+    padding: 3px;
 
 `
