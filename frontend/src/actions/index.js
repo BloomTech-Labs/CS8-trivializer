@@ -1,19 +1,23 @@
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { 
-  ERROR, 
-  REGISTER_USER, 
-  AUTH_USER, 
-  UPDATING_SETTINGS, 
-  UPDATE_SETTINGS,  
-  FETCHING_THREE,
-  FETCHED_THREE,
-  SIGNING_IN,
-  SIGNING_UP,
-  ADDING_ROUND,
-  ADDED_ROUND,
-  FETCHING_ROUND,
-  FETCHED_ROUND
+    ERROR, 
+    REGISTER_USER, 
+    AUTH_USER, 
+    UPDATING_SETTINGS, 
+    UPDATE_SETTINGS,  
+    FETCHING_THREE,
+    FETCHED_THREE,
+    SIGNING_IN,
+    SIGNING_UP,
+    ADDING_ROUND,
+    ADDED_ROUND,
+    FETCHING_ROUND,
+    FETCHED_ROUND,
+    CREATING_GAME,
+    CREATED_GAME,
+    FETCHING_GAMES, 
+    FETCHED_GAMES
 
   } from "./types";
 
@@ -98,11 +102,11 @@ export const updateSettings = (formProps, callback) => dispatch => {
 } 
 
 
-export const addRound = (round, formProps) => dispatch => {
+export const addRound = (gameId, round) => dispatch => {
     dispatch({ type: ADDING_ROUND });
-
+    console.log("ACTION ROUND", round)
     axios
-        .post('http://localhost:5000/api/round/create-round', round)
+        .post('http://localhost:5000/api/round/create-round', {gameId, round})
         .then( response => {
             dispatch({type: ADDED_ROUND, payload: response.data })
         })
@@ -127,3 +131,33 @@ export const getThree = formProps => dispatch => {
 };
 
 
+
+
+export const createGame = userId => dispatch => {
+    dispatch({ type: CREATING_GAME });
+
+    axios
+        .post('http://localhost:5000/api/game/create-game', {userId})
+        .then(response => {
+            console.log("CREATEGAME ID", userId)
+            dispatch({ type: CREATED_GAME, payload: response.data});
+        })
+        .catch(err => {
+            dispatch({ type: ERROR, errorMessage: 'Error creating game'});
+        });
+};
+
+export const getGames = (userId) => dispatch => {
+    dispatch({ type: FETCHING_GAMES });
+        console.log("USER ACTION", userId)
+    axios
+        .get('http://localhost:5000/api/game/get')
+        .then(response => {
+            console.log("getgames action",response)
+            dispatch({ type: FETCHED_GAMES, payload: {userId: userId, games: response.data} });
+        })
+        .catch(err => {
+            dispatch({ type: ERROR, errorMessage: 'Error fetching stored games array'});
+        });
+
+}

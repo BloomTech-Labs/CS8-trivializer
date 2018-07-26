@@ -2,12 +2,12 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const router = require("express").Router();
 const User = require("./userModel.js");
+
+
+
 router
   .route("/update")
-  // .get((req, res) => {
-  //   console.log("whats up dude");
-  //   res.status(200).json({ "whats up": "dude" });
-  // })
+
   .put((req, res) => {
     const { id } = req.body;
     const settings = req.body.formProps;

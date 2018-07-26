@@ -48,8 +48,8 @@ ReactDOM.render(
                 <Route path='/sign-in' component={SignIn} />
                 <Route path='/games' component={GameList} />
                 <Route path='/settings' component={Settings} />
-                <Route path='/create-game' component={CreateGame} />
-                <Route path='/create-round' component={CreateRoundCard} />
+                <Route path='/create-game/:id' component={CreateGame} />
+                <Route path='/create-round/:id' component={CreateRoundCard} />
             </App>    
         </BrowserRouter>
     </Root>

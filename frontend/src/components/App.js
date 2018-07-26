@@ -7,7 +7,7 @@ export default ({ children }) => {
   
   return (
     <AppWrapper>
-      <Nav>BILLING :)</Nav>
+      <Nav />
       {children}
     </AppWrapper>
   );

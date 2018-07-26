@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { reduxForm, Field } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { getThree, addRound, getRounds } from '../actions';// delete later
+import { getThree, addRound, createGame } from '../actions';// delete later
 
 import {
   CreateRoundCardWrapper,
@@ -14,21 +14,21 @@ import {
 
 class CreateRoundCard extends Component {
 
-    componentDidMount() { //keep in mind we may need to move
-      this.props.getRounds();
-    }
-
-
     onSubmit = (formProps) => {
       this.props.getThree(formProps);
       
   }
-    aR = round => {
-      this.props.addRound(round);
+    aR = (round, gameId )=> {
+      this.props.addRound(round, gameId);
+    }
+
+    cG = () => {
+      this.props.createGame();
     }
 
   render() {
     const { handleSubmit } = this.props;
+    const gameId = this.props.gameId;
 
     return (
       <CreateRoundCardWrapper>
@@ -117,12 +117,14 @@ class CreateRoundCard extends Component {
           <ButtonWrapper>
             <button>get questions</button>
           </ButtonWrapper>
-          <div onClick={() => this.aR(this.props.round)}>Save Round</div>
+          <div onClick={() => this.aR(gameId, this.props.round)}>Save Round</div>
+          <ButtonWrapper><div onClick={() => this.cG()}>CREATE GAME</div></ButtonWrapper>
         </form>
 
-        {console.log("ROUND", this.props.round) /* delete later */}
+        {console.log("ROUND", this.props.round)}
 
-        { console.log("STORED", this.props.storedRound)}
+        {/* { console.log("STORED", this.props.storedRound)} */}
+        {console.log("GAMEID", gameId)}
       </CreateRoundCardWrapper>
     );
   }
@@ -139,7 +141,7 @@ function mapStateToProps(state) {
 export default compose(
   connect(
     mapStateToProps,
-    { getThree, addRound, getRounds }
+    { getThree, addRound, createGame }
   ),
   reduxForm({ form: "createround" })
 )(CreateRoundCard);

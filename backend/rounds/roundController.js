@@ -17,10 +17,11 @@ router
 
 router
     .post('/create-round', (req, res) => {
-        const settings = req.body;
-        
-        console.log("REQ.BODY", req.body);
-        const round = new Round(settings);
+        const { gameId } = req.body;
+        const { roundName, numberOfQuestions, category, difficulty, type, questions } = req.body.round;
+
+        console.log(roundName)
+        const round = new Round({gameId, roundName, numberOfQuestions, category, difficulty, type, questions });
 
         round
         .save()       
