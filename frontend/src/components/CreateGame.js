@@ -1,10 +1,14 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import { reduxForm, Field } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { getRounds } from '../actions';
 import { withRouter } from 'react-router';
 import { Nav, Link } from './primitives/Nav';
+import { RoundButton, RoundButtonWrapper } from './primitives/CreateGame';
+
+import RoundCard from './RoundCard';
+import RCard from './RCard';
 
 import {
   CreateGameWrapper,
@@ -16,65 +20,76 @@ import {
   GameCardWrapper
 
 } from "./primitives/CreateGame";
-import CreateRoundCard from "./CreateRoundCard";
+
 
 class CreateGame extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      count: 0
-    }
-  }
-  
-  componentDidMount = () => {
-    let gameId = this.props.match.params.id;
-    this.props.getRounds(gameId)
-  }
-
-  onSubmit = formProps => {
-    // this.props.getThree(formProps);
-    console.log("COME BACK TO THIS");
-  };
-
-  increment = () => {
-    this.setState({ count: this.state.count + 1 })
-  }
-
-  signOutHandler = () => {
-    this.props.signOut(); 
-    this.props.history.push('/');
-  }
-
-  render() {
-    
-    let elements = []; // array that olds round components that haven't been saved yet
-
-    for ( let i = 0; i < this.state.count; i++) { // creates new components based on counter
-    elements.push( <CreateRoundCard gameId={this.props.match.params.id} /> );
+      componentDidMount() {
+        let gameId = this.props.match.params.id;
+        this.props.getRounds(gameId)
+        console.log("CreateGame CDM rounds", this.props.storedRound)    
     }
 
-    let list;
+    addRoundHandler = (gameId) => {
+        this.props.history.push(`/create-round/${gameId}`)
+      }
 
-    if (list) {
-    return( list = this.props.storedRound.map((r)=> {
-      return (
-        
-        <CreateRoundCard roundId={r._id}/>
-      )
-    })
-  )
-  }
-    const { handleSubmit } = this.props;
+    render(){
+        let gameId = this.props.match.params.id;
+
+        let list =  this.props.storedRound.map((r, i) => { 
+            return (
+                
+                    <RCard
+                     key={r._id} 
+                     id={r._id}
+                     category={r.questions[0].category}
+                     difficulty={r.difficulty}
+                     numberOfQuestions={r.numberOfQuestions}
+                     type={r.type}
+                     questions={r.questions}
+                     roundName={r.roundName}
+                    //  gameId={gameId}
+                     
+                       />            
+                    )
+                });
+
+    //     let list =  this.props.storedRound.map((r, i) => { 
+        // return (
+        //     <RoundCard
+        //      key={r._id} 
+        //      id={r._id}
+        //      category={r.category}
+        //      difficulty={r.difficulty}
+        //      numberOfQuestions={r.numberOfQuestions}
+        //      questions={r.questions}
+        //      roundName={r.roundName}
+        //      gameId={gameId}
+             
+        //        />
+            
+    //     )
+    // });
+
+    // let elements = []; 
+
+    // for ( let i = 0; i < this.state.count; i++) { // creates new components based on counter
+    // elements.push( <CreateRoundCard gameId={this.props.match.params.id} /> );
+    // }
+
+
     return (
-      <CreateGameWrapper>
-          <Nav>
-          <Link onClick={()=> this.props.history.push('/games')}>Games List</Link>
+        <CreateGameWrapper>
+            <Nav>
+              <Link onClick={()=> this.props.history.push('/games')}>Games List</Link>
               <Link onClick={()=> this.props.history.push('/settings')}>Settings</Link>
               <Link onClick={()=> this.props.history.push('/billing')}>Billing</Link>
-          </Nav> 
-        <Title>GAME CREATION SCREEN</Title>
-        <form>
-          <fieldset>
+            </Nav> 
+            <Title>GAME CREATION SCREEN</Title>
+
+            
+            <form>
+            <fieldset>
             <LabelWrapper>
               <Label>Add a logo</Label>
             </LabelWrapper>
@@ -108,8 +123,9 @@ class CreateGame extends Component {
               autoComplete="none"
             />
           </fieldset>
-        </form>
-        <ButtonWrapper>
+            </form>    
+
+         <ButtonWrapper>
           <Button>Print Answer Sheets</Button>
         </ButtonWrapper>
         <ButtonWrapper>
@@ -117,33 +133,28 @@ class CreateGame extends Component {
         </ButtonWrapper>
 
       
-        <div onClick={this.increment}>ADD ROUND</div>
-
-
-          {/* test below */}
-          <GameCardWrapper> 
-          {/* {list} */}
-          {elements}
-          </GameCardWrapper>
-          
-        {console.log("PARAMMY", this.props.match.params.id)}  
-        {console.log("StoredROUND", this.state.storedRound)}
-      </CreateGameWrapper>
-      
-    );
-  }
+        <RoundButtonWrapper onClick={()=> this.addRoundHandler(gameId)}><RoundButton>ADD ROUND</RoundButton></RoundButtonWrapper>
+        
+        <div>    
+            {list}
+            {console.log("CreateGames SR", this.props.storedRound)}
+        </div>
+        </CreateGameWrapper>
+        )
+    }
 }
 
 function mapStateToProps(state) {
-  return {
-    storedRound: state.round.storedRound,
-    errorMessage: state.auth.errorMessage 
-  };
-}
-export default compose(
-  connect(
-    mapStateToProps,
-  { getRounds }
-  ),
-  reduxForm({ form: "creategame" })
-)(withRouter(CreateGame));
+    return {
+      storedRound: state.round.storedRound,
+      round: state.round.round,
+      errorMessage: state.auth.errorMessage
+    };
+  }
+  export default compose(
+    connect(
+      mapStateToProps,
+      { getRounds }
+    ),
+     reduxForm({ form: "creategame" })
+  )(withRouter(CreateGame));

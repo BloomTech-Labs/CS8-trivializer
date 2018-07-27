@@ -49,3 +49,20 @@ export const GameCardWrapper = styled.div`
   height: 100%;
   overflow: auto;
 `
+export const RoundButtonWrapper = styled.div`
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ padding-top: 20px;
+`;
+
+export const RoundButton = styled.div`
+ text-align: center;
+ border-radius: 1%;
+ height: 30px;
+ width: 100px;
+ color: white;
+ font-weight: 900;
+ font-size: 1.2rem;
+ padding-top: 5px;
+`;

@@ -8,14 +8,16 @@ import {
     UPDATE_SETTINGS,  
     FETCHING_THREE,
     FETCHED_THREE,
+    FETCHED_THREE_RC,
+    FETCHING_THREE_RC,
     SIGNING_IN,
     SIGNING_UP,
     ADDING_ROUND,
     ADDED_ROUND,
     FETCHING_ROUND,
     FETCHED_ROUND,
-    CREATING_GAME,
-    CREATED_GAME,
+    ADDING_GAME,
+    ADDED_GAME,
     FETCHING_GAMES, 
     FETCHED_GAMES,
     FETCHED_QUESTIONS
@@ -131,20 +133,40 @@ export const getThree = formProps => dispatch => {
 
 };
 
+export const getThreeRC = RCProps => dispatch => {
+    // dispatch({ type: FETCHING_THREE_RC });
+    // let questions = formProps.numberOfQuestions; 
+    // let { roundName, numberOfQuestions, category, difficulty, type } = RCProps;
+    // axios
+    //     .get(`https://opentdb.com/api.php?amount=${questions}&category=${formProps.category}&difficulty=${formProps.difficulty}&type=${formProps.type}`)
+    //     .then(response => {
+    //         dispatch({ type: FETCHED_THREE_RC, payload: { roundName, numberOfQuestions, category, difficulty, type, questions: response.data.results }})
+    //     })
+    //     .catch(err => {
+    //         dispatch({ type: ERROR, errorMessage: 'Error Fetching the data', err})
+    //     });
+  
+  };
+
+export const updateRound = () => dispatch => {
+
+}
 
 
 
-export const createGame = userId => dispatch => {
-    dispatch({ type: CREATING_GAME });
+export const addGame = (userId, callback) => dispatch => {
+    dispatch({ type: ADDING_GAME });
 
     axios
         .post('http://localhost:5000/api/game/create-game', {userId})
         .then(response => {
-            console.log("CREATEGAME ID", userId)
-            dispatch({ type: CREATED_GAME, payload: response.data});
+            console.log("CREATEGAME ID", response.data._id)
+            dispatch({ type: ADDED_GAME, payload: response.data});
+            callback(response.data._id);//returning the game's id into the callback
         })
         .catch(err => {
             dispatch({ type: ERROR, errorMessage: 'Error creating game'});
+            
         });
 };
 

@@ -1,4 +1,4 @@
-import { ERROR, CREATING_GAME, CREATED_GAME, FETCHED_GAMES, FETCHING_GAMES } from '../actions/types';
+import { ERROR, ADDING_GAME, ADDED_GAME, FETCHED_GAMES, FETCHING_GAMES } from '../actions/types';
 
 const INITIAL_STATE = {
      storedGames: [],
@@ -13,7 +13,7 @@ export default function(state=INITIAL_STATE, action) {
             return {...state, fetchingGames: true };
         case FETCHED_GAMES:
             return {...state, storedGames: action.payload.games.filter(game => game.userId === action.payload.userId )  };
-        case CREATING_GAME:
+        case ADDING_GAME:
             return {...state, creatingGame: true };
         // case CREATED_GAME:
         //     return {...state, createdGames: [...state.createdGames, action.payload] };

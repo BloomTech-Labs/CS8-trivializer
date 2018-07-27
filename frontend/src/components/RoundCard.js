@@ -5,6 +5,9 @@ import { connect } from "react-redux";
 import { getThree, addRound } from '../actions';
 import { withRouter } from 'react-router';
 
+
+// THIS IS GOING TO BE DELETED BY CARLOS AT SOME POINT BUT NOT NOW!!!
+
 import {
     RoundCardWrapper,
     LabelWrapper,
@@ -30,7 +33,7 @@ class RoundCard extends Component {
        const { handleSubmit } = this.props;
 
     return (
-      <RoundCardWrapper onClick={()=> {this.props.history.push(`/questions/${this.props.id}`)}}>
+      <RoundCardWrapper>
         <form onSubmit={handleSubmit(this.onSubmit)}>
           <fieldset>
             <LabelWrapper>
@@ -121,11 +124,7 @@ class RoundCard extends Component {
           <ButtonWrapper><div onClick={() => this.cG()}>CREATE GAME</div></ButtonWrapper>
         </form>
 
-    
-
-        {console.log("storedRound RC", this.props.storedRound)}
-
-        {/* { console.log("STORED", this.props.storedRound)} */}
+        <h1 onClick={()=> {this.props.history.push(`/questions/${this.props.id}`)}}>VIEW QUESTIONS</h1>
         
       </RoundCardWrapper>
     );

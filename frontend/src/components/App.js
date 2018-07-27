@@ -1,12 +1,12 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 import { AppWrapper } from "./primitives/App";
 
 export default ({ children }) => {
   
   return (
-    <AppWrapper>
+    <Fragment>
       {children}
-    </AppWrapper>
+    </Fragment>
   );
 };

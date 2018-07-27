@@ -7,7 +7,7 @@ import requireAuth from '../hoc/requireAuth';
 
 import { connect } from 'react-redux';
 import { compose } from 'react';
-import { createGame, getGames } from '../actions';
+import { addGame, getGames } from '../actions';
 import { withRouter } from 'react-router';
 
 
@@ -23,15 +23,17 @@ class GameList extends Component {
         const userId = decoded.sub;
 
         this.props.getGames(userId);
+        console.log("GAMES CDM", this.props.storedGames)
+        
         
     }
 
-    
-
-    createGameHandler = (userId) => {
-        this.props.createGame(userId)
-      }  
-
+    addGameHandler = userId  => {
+        this.props.addGame( userId, (id) => {
+          this.props.history.push(`/create-game/${id}`);
+        });
+      };
+   
 
     homeRouteClick = () => {
         this.props.history.push("/");
@@ -62,14 +64,14 @@ class GameList extends Component {
                 </Nav>    
 
 
-                <Button><Button onClick={()=> this.createGameHandler(userId)}><h1>ADD NEW GAME</h1></Button></Button>
+                <Button><Button onClick={()=> this.addGameHandler(userId)}><h1>ADD NEW GAME</h1></Button></Button>
     
 
                 <ListWrapper>
                 {list}
                 </ListWrapper>
                 
-                {console.log("STOREDROUNDS GL", this.props.storedGame)}
+                {console.log("STOREDROUNDS GL", this.props.storedRound)}
             </GameWrapper>
         )
     }
@@ -79,10 +81,10 @@ function mapStateToProps(state) {
     return { 
         storedRound: state.round.storedRound,
         storedGames: state.game.storedGames,  
-        erorrMessage: state.auth.erorrMessage 
+        errorMessage: state.auth.errorMessage 
     };
   }
   
-  export default connect(mapStateToProps, { createGame, getGames })(withRouter(GameList));
+  export default connect(mapStateToProps, { addGame, getGames })(withRouter(GameList));
 
  

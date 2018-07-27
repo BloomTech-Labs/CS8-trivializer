@@ -19,6 +19,9 @@ import CreateGame from './components/CreateGame';
 import CreateRoundCard from './components/CreateRoundCard';
 import Questions from './components/Questions';
 import Checkout from './components/Billing';
+
+import RCard from './components/RCard'
+
 // InjectGlobal is akin to a index.css
 injectGlobal` 
  /* css reset */
@@ -50,9 +53,12 @@ ReactDOM.render(
                 <Route path='/games' component={GameList} />
                 <Route path='/settings' component={Settings} />
                 <Route path='/create-game/:id' component={CreateGame} />
-                <Route path='/create-round/' component={CreateRoundCard} />
+                <Route path='/create-round/:id' component={CreateRoundCard} />
                 <Route path='/questions/:id' component={Questions} />
                 <Route path='/billing' component={Checkout} />
+
+                <Route path='/rcard' component={RCard} />
+
             </App>    
         </BrowserRouter>
     </Root>

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { reduxForm, Field } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { getThree, addRound, createGame } from '../actions';// delete later
+import { getThree, addRound } from '../actions';// delete later
 
 import { withRouter } from 'react-router';
 
@@ -24,36 +24,18 @@ class CreateRoundCard extends Component {
       this.props.getThree(formProps);
       
   }
-    aR = (round, gameId )=> {
-      this.props.addRound(round, gameId);
+    aR = (gameId, round )=> {
+      this.props.addRound(gameId, round);
     }
 
-    cG = () => {
-      this.props.createGame();
-    }
 
   render() {
     const { handleSubmit } = this.props;
-    const gameId = this.props.gameId;
+    const gameId = this.props.match.params.id;
 
   
     
-    let list =  this.props.storedRound.map((r, i) => { 
-        return (
-            <RoundCard
-             key={r._id} 
-             id={r._id}
-             category={r.category}
-             difficulty={r.difficulty}
-             numberOfQuestions={r.numberOfQuestions}
-             questions={r.questions}
-             roundName={r.roundName}
-             gameId={gameId}
-             
-               />
-            
-        )
-    });
+
   
 
     return (
@@ -143,18 +125,14 @@ class CreateRoundCard extends Component {
           <ButtonWrapper>
             <button>get questions</button>
           </ButtonWrapper>
-          <div onClick={() => this.aR(gameId, this.props.round)}>Save Round</div>
-          <ButtonWrapper><div onClick={() => this.cG()}>CREATE GAME</div></ButtonWrapper>
+          <h1 onClick={() => this.aR(gameId, this.props.round)}>Save Round</h1>
+      
         </form>
 
     
-        <div>
-          {list}
-          </div>
+       
         {console.log("storedRound CRC", this.props.storedRound)}
 
-        {/* { console.log("STORED", this.props)} */}
-        {console.log("GAMEID", gameId)}
       </CreateRoundCardWrapper>
     );
   }
@@ -171,7 +149,7 @@ function mapStateToProps(state) {
 export default compose(
   connect(
     mapStateToProps,
-    { getThree, addRound, createGame }
+    { getThree, addRound }
   ),
   reduxForm({ form: "createround" })
 )(withRouter(CreateRoundCard));
