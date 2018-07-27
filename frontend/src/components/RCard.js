@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { getThreeRC, addRound } from '../actions';
+import { withRouter } from 'react-router';
 
 import {
     RCardWrapper,
@@ -108,9 +109,10 @@ class RCard extends Component {
                 <ButtonWrapper><Button>Change Questions</Button></ButtonWrapper>
                </form> 
                <ButtonWrapper><Button>Delete Round</Button></ButtonWrapper>
+               <ButtonWrapper><Button  onClick={()=> {this.props.history.push(`/questions/${this.props.id}`)}}>VIEW QUESTIONS</Button></ButtonWrapper>
             </RCardWrapper>
         )
     }
 }
 
-export default connect(null, {getThreeRC, addRound})(RCard);
+export default connect(null, {getThreeRC, addRound})(withRouter(RCard));
