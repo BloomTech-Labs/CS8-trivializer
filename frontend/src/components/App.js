@@ -7,11 +7,9 @@ import { AppWrapper } from "./primitives/App";
 export default ({ children }) => {
   
   return (
-    <StripeProvider apiKey="pk_test_6Il0D2PIhZrVUAjYbIW8ePpR">
+    
       <AppWrapper>
-        <Nav>BILLING</Nav>
         {children}
       </AppWrapper>
-    </StripeProvider>
   );
 };

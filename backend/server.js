@@ -6,7 +6,7 @@ const cors = require('cors');
 const router = require('./router.js');
 const config = require("./config");
 const server = express();
-server.options('*', cors());
+// server.options('*', cors());
 
 mongoose
     .connect(config.db_url) // environment variable 
@@ -21,13 +21,17 @@ mongoose
 server.use(helmet());
 server.use(morgan('dev'));
 server.use(express.json());
-// server.use(cors());
+server.use(cors());
+server.use(cors({credentials: true, origin: '*'})); 
 
 const setupRoutes = require('./router.js')(server); //Handles all of the jwt-simple and passport authentication
 
 const userController = require('./users/userController.js');
 const gameController = require('./games/gameController.js');
 const roundController = require('./rounds/roundController.js');
+
+const { stripeCharge } = require('./stripe/stripeController');
+
 
 
 const port = 5000 || config.port;
@@ -40,3 +44,4 @@ server.get('/', (req, res) => {
 server.use('/api/user', userController);
 server.use('/api/game', gameController);
 server.use('/api/round', roundController);
+server.post('/api/charge', stripeCharge);
