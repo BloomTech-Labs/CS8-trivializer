@@ -1,41 +1,88 @@
 import React, { Component } from 'react';
-import { GameWrapper } from './primitives/GameList';
+
+import { GameWrapper, ListWrapper, Button, ButtonWrapper } from './primitives/GameList';
+import { Nav, Link } from './primitives/Nav';
+
 import requireAuth from '../hoc/requireAuth';
 
 import { connect } from 'react-redux';
 import { compose } from 'react';
-import { getRounds } from '../actions';
+import { createGame, getGames } from '../actions';
+import { withRouter } from 'react-router';
+
+
+import GameCard from './GameCard';
+
+import jwt_decode from "jwt-decode";
 
 class GameList extends Component {
+ 
     componentDidMount() {
-        this.props.getRounds();
+        const token = localStorage.getItem('token');
+        const decoded = jwt_decode(token);
+        const userId = decoded.sub;
+
+        this.props.getGames(userId);
+        
     }
+
+    
+
+    createGameHandler = (userId) => {
+        this.props.createGame(userId)
+      }  
+
 
     homeRouteClick = () => {
         this.props.history.push("/");
       };
+
     render() {
-        return(
+        
+        const token = localStorage.getItem('token');
+        const decoded = jwt_decode(token);
+        const userId = decoded.sub;
+        
+        let list =  this.props.storedGames.map((g, i) => { 
+            return (
+                <GameCard key={g._id} id={g._id} created={g.createdAt} />
+                
+            )
+        });
+        
+    
+    
+        return( 
             <GameWrapper>
-                <h1>WELCOME TO THE GAME ZONE KID!!!!!!!!!</h1>
-                <button onClick={this.homeRouteClick}></button>
+                <Nav>
+                    <Link onClick={()=> this.props.history.push('/settings')}>Settings</Link>
+                    <Link onClick={()=> this.props.history.push('/sign-in')}>Sign-In</Link>
+                    <Link onClick={()=> this.props.history.push('/sign-up')}>Sign-Up</Link>
+                    <Link onClick={()=> this.props.history.push('/billing')}>Billing</Link>
+                </Nav>    
+
+
+                <Button><Button onClick={()=> this.createGameHandler(userId)}><h1>ADD NEW GAME</h1></Button></Button>
+    
+
+                <ListWrapper>
+                {list}
+                </ListWrapper>
+                
+                {console.log("STOREDROUNDS GL", this.props.storedGame)}
             </GameWrapper>
         )
     }
 }
 
 function mapStateToProps(state) {
-    return { erorrMessage: state.auth.erorrMessage };
+    return { 
+        storedRound: state.round.storedRound,
+        storedGames: state.game.storedGames,  
+        erorrMessage: state.auth.erorrMessage 
+    };
   }
   
-//   export default compose(
-//     connect(
-//       mapStateToProps,
-//       { getRounds }
-//     ),
-   
-//   )(requireAuth(GameList));
+  export default connect(mapStateToProps, { createGame, getGames })(withRouter(GameList));
 
-  export default connect(mapStateToProps, { getRounds })(requireAuth(GameList));
-
-// export default requireAuth(GameList); 
+ 

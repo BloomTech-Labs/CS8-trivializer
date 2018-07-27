@@ -15,4 +15,13 @@ export const ADDED_ROUND = "added_round";
 export const FETCHING_ROUND = "getting_round";
 export const FETCHED_ROUND = "get_round";
 
+//Game types
+export const CREATING_GAME = "creating_game";
+export const CREATED_GAME = "created_game";
+
+export const FETCHING_GAMES = "fetching_games";
+export const FETCHED_GAMES = "fetched_games";
+
+export const FETCHED_QUESTIONS = 'fetched_questions';
+
 export const ERROR = "error";
