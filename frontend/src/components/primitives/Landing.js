@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 
 export const LandingWrapper = styled.div`
-  display: flex; */
+  display: flex; 
   /* /* justify-content: center;
   flex-direction: row;
   /* align-items:center; */

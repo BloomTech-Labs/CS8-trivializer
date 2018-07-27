@@ -18,6 +18,7 @@ import Settings from './components/Settings';
 import CreateGame from './components/CreateGame';
 import CreateRoundCard from './components/CreateRoundCard';
 import Checkout from './components/Billing';
+import Export from './components/PdfComponent';
 
 
 // InjectGlobal is akin to a index.css
@@ -53,6 +54,7 @@ ReactDOM.render(
                 <Route path='/create-game/:id' component={CreateGame} />
                 <Route path='/create-round' component={CreateRoundCard} />
                 <Route path='/billing' component={Checkout} />
+                <Route path='/pdftest' component={Export} />
             </App>    
         </BrowserRouter>
     </Root>
