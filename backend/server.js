@@ -29,6 +29,7 @@ const userController = require('./users/userController.js');
 const gameController = require('./games/gameController.js');
 const roundController = require('./rounds/roundController.js');
 
+const { stripeCharge } = require('./stripe/stripeController.js');
 
 const port = process.env.PORT || 5000;
 server.listen(port, () => console.log(`API RUNNING ON ${port}`))
@@ -40,3 +41,4 @@ server.get('/', (req, res) => {
 server.use('/api/user', userController);
 server.use('/api/game', gameController);
 server.use('/api/round', roundController);
+server.post('/api/charge', stripeCharge);

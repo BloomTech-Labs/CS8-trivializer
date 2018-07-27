@@ -1,19 +1,26 @@
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { 
-  ERROR, 
-  REGISTER_USER, 
-  AUTH_USER, 
-  UPDATING_SETTINGS, 
-  UPDATE_SETTINGS,  
-  FETCHING_THREE,
-  FETCHED_THREE,
-  SIGNING_IN,
-  SIGNING_UP,
-  ADDING_ROUND,
-  ADDED_ROUND,
-  FETCHING_ROUND,
-  FETCHED_ROUND
+    ERROR, 
+    REGISTER_USER, 
+    AUTH_USER, 
+    UPDATING_SETTINGS, 
+    UPDATE_SETTINGS,  
+    FETCHING_THREE,
+    FETCHED_THREE,
+    FETCHED_THREE_RC,
+    FETCHING_THREE_RC,
+    SIGNING_IN,
+    SIGNING_UP,
+    ADDING_ROUND,
+    ADDED_ROUND,
+    FETCHING_ROUND,
+    FETCHED_ROUND,
+    ADDING_GAME,
+    ADDED_GAME,
+    FETCHING_GAMES, 
+    FETCHED_GAMES,
+    FETCHED_QUESTIONS
 
   } from "./types";
 
@@ -64,13 +71,13 @@ export const signOut = () => {
   };
 };
 
-export const getRounds = () => dispatch => {
+export const getRounds = gameId => dispatch => {
     dispatch({ type: FETCHING_ROUND });
     
     axios
         .get('http://localhost:5000/api/round/get')
         .then( response => {
-            dispatch({type: FETCHED_ROUND, payload: response.data })
+            dispatch({type: FETCHED_ROUND, payload: {gameId: gameId, rounds:response.data} })
 
         })
         .catch(err => {
@@ -98,11 +105,11 @@ export const updateSettings = (formProps, callback) => dispatch => {
 } 
 
 
-export const addRound = (round, formProps) => dispatch => {
+export const addRound = (gameId, round) => dispatch => {
     dispatch({ type: ADDING_ROUND });
-
+    console.log("ACTION ROUND", round)
     axios
-        .post('http://localhost:5000/api/round/create-round', round)
+        .post('http://localhost:5000/api/round/create-round', {gameId, round})
         .then( response => {
             dispatch({type: ADDED_ROUND, payload: response.data })
         })
@@ -126,4 +133,67 @@ export const getThree = formProps => dispatch => {
 
 };
 
+export const getThreeRC = RCProps => dispatch => {
+    // dispatch({ type: FETCHING_THREE_RC });
+    // let questions = formProps.numberOfQuestions; 
+    // let { roundName, numberOfQuestions, category, difficulty, type } = RCProps;
+    // axios
+    //     .get(`https://opentdb.com/api.php?amount=${questions}&category=${formProps.category}&difficulty=${formProps.difficulty}&type=${formProps.type}`)
+    //     .then(response => {
+    //         dispatch({ type: FETCHED_THREE_RC, payload: { roundName, numberOfQuestions, category, difficulty, type, questions: response.data.results }})
+    //     })
+    //     .catch(err => {
+    //         dispatch({ type: ERROR, errorMessage: 'Error Fetching the data', err})
+    //     });
+  
+  };
 
+export const updateRound = () => dispatch => {
+
+}
+
+
+
+export const addGame = (userId, callback) => dispatch => {
+    dispatch({ type: ADDING_GAME });
+
+    axios
+        .post('http://localhost:5000/api/game/create-game', {userId})
+        .then(response => {
+            console.log("CREATEGAME ID", response.data._id)
+            dispatch({ type: ADDED_GAME, payload: response.data});
+            callback(response.data._id);//returning the game's id into the callback
+        })
+        .catch(err => {
+            dispatch({ type: ERROR, errorMessage: 'Error creating game'});
+            
+        });
+};
+
+export const getGames = userId => dispatch => {
+    dispatch({ type: FETCHING_GAMES });
+        
+    axios
+        .get('http://localhost:5000/api/game/get')
+        .then(response => {
+            console.log("getgames action",response)
+            dispatch({ type: FETCHED_GAMES, payload: { userId: userId, games:response.data }});
+        })
+        .catch(err => {
+            dispatch({ type: ERROR, errorMessage: 'Error fetching stored games array'});
+        });
+
+}
+
+export const getQuestions = questionId => dispatch => {
+    console.log("action id", questionId)
+    axios
+    .get('http://localhost:5000/api/round/get')
+    .then( response => {
+        dispatch({type: FETCHED_QUESTIONS, payload: {questionId: questionId, rounds:response.data} })
+
+    })
+    .catch(err => {
+        dispatch({type: ERROR, errorMessage: "error adding round", err})
+    })
+}

@@ -11,4 +11,14 @@ export const Nav = styled.nav`
     width: 10%;
     border-radius: 2%;
     border: solid white;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+`
+
+export const Link = styled.h1`
+    font-size: 1.2rem;
+    color: white;
 `

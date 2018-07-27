@@ -1,14 +1,12 @@
-import React from "react";
-import { Nav } from "./primitives/Nav";
+import React, { Fragment } from "react";
 
 import { AppWrapper } from "./primitives/App";
 
 export default ({ children }) => {
   
   return (
-    <AppWrapper>
-      <Nav>BILLING :)</Nav>
+    <Fragment>
       {children}
-    </AppWrapper>
+    </Fragment>
   );
 };

@@ -3,6 +3,8 @@ import { reduxForm, Field } from "redux-form";
 import { compose } from "redux";
 import { signIn } from "../actions/index";
 import { connect } from "react-redux";
+import { withRouter } from 'react-router';
+import { Nav, Link } from './primitives/Nav';
 import {
   SigninWrapper,
   Label,
@@ -29,6 +31,12 @@ class SignIn extends Component {
     const { handleSubmit } = this.props;
     return (
       <SigninWrapper>
+            <Nav>
+                <Link onClick={()=> this.props.history.push('/games')}>Games List</Link>
+                <Link onClick={()=> this.props.history.push('/settings')}>Settings</Link>
+                <Link onClick={()=> this.props.history.push('/sign-up')}>Sign-Up</Link>
+                <Link onClick={()=> this.props.history.push('/billing')}>Billing</Link>
+            </Nav> 
         <Title>SIGN IN PAGE</Title>
         <form onSubmit={handleSubmit(this.onSubmit)}>
           <fieldset>
@@ -78,4 +86,4 @@ export default compose(
     { signIn }
   ),
   reduxForm({ form: "signin" })
-)(SignIn);
+)(withRouter(SignIn));
