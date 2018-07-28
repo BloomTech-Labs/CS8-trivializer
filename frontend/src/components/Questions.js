@@ -44,8 +44,8 @@ class Questions extends Component {
 
     let questions = this.props.storedQuestions.map((q, i) => {
 
-      q[i].incorrect_answers.push(q[i].correct_answer);
-      const mixedQuestions = shuffle(q[i].incorrect_answers);
+      q[i].incorrect_answers.push(q[i].correct_answer); // adds the correct answer to the array of incorrect
+      const mixedQuestions = shuffle(q[i].incorrect_answers); //shuffles them up on page load
       return (
         <div id="divToPrint">
           <h1>{q[i].question}</h1>
@@ -55,14 +55,6 @@ class Questions extends Component {
         </div>
       );
     });
-    // let incorrect = this.props.storedQuestions.map((ic, i) => {
-    //   return (
-    //     <h1>
-    //       {ic[i].incorrect_answers}
-    //       <br />
-    //     </h1>
-    //   );
-    // });
 
     return (
       <div>
