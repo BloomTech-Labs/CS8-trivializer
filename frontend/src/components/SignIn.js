@@ -43,7 +43,7 @@ class SignIn extends Component {
             <LabelWrapper><Label>Email</Label></LabelWrapper>
             <Field
               name="email"
-              type="text"
+              type="email"
               component="input"
               autoComplete="none"
             />

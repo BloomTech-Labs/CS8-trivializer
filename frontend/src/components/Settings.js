@@ -66,7 +66,7 @@ class Settings extends Component {
             </LabelWrapper>
             <Field
               name="email"
-              type="text"
+              type="email"
               component="input"
               autoComplete="none"
               placeholder={email}

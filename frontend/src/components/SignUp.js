@@ -46,7 +46,7 @@ class SignUp extends Component {
             <Field
               name="email"
               placeholder="Enter your Email"
-              type="text"
+              type="email"
               component="input"
               autoComplete="none"
             />

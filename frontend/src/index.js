@@ -19,6 +19,7 @@ import CreateGame from './components/CreateGame';
 import CreateRoundCard from './components/CreateRoundCard';
 import Questions from './components/Questions';
 import Checkout from './components/Billing';
+import Export from './components/PdfComponent';
 
 import RCard from './components/RCard'
 
@@ -56,6 +57,7 @@ ReactDOM.render(
                 <Route path='/create-round/:id' component={CreateRoundCard} />
                 <Route path='/questions/:id' component={Questions} />
                 <Route path='/billing' component={Checkout} />
+                <Route path='/pdftest' component={Export} />
 
                 <Route path='/rcard' component={RCard} />
 
