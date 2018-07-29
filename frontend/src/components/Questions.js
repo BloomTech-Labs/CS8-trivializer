@@ -16,8 +16,10 @@ class Questions extends Component {
     html2canvas(input).then(canvas => {
       const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF();
-      pdf.addImage(imgData, "JPEG", 0, 0);
+      pdf.addImage(imgData, "JPEG", 0, 0)
       pdf.output("dataurlnewwindow");
+      
+      // window.setTimeout((pdf.output("dataurlnewwindow")), 200);
       // pdf.save("download.pdf");
     });
   }
@@ -45,13 +47,15 @@ class Questions extends Component {
     let questions = this.props.storedQuestions.map((q, i) => {
 
       q[i].incorrect_answers.push(q[i].correct_answer); // adds the correct answer to the array of incorrect
-      const mixedQuestions = shuffle(q[i].incorrect_answers); //shuffles them up on page load
+      const mixedAnswers = shuffle(q[i].incorrect_answers); //shuffles them up on page load
+      console.log("SHUFFLED ANSWERS", mixedAnswers);
       return (
         <div id="divToPrint">
           <h1>{q[i].question}</h1>
           <br />
-          {mixedQuestions}
-          <button onClick={this.printDocument}>Print</button>
+          {mixedAnswers.map( answer => {
+            return <div>{answer}</div>
+          })}
         </div>
       );
     });
@@ -62,6 +66,7 @@ class Questions extends Component {
         <br />
         {questions}
         <br />
+        <button onClick={this.printDocument}>Print</button>
         {/* {incorrect} */}
 
         {console.log("ques", this.props.questions)}

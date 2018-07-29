@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { reduxForm, Field } from "redux-form";
 import jwt_decode from "jwt-decode";
-import { withRouter } from 'react-router';
+import { withRouter } from "react-router";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { updateSettings, signOut } from "../actions/index";
-import { Nav, Link } from './primitives/Nav';
+import { Nav, Link } from "./primitives/Nav";
 import {
   SettingsWrapper,
   LabelWrapper,
@@ -16,35 +16,56 @@ import {
 } from "./primitives/Settings";
 
 class Settings extends Component {
-  //  onSubmit = formProps => {
-  //   this.props.updateSettings(formProps);
-  // }
-  
-  onSubmit = formProps => {
-      this.props.updateSettings(formProps, () => {
-        this.props.history.push('/games');
-    });
-  } 
-  
-  render() {
+  state = {
+    password: null,
+    passwordCheck: null,
+    oldPassword: null
+  };
 
-    const token = localStorage.getItem('token');
+  onSubmit = formProps => {
+    if (this.state.password !== this.state.oldPassword) {
+      alert("Passwords do not match.")
+    } else if(this.state.password === this.state.passwordCheck){
+      alert("Passwords must not be the same.");
+    }
+     else  {
+      this.props.updateSettings(formProps, () => {
+        this.props.history.push("/games");
+      });
+    }
+  };
+
+  handleChange = (target, value) => {
+    console.log(this.state);
+    this.setState({ [target]: value });
+  };
+
+  render() {
+    const token = localStorage.getItem("token");
     const decoded = jwt_decode(token);
     const email = decoded.email;
     const orgName = decoded.orgName;
     console.log("ORG NAME", orgName);
 
     console.log("EMAIL", email);
-    
+
     const { handleSubmit } = this.props;
     return (
       <SettingsWrapper>
-                  <Nav>
-                    <Link onClick={()=> this.props.history.push('/games')}>Games List</Link>
-                    <Link onClick={()=> this.props.history.push('/sign-in')}>Sign-In</Link>
-                    <Link onClick={()=> this.props.history.push('/sign-up')}>Sign-Up</Link>
-                    <Link onClick={()=> this.props.history.push('/billing')}>Billing</Link>
-                </Nav>  
+        <Nav>
+          <Link onClick={() => this.props.history.push("/games")}>
+            Games List
+          </Link>
+          <Link onClick={() => this.props.history.push("/sign-in")}>
+            Sign-In
+          </Link>
+          <Link onClick={() => this.props.history.push("/sign-up")}>
+            Sign-Up
+          </Link>
+          <Link onClick={() => this.props.history.push("/billing")}>
+            Billing
+          </Link>
+        </Nav>
 
         <Title>SETTINGS PAGE</Title>
         <form onSubmit={handleSubmit(this.onSubmit)}>
@@ -77,7 +98,20 @@ class Settings extends Component {
               <Label>Old Password</Label>
             </LabelWrapper>
             <Field
+              onChange={e => this.handleChange(e.target.name, e.target.value)}
               name="oldPassword"
+              type="password"
+              component="input"
+              autoComplete="none"
+            />
+          </fieldset>
+          <fieldset>
+            <LabelWrapper>
+              <Label>Please enter your password again.</Label>
+            </LabelWrapper>
+            <Field
+              onChange={e => this.handleChange(e.target.name, e.target.value)}
+              name="passwordCheck"
               type="password"
               component="input"
               autoComplete="none"
@@ -88,6 +122,7 @@ class Settings extends Component {
               <Label>New Password</Label>
             </LabelWrapper>
             <Field
+              onChange={e => this.handleChange(e.target.name, e.target.value)}
               name="password"
               type="password"
               component="input"
