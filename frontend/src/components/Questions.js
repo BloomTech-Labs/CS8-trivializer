@@ -16,10 +16,10 @@ class Questions extends Component {
     html2canvas(input).then(canvas => {
       const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF();
-      pdf.addImage(imgData, "JPEG", 0, 0)
-      pdf.output("dataurlnewwindow");
-      
+      pdf.addImage(imgData, "JPEG", 0, 0);
       // window.setTimeout((pdf.output("dataurlnewwindow")), 200);
+
+      pdf.output("dataurlnewwindow");
       // pdf.save("download.pdf");
     });
   }
