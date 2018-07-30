@@ -19,8 +19,8 @@ const gameSchema = new mongoose.Schema({
     default: Date.now,
   },
   logo: {
-    type: String, //maybe file type later
-    //some field to specify it's max width and height
+    data: Buffer,
+    contentType: String 
   },
   // createdBy: {
   //   type: mongoose.Schema.Types.ObjectId,

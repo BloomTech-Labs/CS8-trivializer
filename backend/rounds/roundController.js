@@ -32,4 +32,36 @@ router
         .catch(err => res.status(500).json(err));
 })
 
+router
+    .put('/update-round',(req, res)=> {
+        console.log(req.body)
+        const { roundId, round } = req.body
+        const { roundName, numberOfQuestions, category, difficulty, type, questions } = round;
+        console.log("ROUND", round)
+        Round.findByIdAndUpdate(roundId, { roundName, numberOfQuestions, category, difficulty, type, questions })
+        .then(updated => {
+                console.log("UPDATED",updated)
+                res.status(200).json(updated)
+        })
+        .catch(err => {
+            res.status(500).json("Error updating the round", err)
+        })
+    })
+
+  router  
+    .delete('/delete-round/:id',(req, res) => {
+        console.log("inside delete", req.params)
+        const { id }  = req.params
+        
+        Round.findByIdAndRemove(id)
+        .then(removed => {
+            console.log("removed", removed)
+            res.status(200).json(removed)
+            
+        })
+        .catch(err => {
+            res.status(500).json(console.error("Error deleting round", error))
+        })
+    })
+
 module.exports = router

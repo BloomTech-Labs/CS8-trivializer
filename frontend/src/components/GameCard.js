@@ -8,6 +8,7 @@ const GameCard = (props) => {
             ADD NEW GAME!!!
             {console.log(props)}
             {props.created}
+            
             </GameCardWrapper>
         )
 }
