@@ -31,9 +31,12 @@ class CreateGame extends Component {
         this.state = { 
             files: [],
             date: new Date(),
-            name: ''
+            name: '',
+            localGameName: null
          }
          this.handleInput = this.handleInput.bind(this);
+         this.saveGameHandler = this.saveGameHandler.bind(this);
+         
     }
   
     // ADD MODAL THAT SAYS GAME SAVED SUCCESSFULLY LATER
@@ -56,13 +59,19 @@ class CreateGame extends Component {
         let gameId = this.props.match.params.id;
         this.props.getRounds(gameId)
         this.props.getGame(this.props.match.params.id)
+        
+         this.setState({localGameName: localStorage.getItem(`gameName${this.props.match.params.id}` )})
+
         console.log("CreateGame CDM rounds", this.props.storedRound)    
     }
 
     saveGameHandler = (event) => {
         event.preventDefault()
-        let game = this.state;
+        let { files, date, name } = this.state;
+        let game = { files, date, name };
         
+        localStorage.setItem(`gameName${this.props.match.params.id}`, name)
+
         this.props.saveGame(this.props.match.params.id, game)
     }
 
@@ -74,7 +83,6 @@ class CreateGame extends Component {
 
     render(){
         let gameId = this.props.match.params.id;
-        this.props.getGame(gameId)
 
         let list =  this.props.storedRound.map((r, i) => { 
             return (
@@ -93,7 +101,7 @@ class CreateGame extends Component {
               <Link onClick={()=> this.props.history.push('/billing')}>Billing</Link>
             </Nav> 
             <Title>GAME CREATION SCREEN</Title>
-
+            {console.log("PHSN", this.state.placeHolderName)}
             {console.log("STATE",this.state)}
 
             <form>
@@ -121,7 +129,7 @@ class CreateGame extends Component {
                     type="text"
                     component="input"
                     autoComplete="none"
-                    // placeholder={this.props.storedGames[0].name}
+                    placeholder={this.state.localGameName}
                     onChange={this.handleInput}
                     value={this.state.name}
                     />
