@@ -11,16 +11,26 @@ class Questions extends Component {
     this.props.getQuestions(questionId);
   };
 
+
   printDocument() {
     const input = document.getElementById("divToPrint");
     html2canvas(input).then(canvas => {
       const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF();
       pdf.addImage(imgData, "JPEG", 0, 0);
-      // window.setTimeout((pdf.output("dataurlnewwindow")), 200);
+      
+      var string = pdf.output('dataurlstring');
+      var iframe = "<iframe width='100%' height='100%' src='" + string + "'></iframe>"
+      var x = window.open();
+      // x.document.open();
+      x.document.open();
+      x.document.write(iframe);
+      x.document.close();
+      console.log(x);
 
-      pdf.output("dataurlnewwindow");
-      // pdf.save("download.pdf");
+
+
+      // pdf.output("dataurlnewwindow");
     });
   }
 
@@ -44,33 +54,45 @@ class Questions extends Component {
       return array;
     }
 
-    let questions = this.props.storedQuestions.map((q, i) => {
+    // console.log("STORED QUESTIONS", this.props.storedQuestions);
+    // console.log("STOREDQUESTIONS[0]", this.props.storedQuestions[0]);
 
-      q[i].incorrect_answers.push(q[i].correct_answer); // adds the correct answer to the array of incorrect
-      const mixedAnswers = shuffle(q[i].incorrect_answers); //shuffles them up on page load
-      console.log("SHUFFLED ANSWERS", mixedAnswers);
-      return (
-        <div id="divToPrint">
-          <h1>{q[i].question}</h1>
+    
+    
+
+    let subQuestions = null;
+    this.props.storedQuestions.map((q, i) => {
+      subQuestions = q.map((subQ, subI) => {
+        // console.log("SUB QUESTIONS", subQ);
+        subQ.incorrect_answers.push(subQ.correct_answer); // adds the correct answer to the array of incorrect
+        const mixedAnswers = shuffle(subQ.incorrect_answers); //shuffles them up on page load
+
+        // console.log("SHUFFLED ANSWERS", mixedAnswers);
+        return (
+          <div>
           <br />
-          {mixedAnswers.map( answer => {
-            return <div>{answer}</div>
-          })}
-        </div>
-      );
+          <h1>{subQ.question}</h1>
+            <br />
+            {mixedAnswers.map(answer => {
+              return <div>{answer}</div>;
+            })}
+          </div>
+        );
+      });
     });
+    // console.log("QUESTIONS MAPPED", questions);
 
     return (
-      <div>
+      <div id="divToPrint">
         <h1>Questions page!!</h1>
         <br />
-        {questions}
+        {subQuestions}
         <br />
         <button onClick={this.printDocument}>Print</button>
         {/* {incorrect} */}
 
-        {console.log("ques", this.props.questions)}
-        {console.log("stored questions", this.props.storedQuestions)}
+        {/* {console.log("ques", this.props.questions)}
+        {console.log("stored questions", this.props.storedQuestions)} */}
       </div>
     );
   }

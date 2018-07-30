@@ -23,9 +23,9 @@ class Settings extends Component {
   };
 
   onSubmit = formProps => {
-    if (this.state.password !== this.state.oldPassword) {
+    if (this.state.password === this.state.oldPassword) {
       alert("Passwords must not be the same.");
-    } else if(this.state.oldPassword === this.state.passwordCheck){
+    } else if(this.state.oldPassword !== this.state.passwordCheck){
       alert("Passwords do not match.")
     }
      else  {
