@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { reduxForm, Field } from "redux-form";
+// import { reduxForm, Field } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { getThree, addRound } from '../actions';// delete later
@@ -19,56 +19,82 @@ import {
 import './primitives/CreateRoundCard';
 
 class CreateRoundCard extends Component {
-
-    onSubmit = (formProps) => {
-      this.props.getThree(formProps);
-      
-  }
-    aR = (gameId, round )=> {
-      this.props.addRound(gameId, round);
+  constructor(props){
+    super(props);
+    this.state = {
+        roundName: '' ,
+        numberOfQuestions: '',
+        category: '',
+        difficulty: '',
+        type: ''  
     }
+
+    this.handleInput = this.handleInput.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+
+    handleInput(event) {
+    const { name, value } = event.target;
+    this.setState({ [name]: value })
+
+  }
+
+
+  onSubmit = (event) => {
+    event.preventDefault();
+    let formProps = this.state;
+    const gameId = this.props.match.params.id;
+    let round = this.props.round;
+    console.log(this.state.roundName);
+  
+    this.props.getThree( formProps, () => {
+      
+        this.props.addRound(gameId, this.props.round, (id)=> {
+          this.props.history.push(`/create-game/${id}`);
+        });
+    });
+     
+  }
+
 
 
   render() {
-    const { handleSubmit } = this.props;
-    const gameId = this.props.match.params.id;
 
   
-    
-
-  
-
     return (
       <CreateRoundCardWrapper>
-        <form onSubmit={handleSubmit(this.onSubmit)}>
+        <form onSubmit={(e)=> this.onSubmit(e)}>
           <fieldset>
             <LabelWrapper>
               <Label>Round Name</Label>
             </LabelWrapper>
-            <Field
+            <input
               name="roundName"
               placeholder="Round Name"
               type="text"
               component="input"
               autoComplete="none"
+              onChange={this.handleInput}
+              value={this.state.roundName}
             />
           </fieldset>
           <fieldset>
             <LabelWrapper>
               <Label># of Questions</Label>
             </LabelWrapper>
-            <Field name="numberOfQuestions" component="select">
+            <select  name="numberOfQuestions" onChange={this.handleInput} value={this.state.numberOfQuestions} >
               <option>Number of Questions</option>
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
-            </Field>
+            </select>
           </fieldset>
           <fieldset>
             <LabelWrapper>
               <Label>Category</Label>
             </LabelWrapper>
-            <Field name="category" component="select">
+            <select name="category" onChange={this.handleInput} value={this.state.category}>
               <option>Any Category</option>
               <option value="9">General Knowledge</option>
               <option value="10">Entertainment: Books</option>
@@ -94,44 +120,37 @@ class CreateRoundCard extends Component {
               <option value="30">Science: Gadgets</option>
               <option value="31">Entertainment: Japanese Anime & Manga</option>
               <option value="32">Entertainment: Cartoon & Animation</option>
-            </Field>
+            </select>
           </fieldset>
           <fieldset>
             <LabelWrapper>
               <Label>Difficulty</Label>
             </LabelWrapper>
-            <Field name="difficulty" component="select">
+            <select name="difficulty" onChange={this.handleInput} value={this.state.difficulty}>
               <option>Any Difficulty</option>
               <option value="easy">Easy</option>
               <option value="medium">Medium</option>
               <option value="hard">Hard</option>
-            </Field>
+            </select>
           </fieldset>
           <fieldset>
             <LabelWrapper>
               <Label>Type</Label>
             </LabelWrapper>
-            <Field name="type" component="select">
+            <select name="type" onChange={this.handleInput} value={this.state.type}>
+            <option>Any Type</option>
               <option value="multiple">Multiple Choice</option>
               <option value="boolean">True / False</option>
-            </Field>
+            </select>
           </fieldset>
-          <ButtonWrapper>
-            <Button>View</Button>
-          </ButtonWrapper>
-          <ButtonWrapper>
-            <Button>Delete</Button>
-          </ButtonWrapper>
+        
           <ButtonWrapper>
             <button>get questions</button>
           </ButtonWrapper>
-          <h1 onClick={() => this.aR(gameId, this.props.round)}>Save Round</h1>
+          
       
         </form>
 
-    
-       
-        {console.log("storedRound CRC", this.props.storedRound)}
 
       </CreateRoundCardWrapper>
     );
@@ -146,10 +165,5 @@ function mapStateToProps(state) {
     errorMessage: state.auth.errorMessage
   };
 }
-export default compose(
-  connect(
-    mapStateToProps,
-    { getThree, addRound }
-  ),
-  reduxForm({ form: "createround" })
-)(withRouter(CreateRoundCard));
+
+export default connect(mapStateToProps, { getThree, addRound } )(withRouter(CreateRoundCard));

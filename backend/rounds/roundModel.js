@@ -24,7 +24,7 @@ const roundSchema = new mongoose.Schema({
     },
     questions: { //supplied by API
         type: Array,
-        required: true
+        
     },
 
 })
