@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "he": "^1.1.1",
     "html2canvas": "^1.0.0-alpha.12",
     "jspdf": "^1.4.1",
     "jwt-decode": "^2.2.0",

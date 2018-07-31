@@ -5,11 +5,9 @@ import { getQuestions } from "../actions";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 
-import {
-  QuestionsWrapper,
-} from "./primitives/Questions";
+import { QuestionsWrapper, CorrectAnswer } from "./primitives/Questions";
 
-
+var he = require("he");
 
 class Questions extends Component {
   componentDidMount = props => {
@@ -17,26 +15,18 @@ class Questions extends Component {
     this.props.getQuestions(questionId);
   };
 
-
   printDocument() {
     var x = window.open();
     const input = document.getElementById("divToPrint");
-    html2canvas(input).then(canvas => {
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF();
-      pdf.addImage(imgData, "JPEG", 0, 0);
-      var string = pdf.output('dataurlstring');
-      
-      var iframe = "<iframe width='100%' height='100%' src='" + string + "'></iframe>"
-      // var x = window.open();
-      x.document.open();
-      x.document.write(iframe);
-      x.document.close();
+    const pdf = new jsPDF();
+    pdf.fromHTML(input);
+    var string = pdf.output("dataurlstring");
 
-      // setTimeout(function(){
-      //   x.document.close();
-      //   },2000);;
-    });
+    var iframe =
+      "<iframe width='100%' height='100%' src='" + string + "'></iframe>";
+    x.document.open();
+    x.document.write(iframe);
+    x.document.close();
   }
 
   render() {
@@ -62,24 +52,36 @@ class Questions extends Component {
     // console.log("STORED QUESTIONS", this.props.storedQuestions);
     // console.log("STOREDQUESTIONS[0]", this.props.storedQuestions[0]);
 
-    
-    
-
     let subQuestions = null;
+    let mixedQuestionsCheck = null;
     this.props.storedQuestions.map((q, i) => {
       subQuestions = q.map((subQ, subI) => {
         // console.log("SUB QUESTIONS", subQ);
         subQ.incorrect_answers.push(subQ.correct_answer); // adds the correct answer to the array of incorrect
         const mixedAnswers = shuffle(subQ.incorrect_answers); //shuffles them up on page load
+        // for(i = 0; i < mixedAnswers.length; i++) {
+        //   if(mixedAnswers[i] === subQ.correct_answer) {
+
+        //   }
+        // }
 
         // console.log("SHUFFLED ANSWERS", mixedAnswers);
         return (
           <div>
-          <br />
-          <h1>{subQ.question}</h1>
+            <br />
+            <h1>{he.decode(subQ.question)}</h1>{" "}
+            {/* converts the HTML special character encoding to plain text; i.e &quote = "" */}
             <br />
             {mixedAnswers.map(answer => {
-              return <div>{answer}</div>;
+              if (answer === subQ.correct_answer) {
+                console.log("CORRECT ANSWER", subQ.correct_answer);
+                answer = he.decode(answer);
+                // return <div class="correctAnswer">{answer}</div>
+                return <CorrectAnswer>{answer}</CorrectAnswer>;
+              } else {
+                answer = he.decode(answer);
+                return <div>{answer}</div>;
+              }
             })}
           </div>
         );
@@ -88,18 +90,20 @@ class Questions extends Component {
     // console.log("QUESTIONS MAPPED", questions);
 
     return (
-      <QuestionsWrapper id="divToPrint">
-        <h1>Questions page!!</h1>
-        <br />
-        {subQuestions}
-        <br />
-        <button onClick={this.printDocument}>Print</button>
-        {/* <button onClick={() => window.open()}>Print</button> */}
-        {/* {incorrect} */}
+      <div>
+        <div id="divToPrint">
+          <h1>Questions page!!</h1>
+          <br />
+          {subQuestions}
+          <br />
+          {/* <button onClick={() => window.open()}>Print</button> */}
+          {/* {incorrect} */}
 
-        {/* {console.log("ques", this.props.questions)}
+          {/* {console.log("ques", this.props.questions)}
         {console.log("stored questions", this.props.storedQuestions)} */}
-      </QuestionsWrapper>
+        </div>
+        <button onClick={this.printDocument}>Print</button>
+      </div>
     );
   }
 }
