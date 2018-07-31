@@ -20,7 +20,6 @@ const stripeCharge = async function(req, res) {
         if (updated === undefined) {
           res.status(404).json(updated);
         } else {
-          updated.save()
           console.log("UPDATED STRIPE", updated);
           res.status(200).json(updated);
         }
@@ -42,7 +41,6 @@ const stripeCharge = async function(req, res) {
         if (updated === undefined) {
           res.status(404).json(updated);
         } else {
-          updated.save()
           console.log("UPDATED STRIPE", updated);
           res.status(200).json(updated);
         }

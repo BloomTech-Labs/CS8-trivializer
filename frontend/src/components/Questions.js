@@ -5,6 +5,12 @@ import { getQuestions } from "../actions";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 
+import {
+  QuestionsWrapper,
+} from "./primitives/Questions";
+
+
+
 class Questions extends Component {
   componentDidMount = props => {
     const questionId = this.props.match.params.id;
@@ -13,24 +19,23 @@ class Questions extends Component {
 
 
   printDocument() {
+    var x = window.open();
     const input = document.getElementById("divToPrint");
     html2canvas(input).then(canvas => {
       const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF();
       pdf.addImage(imgData, "JPEG", 0, 0);
-      
       var string = pdf.output('dataurlstring');
+      
       var iframe = "<iframe width='100%' height='100%' src='" + string + "'></iframe>"
-      var x = window.open();
-      // x.document.open();
+      // var x = window.open();
       x.document.open();
       x.document.write(iframe);
       x.document.close();
-      console.log(x);
 
-
-
-      // pdf.output("dataurlnewwindow");
+      // setTimeout(function(){
+      //   x.document.close();
+      //   },2000);;
     });
   }
 
@@ -83,17 +88,18 @@ class Questions extends Component {
     // console.log("QUESTIONS MAPPED", questions);
 
     return (
-      <div id="divToPrint">
+      <QuestionsWrapper id="divToPrint">
         <h1>Questions page!!</h1>
         <br />
         {subQuestions}
         <br />
         <button onClick={this.printDocument}>Print</button>
+        {/* <button onClick={() => window.open()}>Print</button> */}
         {/* {incorrect} */}
 
         {/* {console.log("ques", this.props.questions)}
         {console.log("stored questions", this.props.storedQuestions)} */}
-      </div>
+      </QuestionsWrapper>
     );
   }
 }
