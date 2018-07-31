@@ -5,7 +5,7 @@ import { getQuestions } from "../actions";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 
-import { QuestionsWrapper, CorrectAnswer } from "./primitives/Questions";
+import { QuestionsWrapper, CorrectAnswer, QuestionsLine } from "./primitives/Questions";
 
 var he = require("he");
 
@@ -83,6 +83,7 @@ class Questions extends Component {
                 return <div>{answer}</div>;
               }
             })}
+            <QuestionsLine />
           </div>
         );
       });
@@ -91,17 +92,13 @@ class Questions extends Component {
 
     return (
       <div>
-        <div id="divToPrint">
+        <QuestionsWrapper id="divToPrint">
           <h1>Questions page!!</h1>
           <br />
           {subQuestions}
           <br />
-          {/* <button onClick={() => window.open()}>Print</button> */}
-          {/* {incorrect} */}
+        </QuestionsWrapper>
 
-          {/* {console.log("ques", this.props.questions)}
-        {console.log("stored questions", this.props.storedQuestions)} */}
-        </div>
         <button onClick={this.printDocument}>Print</button>
       </div>
     );
