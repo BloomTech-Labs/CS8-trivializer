@@ -84,7 +84,7 @@ class Questions extends Component {
               if (answer === subQ.correct_answer) {
                 console.log("CORRECT ANSWER", subQ.correct_answer);
                 answer = he.decode(answer);
-                return <CorrectAnswer key={index}><span>{letter}.   </span>{answer}</CorrectAnswer>;
+                return <CorrectAnswer key={index}><span>{letter}.</span>{answer}</CorrectAnswer>;
               } else {
                 answer = he.decode(answer);
                 return <div key={index}><span>{letter}.   </span>{answer}</div>;
@@ -99,7 +99,7 @@ class Questions extends Component {
 
     return (
       <div>
-        <QuestionsWrapper id="TestDivToPrint">
+        <QuestionsWrapper id="divToPrint">
           <h1>Questions page!!</h1>
           <br />
           {subQuestions}

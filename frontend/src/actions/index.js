@@ -126,15 +126,8 @@ export const getThree = formProps => dispatch => {
       .get(`https://opentdb.com/api.php?amount=${questions}&category=${formProps.category}&difficulty=${formProps.difficulty}&type=${formProps.type}`)
       .then(response => {
 
-        //checks if there are enough questions for that type, in that category.
-        if(response.data.response_code === 0) {
+        //checks if there are enough questions for that type, in that category
             dispatch({ type: FETCHED_THREE, payload: { roundName, numberOfQuestions, category, difficulty, type, questions: response.data.results }})
-
-        } else {
-            dispatch({type:ERROR, errorMessage:"Not enough questions found for that type, in that category."});
-            const errorMsg = "Not enough questions found for that type, in that category.";
-            alert(errorMsg);
-        }
       })
       .catch(err => {
           dispatch({ type: ERROR, errorMessage: 'Error Fetching the data', err})
