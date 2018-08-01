@@ -2,25 +2,39 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { 
     ERROR, 
+
     REGISTER_USER, 
     AUTH_USER, 
-    UPDATING_SETTINGS, 
-    UPDATE_SETTINGS,  
-    FETCHING_THREE,
-    FETCHED_THREE,
-    FETCHED_THREE_RC,
-    FETCHING_THREE_RC,
     SIGNING_IN,
     SIGNING_UP,
+
+    UPDATING_SETTINGS, 
+    UPDATE_SETTINGS,
+
+    FETCHING_THREE,
+    FETCHED_THREE,
+    FETCHED_THREE_UPDATE,
+    FETCHING_THREE_UPDATE,
+  
+
     ADDING_ROUND,
     ADDED_ROUND,
+    UPDATING_ROUND,
+    UPDATED_ROUND,
     FETCHING_ROUND,
     FETCHED_ROUND,
+    DELETING_ROUND,
+    DELETED_ROUND,
+
     ADDING_GAME,
     ADDED_GAME,
+    SAVING_GAME,
+    SAVED_GAME,
     FETCHING_GAMES, 
     FETCHED_GAMES,
-    FETCHED_QUESTIONS
+    FETCHED_QUESTIONS,
+    FETCHING_GAME,
+    FETCHED_GAME
 
   } from "./types";
 
@@ -41,7 +55,6 @@ export const signUp = (formProps, callback) => dispatch => {
       .catch(err => {
           dispatch({ type: ERROR, errorMessage: 'Error signing in user', err})
       });
-
 };
 
 export const signIn = (formProps, callback) => dispatch => {
@@ -105,29 +118,30 @@ export const updateSettings = (formProps, callback) => dispatch => {
 } 
 
 
-export const addRound = (gameId, round) => dispatch => {
+export const addRound = (gameId, round, callback) => dispatch => {
     dispatch({ type: ADDING_ROUND });
     console.log("ACTION ROUND", round)
     axios
         .post('http://localhost:5000/api/round/create-round', {gameId, round})
         .then( response => {
             dispatch({type: ADDED_ROUND, payload: response.data })
+            callback(gameId)
         })
         .catch(err => {
             dispatch({type: ERROR, errorMessage: "error adding round", err})
         })
 }
 
-export const getThree = formProps => dispatch => {
+export const getThree = (formProps, callback) => dispatch => {
   dispatch({ type: FETCHING_THREE });
   let questions = formProps.numberOfQuestions; 
   let { roundName, numberOfQuestions, category, difficulty, type } = formProps;
+  console.log("INSIDE THREE", roundName)
   axios
       .get(`https://opentdb.com/api.php?amount=${questions}&category=${formProps.category}&difficulty=${formProps.difficulty}&type=${formProps.type}`)
       .then(response => {
-
-        //checks if there are enough questions for that type, in that category
-            dispatch({ type: FETCHED_THREE, payload: { roundName, numberOfQuestions, category, difficulty, type, questions: response.data.results }})
+          dispatch({ type: FETCHED_THREE, payload: { roundName, numberOfQuestions, category, difficulty, type, questions: response.data.results }})
+          callback();
       })
       .catch(err => {
           dispatch({ type: ERROR, errorMessage: 'Error Fetching the data', err})
@@ -135,23 +149,38 @@ export const getThree = formProps => dispatch => {
 
 };
 
-export const getThreeRC = RCProps => dispatch => {
-    // dispatch({ type: FETCHING_THREE_RC });
-    // let questions = formProps.numberOfQuestions; 
-    // let { roundName, numberOfQuestions, category, difficulty, type } = RCProps;
-    // axios
-    //     .get(`https://opentdb.com/api.php?amount=${questions}&category=${formProps.category}&difficulty=${formProps.difficulty}&type=${formProps.type}`)
-    //     .then(response => {
-    //         dispatch({ type: FETCHED_THREE_RC, payload: { roundName, numberOfQuestions, category, difficulty, type, questions: response.data.results }})
-    //     })
-    //     .catch(err => {
-    //         dispatch({ type: ERROR, errorMessage: 'Error Fetching the data', err})
-    //     });
+export const getThreeUpdate = (formProps, callback) => dispatch => {
+    dispatch({ type: FETCHING_THREE_UPDATE });
+    let questions = formProps.numberOfQuestions; 
+    let { roundName, numberOfQuestions, category, difficulty, type } = formProps;
+
+    console.log("formProps GTU", formProps)
+
+    axios
+        .get(`https://opentdb.com/api.php?amount=${questions}&category=${formProps.category}&difficulty=${formProps.difficulty}&type=${formProps.type}`)
+        .then(response => {
+            console.log('response', response.data.results)
+            dispatch({ type: FETCHED_THREE_UPDATE, payload: { roundName, numberOfQuestions, category, difficulty, type, questions: response.data.results }})
+            
+            callback()
+        })
+        .catch(err => {
+            dispatch({ type: ERROR, errorMessage: 'Error Fetching the data', err})
+        });
   
   };
 
-export const updateRound = () => dispatch => {
+export const updateRoundCard = (roundId, round) => dispatch => {
+    dispatch({ type: UPDATING_ROUND }); 
 
+    axios
+        .put('http://localhost:5000/api/round/update-round', {roundId, round})
+        .then( response => {
+            dispatch({type: UPDATED_ROUND, payload: response.data })
+        })
+        .catch(err => {
+            dispatch({type: ERROR, errorMessage: "error updating round", err})
+        })
 }
 
 
@@ -172,6 +201,19 @@ export const addGame = (userId, callback) => dispatch => {
         });
 };
 
+export const saveGame = (gameId, game) => dispatch => {
+    dispatch({ type: SAVING_GAME })
+    axios
+        .put('http://localhost:5000/api/game/update-game', {gameId, game})
+        .then( response => {
+            dispatch({type: SAVED_GAME, payload: response.data })
+            console.log(response.data)
+        })
+        .catch(err => {
+            dispatch({type: ERROR, errorMessage: "error updating game", err})
+        })
+}
+
 export const getGames = userId => dispatch => {
     dispatch({ type: FETCHING_GAMES });
         
@@ -184,11 +226,19 @@ export const getGames = userId => dispatch => {
         .catch(err => {
             dispatch({ type: ERROR, errorMessage: 'Error fetching stored games array'});
         });
+}
 
+export const getGame = gameId => dispatch => {
+    dispatch({ type: FETCHING_GAME });
+    return { 
+        type: FETCHED_GAME, 
+        payload: gameId
+     };
+    
 }
 
 export const getQuestions = questionId => dispatch => {
-    console.log("action id", questionId)
+    
     axios
     .get('http://localhost:5000/api/round/get')
     .then( response => {
@@ -198,4 +248,18 @@ export const getQuestions = questionId => dispatch => {
     .catch(err => {
         dispatch({type: ERROR, errorMessage: "error adding round", err})
     })
+}
+
+export const deleteRound = id => dispatch => {
+    dispatch({ type: DELETING_ROUND });
+
+    axios
+    .delete(`http://localhost:5000/api/round/delete-round/${id}`)
+    .then(response => {
+        console.log(response)
+        dispatch({type: DELETED_ROUND, payload: response.data})
+    })
+    .catch(err => {
+        dispatch({type: ERROR, errorMessage: "error deleting round", err})
+    }) 
 }

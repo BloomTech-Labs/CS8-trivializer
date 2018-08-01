@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { getThreeRC, addRound } from '../actions';
+import { getThreeUpdate, updateRoundCard, deleteRound } from '../actions';
 import { withRouter } from 'react-router';
 
 import {
@@ -12,41 +12,59 @@ import {
   } from "./primitives/RCard";
 
 class RCard extends Component {
-    // updateRC = (event, props) => {
-    //     event.preventDefault()
-    //     this.props.getThreeRC(props, () => {
-    //       this.props.addRound();
-    //     });
-    //   };
+    constructor(props){
+        super(props);
+        const  mySet = new Set();
+
+        this.state = {
+            roundName: '' ,
+            numberOfQuestions: '',
+            category: '',
+            difficulty: '',
+            type: ''
+         
+        }
+
+        this.handleInput = this.handleInput.bind(this);
+    }
+
+
+  handleInput(event) {
+    const { name, value } = event.target;
+    this.setState({ [name]: value })
+    
+  }
+
+    updateRound(event) {
+        event.preventDefault()
+        const formProps = this.state;
+      
+        this.props.getThreeUpdate(formProps, () => {
+                (console.log("ROUND IN RCCARD",this.props.round))
+            this.props.updateRoundCard(this.props.id, this.props.round)
+        });
+      };
+
+    // deleteRoundHandler(id) {
+    //     this.props.deleteRound(id);
+    // }
 
     render(){
         return (
         
             <RCardWrapper>
-
+                <Label>{this.props.roundName}</Label>
               <form>  
-                <fieldset>
-                    <LabelWrapper>
-                    <Label>Round Name</Label>
-                    </LabelWrapper>
-                    <input
-                    name="roundName"
-                    placeholder={this.props.roundName}
-                    type="text"
-                    component="input"
-                    autoComplete="none"
-                    />
-                </fieldset>
 
                 <fieldset>
                     <LabelWrapper>
                         <Label># of Questions</Label>
                     </LabelWrapper>
-                    <select name="numberOfQuestions">
-                        <option value={this.props.numberOfQuestions}>{this.props.numberOfQuestions}</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
+                    <select  name="numberOfQuestions" onChange={this.handleInput} value={this.state.numberOfQuestions} >
+                        <option  value={this.props.numberOfQuestions}>{this.props.numberOfQuestions}</option>
+                        <option  value="1">1</option>
+                        <option  value="2">2</option>
+                        <option  value="3">3</option>
                     </select>
                 </fieldset>
 
@@ -54,7 +72,7 @@ class RCard extends Component {
                     <LabelWrapper>
                         <Label>Category</Label>
                     </LabelWrapper>
-                    <select name="category">
+                    <select name="category" onChange={this.handleInput} value={this.state.category}>
                         <option value={this.props.category}>{this.props.category}</option>
                         <option value="9">General Knowledge</option>
                         <option value="10">Entertainment: Books</option>
@@ -87,7 +105,7 @@ class RCard extends Component {
                     <LabelWrapper>
                         <Label>Difficulty</Label>
                     </LabelWrapper>
-                    <select name="difficulty">
+                    <select name="difficulty" onChange={this.handleInput} value={this.state.difficulty}>
                         <option value={this.props.difficulty}>{this.props.difficulty}</option>
                         <option value="easy">easy</option>
                         <option value="medium">medium</option>
@@ -99,20 +117,30 @@ class RCard extends Component {
                     <LabelWrapper>
                         <Label>Type</Label>
                     </LabelWrapper>
-                    <select name="type">
+                    <select name="type" onChange={this.handleInput} value={this.state.type}>
                         <option value={this.props.type}>{this.props.type}</option>
                         <option value="multiple">Multiple Choice</option>
                         <option value="boolean">True / False</option>
                     </select>
                 </fieldset>
-
-                <ButtonWrapper><Button>Change Questions</Button></ButtonWrapper>
+                <ButtonWrapper><Button onClick={(e)=>{this.updateRound(e)}}>Change Questions</Button></ButtonWrapper>
                </form> 
-               <ButtonWrapper><Button>Delete Round</Button></ButtonWrapper>
+        
+                
+
+               <ButtonWrapper><Button  onClick={()=> this.props.deleteRound(this.props.id)}>Delete Round</Button></ButtonWrapper>
                <ButtonWrapper><Button  onClick={()=> {this.props.history.push(`/questions/${this.props.id}`)}}>VIEW QUESTIONS</Button></ButtonWrapper>
             </RCardWrapper>
         )
     }
 }
 
-export default connect(null, {getThreeRC, addRound})(withRouter(RCard));
+function mapStateToProps(state) {
+    return {
+      storedRound: state.round.storedRound,
+      round: state.round.round,
+      errorMessage: state.auth.errorMessage
+    };
+  }
+
+export default connect(mapStateToProps, {getThreeUpdate, updateRoundCard, deleteRound})(withRouter(RCard));

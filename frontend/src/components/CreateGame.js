@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import { reduxForm, Field } from "redux-form";
-import { compose } from "redux";
+
 import { connect } from "react-redux";
-import { getRounds } from '../actions';
+
+import Dropzone from 'react-dropzone';
+import DatePicker from 'react-date-picker';
+
+import { getGame, getRounds, saveGame } from '../actions';
 import { withRouter } from 'react-router';
 import { Nav, Link } from './primitives/Nav';
 import { RoundButton, RoundButtonWrapper } from './primitives/CreateGame';
@@ -23,11 +26,47 @@ import {
 
 
 class CreateGame extends Component {
-      componentDidMount() {
+    constructor(props) {
+        super(props);
+        this.state = { 
+            files: [],
+            date: new Date(),
+            name: ''
+         }
+         this.handleInput = this.handleInput.bind(this);
+    }
+  
+    // ADD MODAL THAT SAYS GAME SAVED SUCCESSFULLY LATER
+
+    onDrop(files) {
+      this.setState({
+        files
+      });
+    };
+
+    onChangeDate = date => this.setState({ date });
+
+    handleInput(event) {
+        const { name, value } = event.target;
+        this.setState({ [name]: value })
+    
+    }
+
+    componentDidMount() {
         let gameId = this.props.match.params.id;
         this.props.getRounds(gameId)
+        this.props.getGame(this.props.match.params.id)
         console.log("CreateGame CDM rounds", this.props.storedRound)    
     }
+
+    saveGameHandler = (event) => {
+        event.preventDefault()
+        let game = this.state;
+        
+        this.props.saveGame(this.props.match.params.id, game)
+    }
+
+    
 
     addRoundHandler = (gameId) => {
         this.props.history.push(`/create-round/${gameId}`)
@@ -35,48 +74,16 @@ class CreateGame extends Component {
 
     render(){
         let gameId = this.props.match.params.id;
+        this.props.getGame(gameId)
 
         let list =  this.props.storedRound.map((r, i) => { 
             return (
                 
-                    <RCard
-                     key={r._id} 
-                     id={r._id}
-                     category={r.questions[0].category}
-                     difficulty={r.difficulty}
-                     numberOfQuestions={r.numberOfQuestions}
-                     type={r.type}
-                     questions={r.questions}
-                     roundName={r.roundName}
-                    //  gameId={gameId}
-                     
-                       />            
+                    <RCard key={r._id} id={r._id} roundName={r.roundName} numberOfQuestions={r.numberOfQuestions}/>            
                     )
                 });
 
-    //     let list =  this.props.storedRound.map((r, i) => { 
-        // return (
-        //     <RoundCard
-        //      key={r._id} 
-        //      id={r._id}
-        //      category={r.category}
-        //      difficulty={r.difficulty}
-        //      numberOfQuestions={r.numberOfQuestions}
-        //      questions={r.questions}
-        //      roundName={r.roundName}
-        //      gameId={gameId}
-             
-        //        />
-            
-    //     )
-    // });
-
-    // let elements = []; 
-
-    // for ( let i = 0; i < this.state.count; i++) { // creates new components based on counter
-    // elements.push( <CreateRoundCard gameId={this.props.match.params.id} /> );
-    // }
-
+ 
 
     return (
         <CreateGameWrapper>
@@ -87,57 +94,57 @@ class CreateGame extends Component {
             </Nav> 
             <Title>GAME CREATION SCREEN</Title>
 
-            
+            {console.log("STATE",this.state)}
+
             <form>
-            <fieldset>
-            <LabelWrapper>
-              <Label>Add a logo</Label>
-            </LabelWrapper>
-            <Field
-              name="logo"
-              type="text"
-              component="input"
-              autoComplete="none"
-            />
-          </fieldset>
-          <fieldset>
-            <LabelWrapper>
-              <Label>Game title</Label>
-            </LabelWrapper>
-            <Field
-              name="title"
-              type="text"
-              component="input"
-              autoComplete="none"
-            />
-          </fieldset>
-          <fieldset>
-            {/* http://react-day-picker.js.org/docs/input/ */}
-            <LabelWrapper>
-              <Label>Played Date</Label>
-            </LabelWrapper>
-            <Field
-              name="title"
-              type="text"
-              component="input"
-              autoComplete="none"
-            />
-          </fieldset>
+                <fieldset>    
+                    <Dropzone
+                    onDrop={this.onDrop.bind(this)}
+                    accept="image/jpeg, image/png, image/gif"
+                    >
+                    <p>Try dropping some files here, or click to select files to upload.</p>
+                    </Dropzone>
+                </fieldset>     
+                <fieldset>
+                    <DatePicker
+                        onChange={this.onChangeDate}
+                        value={this.state.date}
+                    />      
+                </fieldset>
+                {console.log("games", this.props.storedGames)}
+                <fieldset>
+                    <LabelWrapper>
+                    <Label>Game Name</Label>
+                    </LabelWrapper>
+                    <input
+                    name="name"
+                    type="text"
+                    component="input"
+                    autoComplete="none"
+                    // placeholder={this.props.storedGames[0].name}
+                    onChange={this.handleInput}
+                    value={this.state.name}
+                    />
+                </fieldset>
             </form>    
 
          <ButtonWrapper>
           <Button>Print Answer Sheets</Button>
         </ButtonWrapper>
+
         <ButtonWrapper>
           <Button>Print Answer Key</Button>
         </ButtonWrapper>
 
+        <ButtonWrapper>
+          <Button onClick={(e)=> this.saveGameHandler(e)}>Save Game</Button>
+        </ButtonWrapper>
       
         <RoundButtonWrapper onClick={()=> this.addRoundHandler(gameId)}><RoundButton>ADD ROUND</RoundButton></RoundButtonWrapper>
         
         <div>    
             {list}
-            {console.log("CreateGames SR", this.props.storedRound)}
+            {console.log("CreateGames SG", this.props.storedGames)}
         </div>
         </CreateGameWrapper>
         )
@@ -146,15 +153,11 @@ class CreateGame extends Component {
 
 function mapStateToProps(state) {
     return {
+      storedGames: state.game.storedGames,
       storedRound: state.round.storedRound,
       round: state.round.round,
       errorMessage: state.auth.errorMessage
     };
   }
-  export default compose(
-    connect(
-      mapStateToProps,
-      { getRounds }
-    ),
-     reduxForm({ form: "creategame" })
-  )(withRouter(CreateGame));
+
+  export default connect( mapStateToProps,{ getGame, getRounds, saveGame })(withRouter(CreateGame));
