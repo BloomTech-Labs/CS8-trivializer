@@ -5,6 +5,7 @@ export const QuestionsWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   font-size: 1rem;
+  border: 1px solid black;
   /* font-size: 9.9px; */
   /* font-size: 1rem; */
   /* color: tomato; */
@@ -19,3 +20,7 @@ export const CorrectAnswer = styled.div`
 export const QuestionsLine = styled.hr`
 border: 1rem solid orange;
 `
+
+// export const TestDiv = styled.div`
+// display:none;
+// `

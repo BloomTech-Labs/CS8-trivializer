@@ -8,6 +8,7 @@ import { withRouter } from 'react-router';
 
 import RoundCard from './RoundCard';
 
+
 import {
   CreateRoundCardWrapper,
   LabelWrapper,
@@ -18,6 +19,7 @@ import {
 
 import './primitives/CreateRoundCard';
 
+console.log("PROPS",this.props);
 class CreateRoundCard extends Component {
 
     onSubmit = (formProps) => {

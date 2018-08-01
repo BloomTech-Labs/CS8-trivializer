@@ -1,13 +1,15 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { getQuestions } from "../actions";
+import Pdf from "./PDF";
 
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
+// import jsPDF from "jspdf";
 
-import { QuestionsWrapper, CorrectAnswer, QuestionsLine } from "./primitives/Questions";
+import { QuestionsWrapper, CorrectAnswer, QuestionsLine, } from "./primitives/Questions";
 
-var he = require("he");
+let he = require("he");
+
+const alphabet = ["a","b","c","d"]
 
 class Questions extends Component {
   componentDidMount = props => {
@@ -15,19 +17,19 @@ class Questions extends Component {
     this.props.getQuestions(questionId);
   };
 
-  printDocument() {
-    var x = window.open();
-    const input = document.getElementById("divToPrint");
-    const pdf = new jsPDF();
-    pdf.fromHTML(input);
-    var string = pdf.output("dataurlstring");
+  // printDocument() {
+  //   var x = window.open();
+  //   const input = document.getElementById("divToPrint");
+  //   const pdf = new jsPDF();
+  //   pdf.fromHTML(input);
+  //   var string = pdf.output("dataurlstring");
 
-    var iframe =
-      "<iframe width='100%' height='100%' src='" + string + "'></iframe>";
-    x.document.open();
-    x.document.write(iframe);
-    x.document.close();
-  }
+  //   var iframe =
+  //     "<iframe width='100%' height='100%' src='" + string + "'></iframe>";
+  //   x.document.open();
+  //   x.document.write(iframe);
+  //   x.document.close();
+  // }
 
   render() {
     function shuffle(array) {
@@ -54,36 +56,41 @@ class Questions extends Component {
 
     let subQuestions = null;
     let mixedQuestionsCheck = null;
+    console.log("STORED QUESTIONS", this.props.storedQuestions);
+
+    
+
+
     this.props.storedQuestions.map((q, i) => {
       subQuestions = q.map((subQ, subI) => {
         // console.log("SUB QUESTIONS", subQ);
         subQ.incorrect_answers.push(subQ.correct_answer); // adds the correct answer to the array of incorrect
-        const mixedAnswers = shuffle(subQ.incorrect_answers); //shuffles them up on page load
-        // for(i = 0; i < mixedAnswers.length; i++) {
-        //   if(mixedAnswers[i] === subQ.correct_answer) {
+        let mixedAnswers = shuffle(subQ.incorrect_answers); //shuffles them up on page load
+        
+        // checks to see if the answer is a boolean type and displays accordingly (prevent mixing).
+        if (mixedAnswers[0] === "True" || mixedAnswers[0] === "False"){
+          mixedAnswers = ["True", "False"];
+        } 
+        console.log("MIXED", mixedAnswers);
 
-        //   }
-        // }
-
-        // console.log("SHUFFLED ANSWERS", mixedAnswers);
         return (
           <div>
             <br />
-            <h1>{he.decode(subQ.question)}</h1>{" "}
+            <h1>{he.decode(subQ.question)}</h1>
             {/* converts the HTML special character encoding to plain text; i.e &quote = "" */}
             <br />
-            {mixedAnswers.map(answer => {
+            {mixedAnswers.map((answer, index) => {
+              var letter = alphabet[index];
               if (answer === subQ.correct_answer) {
                 console.log("CORRECT ANSWER", subQ.correct_answer);
                 answer = he.decode(answer);
-                // return <div class="correctAnswer">{answer}</div>
-                return <CorrectAnswer>{answer}</CorrectAnswer>;
+                return <CorrectAnswer key={index}><span>{letter}.   </span>{answer}</CorrectAnswer>;
               } else {
                 answer = he.decode(answer);
-                return <div>{answer}</div>;
+                return <div key={index}><span>{letter}.   </span>{answer}</div>;
               }
             })}
-            <QuestionsLine />
+            {/* <QuestionsLine /> */}
           </div>
         );
       });
@@ -92,14 +99,15 @@ class Questions extends Component {
 
     return (
       <div>
-        <QuestionsWrapper id="divToPrint">
+        <QuestionsWrapper id="TestDivToPrint">
           <h1>Questions page!!</h1>
           <br />
           {subQuestions}
           <br />
         </QuestionsWrapper>
+        <Pdf id={"divToPrint"}/>
 
-        <button onClick={this.printDocument}>Print</button>
+        {/* <button onClick={this.printDocument}>Print</button> */}
       </div>
     );
   }
