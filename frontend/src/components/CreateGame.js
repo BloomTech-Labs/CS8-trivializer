@@ -114,7 +114,7 @@ class CreateGame extends Component {
                 });
         let renderList;        
 
-                if (this.state.user_type === "Premium" ) {    
+                if (this.state.user_type === "Tier 2" ) {    
         
                     renderList = list;   
                 }

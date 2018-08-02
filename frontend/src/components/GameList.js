@@ -62,7 +62,7 @@ class GameList extends Component {
             });
 
     
-        if (this.state.user_type === "Premium" ) {    
+        if (this.state.user_type === "Tier 2" ) {    
         
             renderList = list;   
         }

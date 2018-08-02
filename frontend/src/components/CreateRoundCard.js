@@ -23,7 +23,7 @@ class CreateRoundCard extends Component {
     super(props);
     this.state = {
         roundName: '' ,
-        numberOfQuestions: '',
+        numberOfQuestions: '1',
         category: '',
         difficulty: '',
         type: '',
@@ -72,6 +72,10 @@ class CreateRoundCard extends Component {
   render() {
     let renderNumQuestions;
 
+    if(this.state.numberOfQuestions === 'a' ){
+      this.props.history.push('/billing')
+    }
+
     if (this.state.user_type === "Free" ){
       renderNumQuestions = (  
       <fieldset>
@@ -83,12 +87,12 @@ class CreateRoundCard extends Component {
         onChange={this.handleInput} 
         value={this.state.numberOfQuestions} 
       >
-        <option>Number of Questions</option>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
         <option value="4">4</option>
         <option value="5">5</option>
+        <option value="a">click here to upgrade</option>
       </select>
       </fieldset>
       )
@@ -105,7 +109,6 @@ class CreateRoundCard extends Component {
         onChange={this.handleInput} 
         value={this.state.numberOfQuestions} 
       >
-        <option>Number of Questions</option>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -116,23 +119,24 @@ class CreateRoundCard extends Component {
         <option value="8">8</option>
         <option value="9">9</option>
         <option value="10">10</option>
+        <option value="a">upgrade to premium</option>
       </select>
       </fieldset>
       )
     }
    
-    if (this.state.user_type === "Premium" ){
+    if (this.state.user_type === "Tier 2" ){
       renderNumQuestions = (  
       <fieldset>
       <LabelWrapper>
       <Label>Please enter # of Questions: 1-50</Label>
       </LabelWrapper>
-      <select  
+      <input  
         name="numberOfQuestions" 
         onChange={this.handleInput} 
         value={this.state.numberOfQuestions}
         type="number"
-        set="1" 
+        set="1"
       />
       </fieldset>
       )

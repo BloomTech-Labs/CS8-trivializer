@@ -57,8 +57,8 @@ export const Select = styled.select`
 `
 
 export const Input = styled.input`
-  width: 100%;
-  padding: 12px;
+  width: 20%;
+  /* padding: 12px; */
   border-radius: 4px;
   resize: vertical;
 `

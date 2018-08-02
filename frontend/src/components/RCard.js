@@ -73,6 +73,10 @@ class RCard extends Component {
     render(){
         let renderNumQuestions;
 
+        if(this.state.numberOfQuestions === 'a' ){
+            this.props.history.push('/billing')
+          }
+
     if (this.state.user_type === "Free" ){
       renderNumQuestions = (  
       <fieldset>
@@ -90,6 +94,7 @@ class RCard extends Component {
         <option value="3">3</option>
         <option value="4">4</option>
         <option value="5">5</option>
+        <option value="a">click here to upgrade</option>
       </Select>
       </fieldset>
       )
@@ -117,12 +122,13 @@ class RCard extends Component {
         <option value="8">8</option>
         <option value="9">9</option>
         <option value="10">10</option>
+        <option value="a">upgrade to Premium</option>
       </Select>
       </fieldset>
       )
     }
    
-    if (this.state.user_type === "Premium" ){
+    if (this.state.user_type === "Tier 2" ){
       renderNumQuestions = (  
       <fieldset>
       <LabelWrapper>
@@ -135,6 +141,8 @@ class RCard extends Component {
         placeholder={this.props.numberOfQuestions}
         type="number"
         set="1" 
+        max="50"
+        min="1"
       />
       </fieldset>
       )
@@ -157,7 +165,7 @@ class RCard extends Component {
                         <Label>Category</Label>
                     </LabelWrapper>
                     <Select name="category" onChange={this.handleInput} value={this.state.category}>
-                        <option value={this.props.category}>{this.props.category}</option>
+                        <option>any category</option>
                         <option value="9">General Knowledge</option>
                         <option value="10">Entertainment: Books</option>
                         <option value="11">Entertainment: Film</option>
@@ -190,7 +198,7 @@ class RCard extends Component {
                         <Label>Difficulty</Label>
                     </LabelWrapper>
                     <Select name="difficulty" onChange={this.handleInput} value={this.state.difficulty}>
-                        <option value={this.props.difficulty}>{this.props.difficulty}</option>
+                        <option>any difficulty</option>
                         <option value="easy">easy</option>
                         <option value="medium">medium</option>
                         <option value="hard">hard</option>
@@ -202,7 +210,7 @@ class RCard extends Component {
                         <Label>Type</Label>
                     </LabelWrapper>
                     <Select name="type" onChange={this.handleInput} value={this.state.type}>
-                        <option value={this.props.type}>{this.props.type}</option>
+                        <option>any type</option>
                         <option value="multiple">Multiple Choice</option>
                         <option value="boolean">True / False</option>
                     </Select>

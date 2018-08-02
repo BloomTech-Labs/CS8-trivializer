@@ -139,9 +139,31 @@ export const getThree = (formProps, callback) => dispatch => {
   dispatch({ type: FETCHING_THREE });
   let questions = formProps.numberOfQuestions; 
   let { roundName, numberOfQuestions, category, difficulty, type } = formProps;
+
+  let categoryData, difficultyData, typeData;
+  
+    if (category === undefined) {
+        categoryData = undefined;
+    }else {
+        categoryData = `&category=${category}`; 
+    }
+
+    if (difficulty === undefined) {
+        difficultyData = undefined;
+    }else {
+        difficultyData = `&difficulty=${difficulty}`; 
+    }
+
+    if (type === undefined) {
+        typeData = undefined;
+    }else {
+        typeData = `&difficulty=${difficulty}`; 
+    }
+
   console.log("INSIDE THREE", roundName)
   axios
-      .get(`https://opentdb.com/api.php?amount=${questions}&category=${formProps.category}&difficulty=${formProps.difficulty}&type=${formProps.type}`)
+    //   .get(`https://opentdb.com/api.php?amount=${questions}&category=${formProps.category}&difficulty=${formProps.difficulty}&type=${formProps.type}`)
+      .get(`https://opentdb.com/api.php?amount=${questions}${categoryData}${difficultyData}${typeData}`)
       .then(response => {
           dispatch({ type: FETCHED_THREE, payload: { roundName, numberOfQuestions, category, difficulty, type, questions: response.data.results }})
           callback();
