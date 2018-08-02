@@ -30,7 +30,7 @@ export const SubQuestionsWrapper = styled.div`
   flex-flow: column wrap;
   /* border: 1px solid red; */
   margin: 10px;
-  padding-bottom: 5px;
+  padding-bottom: 30px;
   align-items: center;
   /* :hover {
     box-shadow: 2px 8px 16px 16px rgba(0, 0, 0, 0.2);

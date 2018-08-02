@@ -2,35 +2,21 @@ import React, { Component, Fragment } from "react";
 import jsPDF from "jspdf";
 
 let he = require("he");
-let html2canvas = require('html2canvas');
 
 console.log("PDF PROPS", this.props);
 class Pdf extends Component {
   printDocument() {
     var x = window.open();
     const input = document.getElementById("divToPrint");
-    // const pdf = new jsPDF();
-    // pdf.fromHTML(input);
+    const pdf = new jsPDF();
+    pdf.fromHTML(input);
+    var string = pdf.output("dataurlstring");
 
-    html2canvas(input)
-      .then((canvas) => {
-        const imgData = canvas.toDataURL('image/jpg');
-        const pdf = new jsPDF();
-        pdf.addImage(imgData, 'jpg', -68, 0);
-        // pdf.addImage(imgData, 'jpg', 0, 0, 220,280);  //
-        // pdf.output('dataurlnewwindow');
-        // pdf.save("download.pdf");
-        var string = pdf.output("bloburl");
-        console.log("STRING", string);
-        var iframe =
-          "<iframe width='100%' height='100%' src='" + string + "'></iframe>";
-        x.document.open();
-        x.document.write(iframe);
-        x.document.close();
-      })
-
-
-
+    var iframe =
+      "<iframe width='100%' height='100%' src='" + string + "'></iframe>";
+    x.document.open();
+    x.document.write(iframe);
+    x.document.close();
   }
   printBlanks() {
     var x = window.open();
