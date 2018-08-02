@@ -1,4 +1,3 @@
-// const Game = require('../games/gameModel.js'); for use when we link games to rounds
 const Round = require('./roundModel.js');
 const router = require("express").Router();
 
@@ -50,7 +49,7 @@ router
 
   router  
     .delete('/delete-round/:id',(req, res) => {
-        console.log("inside delete", req.params)
+        console.log("inside delete RC", req.params)
         const { id }  = req.params
         
         Round.findByIdAndRemove(id)
@@ -63,5 +62,21 @@ router
             res.status(500).json(console.error("Error deleting round", error))
         })
     })
+
+    // router  
+    // .delete('/delete-rounds/:id',(req, res) => {
+    //     console.log("inside delete MANY RC", req.params)
+    //     const { id }  = req.params
+        
+    //     Round.deleteMany({gameId: id})
+    //     .then(removed => {
+    //         console.log("removed", removed)
+    //         res.status(200).json(removed)
+            
+    //     })
+    //     .catch(err => {
+    //         res.status(500).json(console.error("Error deleting round", error))
+    //     })
+    // })
 
 module.exports = router

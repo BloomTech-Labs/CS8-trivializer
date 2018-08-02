@@ -6,7 +6,7 @@ import { getThree, addRound } from '../actions';// delete later
 
 import { withRouter } from 'react-router';
 
-import RoundCard from './RoundCard';
+import jwt_decode from "jwt-decode";
 
 import {
   CreateRoundCardWrapper,
@@ -26,12 +26,22 @@ class CreateRoundCard extends Component {
         numberOfQuestions: '',
         category: '',
         difficulty: '',
-        type: ''  
+        type: '',
+        user_type: null  
     }
 
     this.handleInput = this.handleInput.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
+
+  componentDidMount() {
+    const token = localStorage.getItem('token');
+    const decoded = jwt_decode(token);
+ 
+    this.setState({ user_type: decoded.user_type});
+    console.log("USER TYPE", decoded.user_type)
+}
+
 
 
     handleInput(event) {
@@ -60,8 +70,76 @@ class CreateRoundCard extends Component {
 
 
   render() {
+    let renderNumQuestions;
 
-  
+    if (this.state.user_type === "Free" ){
+      renderNumQuestions = (  
+      <fieldset>
+      <LabelWrapper>
+      <Label># of Questions</Label>
+      </LabelWrapper>
+      <select  
+        name="numberOfQuestions" 
+        onChange={this.handleInput} 
+        value={this.state.numberOfQuestions} 
+      >
+        <option>Number of Questions</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+      </fieldset>
+      )
+    }
+
+    if (this.state.user_type === "Tier 1" ){
+      renderNumQuestions = (  
+      <fieldset>
+      <LabelWrapper>
+      <Label># of Questions</Label>
+      </LabelWrapper>
+      <select  
+        name="numberOfQuestions" 
+        onChange={this.handleInput} 
+        value={this.state.numberOfQuestions} 
+      >
+        <option>Number of Questions</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+      </select>
+      </fieldset>
+      )
+    }
+   
+    if (this.state.user_type === "Premium" ){
+      renderNumQuestions = (  
+      <fieldset>
+      <LabelWrapper>
+      <Label>Please enter # of Questions: 1-50</Label>
+      </LabelWrapper>
+      <select  
+        name="numberOfQuestions" 
+        onChange={this.handleInput} 
+        value={this.state.numberOfQuestions}
+        type="number"
+        set="1" 
+      />
+      </fieldset>
+      )
+    }
+    
+
+    
     return (
       <CreateRoundCardWrapper>
         <form onSubmit={(e)=> this.onSubmit(e)}>
@@ -79,18 +157,10 @@ class CreateRoundCard extends Component {
               value={this.state.roundName}
             />
           </fieldset>
-          <fieldset>
-            <LabelWrapper>
-              <Label># of Questions</Label>
-            </LabelWrapper>
-            <select  name="numberOfQuestions" onChange={this.handleInput} value={this.state.numberOfQuestions} >
-              <option>Number of Questions</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-            </select>
-          </fieldset>
-          <fieldset>
+
+            {renderNumQuestions}
+      
+            <fieldset>
             <LabelWrapper>
               <Label>Category</Label>
             </LabelWrapper>

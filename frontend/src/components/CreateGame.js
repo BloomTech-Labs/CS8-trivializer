@@ -8,10 +8,22 @@ import DatePicker from 'react-date-picker';
 import { getGame, getRounds, saveGame } from '../actions';
 import { withRouter } from 'react-router';
 import { Nav, Link } from './primitives/Nav';
-import { RoundButton, RoundButtonWrapper } from './primitives/CreateGame';
+import { 
+    RoundButton, 
+    RoundButtonWrapper,
+    AddIcon,
+    AddIconWrapper,
+    Text,
+    TextWrapper,
+    ListWrapper
+    } 
+        from './primitives/CreateGame';
 
-import RoundCard from './RoundCard';
 import RCard from './RCard';
+import NewRCard from './NewRCard';
+import plus from '../assets/plus.png'
+
+import jwt_decode from "jwt-decode";
 
 import {
   CreateGameWrapper,
@@ -20,7 +32,10 @@ import {
   Button,
   Label,
   Title,
-  GameCardWrapper
+  GameCardWrapper,
+  CGListWrapper,
+  TopContainer,
+  Center
 
 } from "./primitives/CreateGame";
 
@@ -31,9 +46,13 @@ class CreateGame extends Component {
         this.state = { 
             files: [],
             date: new Date(),
-            name: ''
+            name: '',
+            localGameName: null,
+            user_type: null,
          }
          this.handleInput = this.handleInput.bind(this);
+         this.saveGameHandler = this.saveGameHandler.bind(this);
+         
     }
   
     // ADD MODAL THAT SAYS GAME SAVED SUCCESSFULLY LATER
@@ -52,17 +71,29 @@ class CreateGame extends Component {
     
     }
 
+
     componentDidMount() {
+        const token = localStorage.getItem('token');
+        const decoded = jwt_decode(token);
+        this.setState({ user_type: decoded.user_type});
+        console.log("USER TYPE", decoded.user_type)
+
         let gameId = this.props.match.params.id;
         this.props.getRounds(gameId)
         this.props.getGame(this.props.match.params.id)
+        
+         this.setState({localGameName: localStorage.getItem(`gameName${this.props.match.params.id}` )})
+
         console.log("CreateGame CDM rounds", this.props.storedRound)    
     }
 
     saveGameHandler = (event) => {
         event.preventDefault()
-        let game = this.state;
+        let { files, date, name } = this.state;
+        let game = { files, date, name };
         
+        localStorage.setItem(`gameName${this.props.match.params.id}`, name)
+
         this.props.saveGame(this.props.match.params.id, game)
     }
 
@@ -74,7 +105,6 @@ class CreateGame extends Component {
 
     render(){
         let gameId = this.props.match.params.id;
-        this.props.getGame(gameId)
 
         let list =  this.props.storedRound.map((r, i) => { 
             return (
@@ -82,8 +112,33 @@ class CreateGame extends Component {
                     <RCard key={r._id} id={r._id} roundName={r.roundName} numberOfQuestions={r.numberOfQuestions}/>            
                     )
                 });
+        let renderList;        
 
- 
+                if (this.state.user_type === "Premium" ) {    
+        
+                    renderList = list;   
+                }
+        
+                if (this.state.user_type === "Tier 1" ) {    
+                
+                    renderList = list.slice(0,10);    
+                }
+        
+                if (this.state.user_type === "Free" ) {    
+                
+                    renderList = list.slice(0,3); 
+                    
+                }        
+
+        let hide;
+            if (this.props.storedRound.length >= 3 && this.state.user_type === "Free" ) { // && this.state.user_type === "Free"
+                hide = {display: "none"};
+            }
+            
+        
+            if (this.props.storedRound.length >= 10 && this.state.user_type === "Tier 1" ) { // && this.state.user_type === "Free"
+                hide = {display: "none"};
+            }          
 
     return (
         <CreateGameWrapper>
@@ -91,20 +146,26 @@ class CreateGame extends Component {
               <Link onClick={()=> this.props.history.push('/games')}>Games List</Link>
               <Link onClick={()=> this.props.history.push('/settings')}>Settings</Link>
               <Link onClick={()=> this.props.history.push('/billing')}>Billing</Link>
-            </Nav> 
-            <Title>GAME CREATION SCREEN</Title>
-
+            </Nav>
+    <TopContainer>         
+            
+            {console.log("STORED ROUND", this.props.storedRound)}
             {console.log("STATE",this.state)}
 
-            <form>
-                <fieldset>    
+            {/* <form> */}
+
+            <div>
+                <fieldset>        
                     <Dropzone
                     onDrop={this.onDrop.bind(this)}
                     accept="image/jpeg, image/png, image/gif"
                     >
                     <p>Try dropping some files here, or click to select files to upload.</p>
                     </Dropzone>
-                </fieldset>     
+                </fieldset>
+            </div>
+
+            <Center>
                 <fieldset>
                     <DatePicker
                         onChange={this.onChangeDate}
@@ -121,13 +182,15 @@ class CreateGame extends Component {
                     type="text"
                     component="input"
                     autoComplete="none"
-                    // placeholder={this.props.storedGames[0].name}
+                    placeholder={this.state.localGameName}
                     onChange={this.handleInput}
                     value={this.state.name}
                     />
                 </fieldset>
-            </form>    
+               </Center>
+            {/* </form>     */}
 
+     <div>
          <ButtonWrapper>
           <Button>Print Answer Sheets</Button>
         </ButtonWrapper>
@@ -139,13 +202,20 @@ class CreateGame extends Component {
         <ButtonWrapper>
           <Button onClick={(e)=> this.saveGameHandler(e)}>Save Game</Button>
         </ButtonWrapper>
+     </div> 
+
+    </TopContainer>
       
-        <RoundButtonWrapper onClick={()=> this.addRoundHandler(gameId)}><RoundButton>ADD ROUND</RoundButton></RoundButtonWrapper>
         
-        <div>    
-            {list}
+        
+        <CGListWrapper>
+            <NewRCard>
+                <TextWrapper><Text> New Round </Text></TextWrapper>
+                <AddIconWrapper><AddIcon src={plus} style={hide}  style={hide} onClick={()=> this.addRoundHandler(gameId)} /></AddIconWrapper>
+            </NewRCard>        
+            {renderList}
             {console.log("CreateGames SG", this.props.storedGames)}
-        </div>
+        </CGListWrapper>
         </CreateGameWrapper>
         )
     }

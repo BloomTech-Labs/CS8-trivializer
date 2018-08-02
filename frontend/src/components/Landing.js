@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Button from "./UI/Button.js";
 import { withRouter } from "react-router";
 
+import { LandingWrapper } from './primitives/Landing.js';
+
 class Landing extends Component {
   signUpRouteClick = () => {
     this.props.history.push("/sign-up");
@@ -11,10 +13,10 @@ class Landing extends Component {
   };
   render() {
     return (
-      <div>
+      <LandingWrapper>
         <button onClick={this.signUpRouteClick}>Sign Up</button>
         <button onClick={this.signInRouteClick}> Sign In</button>
-      </div>
+      </LandingWrapper>
     );
   }
 }

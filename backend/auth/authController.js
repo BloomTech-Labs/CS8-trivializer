@@ -2,9 +2,19 @@ const jwt = require('jwt-simple');
 const User = require('../users/userModel.js');
 const config = require('../config');
 
+const methods = {
+ newToken: function tokenForUser(user) {
+    const timestamp = new Date().getTime();
+    return jwt.encode({ sub: user.id, iat: timestamp, email:user.email, orgName: user.orgName, password: user.password, user_type: user.user_type}, config.secret);
+    
+  }
+}
+
+exports.data = methods
+
 function tokenForUser(user) {
   const timestamp = new Date().getTime();
-  return jwt.encode({ sub: user.id, iat: timestamp, email:user.email, orgName: user.orgName, password: user.password }, config.secret);
+  return jwt.encode({ sub: user.id, iat: timestamp, email:user.email, orgName: user.orgName, password: user.password, user_type: user.user_type}, config.secret);
    // perhaps an issue with the token field editing the jwt
 }
 

@@ -58,7 +58,7 @@ class SignIn extends Component {
             />
           </fieldset>
           <ButtonWrapper><Button>Sign In</Button></ButtonWrapper>
-          <ButtonWrapper onClick={()=> {this.getRound()}}><div >Get Round</div></ButtonWrapper>
+          
           <ButtonWrapper><Button
             onClick={() => {
               this.props.history.push("/");
@@ -68,7 +68,7 @@ class SignIn extends Component {
             Home{" "}
           </Button></ButtonWrapper>
         </form>
-        {console.log("checking round", this.props.round)}
+        
       </SigninWrapper>
     );
   }

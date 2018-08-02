@@ -5,8 +5,10 @@ export const BillingWrapper = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items:center;
-  height: 60vh;
-  width: 35vw;
+  height: 100vh;
+  width: 100vw;
+  
+  border: solid black;
 `
 
 export const BillingLabel  = styled.div`
@@ -25,4 +27,10 @@ export const BillingButton = styled.button`
 export const BillingRadio  = styled.div`
 
   margin:10px 0;
+`
+
+export const LogOut = styled.div`
+  position: relative;
+  bottom: 30px;
+  font-size: 3rem;
 `

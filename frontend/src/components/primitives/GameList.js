@@ -12,8 +12,12 @@ export const ListWrapper = styled.div`
     display: flex;
     width: 100vw;
     height: 100vh;
-    overflow: scroll;
     flex-wrap: wrap;
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items: center;
+
+    /* border: solid black; */
 
     width:50%;
 `
@@ -34,3 +38,23 @@ export const Button = styled.div`
  font-size: 1.2rem;
  padding-top: 5px;
 `;
+
+export const AddIcon = styled.img`
+    width: 30%;
+    height: auto;
+`
+export const AddIconWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
+export const Text = styled.p`
+
+`
+export const TextWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    position: relative;
+    bottom: 20px;
+`
