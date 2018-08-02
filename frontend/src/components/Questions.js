@@ -5,9 +5,10 @@ import Pdf from "./PDF";
 
 // import jsPDF from "jspdf";
 
-import { QuestionsWrapper, CorrectAnswer, QuestionsLine, } from "./primitives/Questions";
+import { QuestionsWrapper, CorrectAnswer, QuestionsLine, QuestionsOuterWrapper, SubQuestionsWrapper } from "./primitives/Questions";
 
 let he = require("he");
+// let html2canvas = require('html2canvas');
 
 const alphabet = ["a","b","c","d"]
 
@@ -74,7 +75,7 @@ class Questions extends Component {
         console.log("MIXED", mixedAnswers);
 
         return (
-          <div>
+          <SubQuestionsWrapper>
             <br />
             <h1>{he.decode(subQ.question)}</h1>
             {/* converts the HTML special character encoding to plain text; i.e &quote = "" */}
@@ -84,31 +85,31 @@ class Questions extends Component {
               if (answer === subQ.correct_answer) {
                 console.log("CORRECT ANSWER", subQ.correct_answer);
                 answer = he.decode(answer);
-                return <CorrectAnswer key={index}><span>{letter}.</span>{answer}</CorrectAnswer>;
+                return <CorrectAnswer key={index}><span>{letter}.      </span>{answer}<span>      (Correct Answer)</span></CorrectAnswer>;
               } else {
                 answer = he.decode(answer);
                 return <div key={index}><span>{letter}.   </span>{answer}</div>;
               }
             })}
             {/* <QuestionsLine /> */}
-          </div>
+          </SubQuestionsWrapper>
         );
       });
     });
     // console.log("QUESTIONS MAPPED", questions);
 
     return (
-      <div>
+      <QuestionsOuterWrapper>
+        <Pdf id={"divToPrint"}/>
         <QuestionsWrapper id="divToPrint">
-          <h1>Questions page!!</h1>
+          <h1>-- ANSWER SHEET --</h1>
           <br />
           {subQuestions}
           <br />
         </QuestionsWrapper>
-        <Pdf id={"divToPrint"}/>
 
         {/* <button onClick={this.printDocument}>Print</button> */}
-      </div>
+      </QuestionsOuterWrapper>
     );
   }
 }

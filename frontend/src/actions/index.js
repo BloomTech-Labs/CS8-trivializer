@@ -140,8 +140,14 @@ export const getThree = (formProps, callback) => dispatch => {
   axios
       .get(`https://opentdb.com/api.php?amount=${questions}&category=${formProps.category}&difficulty=${formProps.difficulty}&type=${formProps.type}`)
       .then(response => {
-          dispatch({ type: FETCHED_THREE, payload: { roundName, numberOfQuestions, category, difficulty, type, questions: response.data.results }})
-          callback();
+          if(response.data.response_code === 0){
+              dispatch({ type: FETCHED_THREE, payload: { roundName, numberOfQuestions, category, difficulty, type, questions: response.data.results }})
+              callback();
+
+          } else {
+              dispatch({type: ERROR, errorMessage:"Not enough questions of that type in that category."})
+              alert("Not enough questions of that type in that category");
+          }
       })
       .catch(err => {
           dispatch({ type: ERROR, errorMessage: 'Error Fetching the data', err})
@@ -158,11 +164,16 @@ export const getThreeUpdate = (formProps, callback) => dispatch => {
 
     axios
         .get(`https://opentdb.com/api.php?amount=${questions}&category=${formProps.category}&difficulty=${formProps.difficulty}&type=${formProps.type}`)
+
         .then(response => {
             console.log('response', response.data.results)
-            dispatch({ type: FETCHED_THREE_UPDATE, payload: { roundName, numberOfQuestions, category, difficulty, type, questions: response.data.results }})
-            
-            callback()
+            if(response.data.response_code === 0){
+                dispatch({ type: FETCHED_THREE_UPDATE, payload: { roundName, numberOfQuestions, category, difficulty, type, questions: response.data.results }})
+                callback()
+            } else {
+                dispatch({type: ERROR, errorMessage:"Not enough questions of that type in that category."})
+                alert("Not enough questions of that type in that category");
+            }
         })
         .catch(err => {
             dispatch({ type: ERROR, errorMessage: 'Error Fetching the data', err})
