@@ -3,12 +3,28 @@ import { connect } from "react-redux";
 import { getThreeUpdate, updateRoundCard, deleteRound } from '../actions';
 import { withRouter } from 'react-router';
 
+import jwt_decode from 'jwt-decode';
+
+import trashIcon from '../assets/trashIcon.png';
+import viewIcon from '../assets/view.png';
+import redoIcon from '../assets/redo.png';
+
 import {
     RCardWrapper,
     LabelWrapper,
     ButtonWrapper,
     Button,
-    Label
+    Label,
+    TitleLabel,
+    Select,
+    Input,
+    IconContainer,
+    TrashIconWrapper,
+    TrashIcon,
+    ViewIconWrapper,
+    ViewIcon,
+    RedoIcon,
+    FormWrap
   } from "./primitives/RCard";
 
 class RCard extends Component {
@@ -21,12 +37,21 @@ class RCard extends Component {
             numberOfQuestions: '',
             category: '',
             difficulty: '',
-            type: ''
+            type: '',
+            user_type: null
          
         }
 
         this.handleInput = this.handleInput.bind(this);
     }
+
+    componentDidMount() {
+        const token = localStorage.getItem('token');
+        const decoded = jwt_decode(token);
+     
+        this.setState({ user_type: decoded.user_type});
+        console.log("USER TYPE", decoded.user_type)
+    }  
 
 
   handleInput(event) {
@@ -45,34 +70,93 @@ class RCard extends Component {
         });
       };
 
-    // deleteRoundHandler(id) {
-    //     this.props.deleteRound(id);
-    // }
-
     render(){
+        let renderNumQuestions;
+
+    if (this.state.user_type === "Free" ){
+      renderNumQuestions = (  
+      <fieldset>
+      <LabelWrapper>
+      <Label># of Questions</Label>
+      </LabelWrapper>
+      <Select  
+        name="numberOfQuestions" 
+        onChange={this.handleInput} 
+        value={this.state.numberOfQuestions} 
+      >
+        <option  value={this.props.numberOfQuestions}>{this.props.numberOfQuestions}</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </Select>
+      </fieldset>
+      )
+    }
+
+    if (this.state.user_type === "Tier 1" ){
+      renderNumQuestions = (  
+      <fieldset>
+      <LabelWrapper>
+      <Label># of Questions</Label>
+      </LabelWrapper>
+      <Select  
+        name="numberOfQuestions" 
+        onChange={this.handleInput} 
+        value={this.state.numberOfQuestions} 
+      >
+        <option value={this.props.numberOfQuestions}>{this.props.numberOfQuestions}</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+      </Select>
+      </fieldset>
+      )
+    }
+   
+    if (this.state.user_type === "Premium" ){
+      renderNumQuestions = (  
+      <fieldset>
+      <LabelWrapper>
+      <Label>Please enter # of Questions: 1-50</Label>
+      </LabelWrapper>
+      <Input  
+        name="numberOfQuestions" 
+        onChange={this.handleInput} 
+        value={this.state.numberOfQuestions}
+        placeholder={this.props.numberOfQuestions}
+        type="number"
+        set="1" 
+      />
+      </fieldset>
+      )
+    }
+
+
+
         return (
         
             <RCardWrapper>
-                <Label>{this.props.roundName}</Label>
+                
               <form>  
-
-                <fieldset>
-                    <LabelWrapper>
-                        <Label># of Questions</Label>
-                    </LabelWrapper>
-                    <select  name="numberOfQuestions" onChange={this.handleInput} value={this.state.numberOfQuestions} >
-                        <option  value={this.props.numberOfQuestions}>{this.props.numberOfQuestions}</option>
-                        <option  value="1">1</option>
-                        <option  value="2">2</option>
-                        <option  value="3">3</option>
-                    </select>
-                </fieldset>
-
+                <FormWrap>   
+                  <TitleLabel>{this.props.roundName}</TitleLabel>
+                     
+                  {renderNumQuestions}
+    
                 <fieldset>
                     <LabelWrapper>
                         <Label>Category</Label>
                     </LabelWrapper>
-                    <select name="category" onChange={this.handleInput} value={this.state.category}>
+                    <Select name="category" onChange={this.handleInput} value={this.state.category}>
                         <option value={this.props.category}>{this.props.category}</option>
                         <option value="9">General Knowledge</option>
                         <option value="10">Entertainment: Books</option>
@@ -98,40 +182,52 @@ class RCard extends Component {
                         <option value="30">Science: Gadgets</option>
                         <option value="31">Entertainment: Japanese Anime & Manga</option>
                         <option value="32">Entertainment: Cartoon & Animation</option>
-                    </select>
+                    </Select>
                 </fieldset>
 
                 <fieldset>
                     <LabelWrapper>
                         <Label>Difficulty</Label>
                     </LabelWrapper>
-                    <select name="difficulty" onChange={this.handleInput} value={this.state.difficulty}>
+                    <Select name="difficulty" onChange={this.handleInput} value={this.state.difficulty}>
                         <option value={this.props.difficulty}>{this.props.difficulty}</option>
                         <option value="easy">easy</option>
                         <option value="medium">medium</option>
                         <option value="hard">hard</option>
-                    </select>
+                    </Select>
                 </fieldset>
 
                 <fieldset>
                     <LabelWrapper>
                         <Label>Type</Label>
                     </LabelWrapper>
-                    <select name="type" onChange={this.handleInput} value={this.state.type}>
+                    <Select name="type" onChange={this.handleInput} value={this.state.type}>
                         <option value={this.props.type}>{this.props.type}</option>
                         <option value="multiple">Multiple Choice</option>
                         <option value="boolean">True / False</option>
-                    </select>
+                    </Select>
                 </fieldset>
-                <ButtonWrapper><Button onClick={(e)=>{this.updateRound(e)}}>Change Questions</Button></ButtonWrapper>
+               </FormWrap>
                </form> 
-        
-                
 
-               <ButtonWrapper><Button  onClick={()=> this.props.deleteRound(this.props.id)}>Delete Round</Button></ButtonWrapper>
-               <ButtonWrapper><Button  onClick={()=> {this.props.history.push(`/questions/${this.props.id}`)}}>VIEW QUESTIONS</Button></ButtonWrapper>
+
+               <IconContainer>
+                    <TrashIconWrapper>
+                        <TrashIcon src={trashIcon} onClick={()=> this.props.deleteRound(this.props.id)}/>
+                    </TrashIconWrapper>
+
+                    <ViewIconWrapper>
+                        <ViewIcon src={viewIcon} onClick={()=> {this.props.history.push(`/questions/${this.props.id}`)}}/> 
+                    </ViewIconWrapper>
+
+                    <ViewIconWrapper>
+                        <RedoIcon src={redoIcon} onClick={(e)=>{this.updateRound(e)}}/> 
+                    </ViewIconWrapper>
+                </IconContainer>
+
             </RCardWrapper>
         )
+        
     }
 }
 

@@ -11,10 +11,11 @@ const userSchema = new mongoose.Schema({
     // Free, Paid, Premium
     type: String,
     default: "Free",
-    required: true
+
   },
   orgName: {
     type: String,
+    default: "Organization"
   },
   email: {
     type: String,
@@ -24,7 +25,7 @@ const userSchema = new mongoose.Schema({
       type: Date,
       default: Date.now
   },
-  // TODO: look into a "last modified" field
+
 });
 
 userSchema.pre("save", function(next) {

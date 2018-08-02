@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import { reduxForm, Field } from "redux-form";
 import jwt_decode from "jwt-decode";
 import { withRouter } from 'react-router';
-import { compose } from "redux";
 import { connect } from "react-redux";
 import { updateSettings, signOut } from "../actions/index";
 import { Nav, Link } from './primitives/Nav';
@@ -16,27 +14,73 @@ import {
 } from "./primitives/Settings";
 
 class Settings extends Component {
-  //  onSubmit = formProps => {
-  //   this.props.updateSettings(formProps);
-  // }
-  
-  onSubmit = formProps => {
-      this.props.updateSettings(formProps, () => {
-        this.props.history.push('/games');
-    });
-  } 
-  
-  render() {
+  constructor(props){
+    super(props);
+    this.state = {
+        orgName: '' ,
+        email: '',
+        oldPassword: '',
+        password: ''
+      
+    }
+ 
 
+    this.handleInput = this.handleInput.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  componentDidMount(){
     const token = localStorage.getItem('token');
     const decoded = jwt_decode(token);
     const email = decoded.email;
     const orgName = decoded.orgName;
-    console.log("ORG NAME", orgName);
 
-    console.log("EMAIL", email);
+    console.log("USER_TYPE", decoded.user_type)
+    this.setState({ orgName, email })
+  }
+
+    handleInput(event) {
+    const { name, value } = event.target;
+    this.setState({ [name]: value })
+
+  }
+
+  onSubmit = event => {
+    event.preventDefault();
+
+    let formProps = this.state;
+    console.log("FORMPROPS IN SUBMING", formProps)
+    this.props.updateSettings(formProps, () => {
+      this.props.history.push('/games');
+  });
+} 
+
+  // onSubmit = (event) => {
+  //   event.preventDefault();
+  //   let formProps = this.state;
+  //   const gameId = this.props.match.params.id;
+  //   let round = this.props.round;
+  //   console.log(this.state.roundName);
+  
+  //   this.props.getThree( formProps, () => {
+      
+  //       this.props.addRound(gameId, this.props.round, (id)=> {
+  //         this.props.history.push(`/create-game/${id}`);
+  //       });
+  //   });
+     
+  // }
+  
+
+  
+  render() {
+
+    // const token = localStorage.getItem('token');
+    // const decoded = jwt_decode(token);
+    // const email = decoded.email;
+    // const orgName = decoded.orgName;
     
-    const { handleSubmit } = this.props;
+    
     return (
       <SettingsWrapper>
                   <Nav>
@@ -47,51 +91,59 @@ class Settings extends Component {
                 </Nav>  
 
         <Title>SETTINGS PAGE</Title>
-        <form onSubmit={handleSubmit(this.onSubmit)}>
+        <form onSubmit={(e)=> this.onSubmit(e)} >
           <fieldset>
             <LabelWrapper>
               <Label>Organization Name</Label>
             </LabelWrapper>
-            <Field
+            <input
               name="orgName"
-              placeholder={orgName}
+              placeholder={this.state.orgName}
               type="text"
               component="input"
               autoComplete="none"
+              onChange={this.handleInput}
+              value={this.state.orgName}
             />
           </fieldset>
           <fieldset>
             <LabelWrapper>
               <Label>Email</Label>
             </LabelWrapper>
-            <Field
+            <input
               name="email"
               type="text"
               component="input"
               autoComplete="none"
-              placeholder={email}
+              placeholder={this.state.email}
+              onChange={this.handleInput}
+              value={this.state.email}
             />
           </fieldset>
           <fieldset>
             <LabelWrapper>
               <Label>Old Password</Label>
             </LabelWrapper>
-            <Field
+            <input
               name="oldPassword"
               type="password"
               component="input"
               autoComplete="none"
+              onChange={this.handleInput}
+              value={this.state.oldPassword}
             />
           </fieldset>
           <fieldset>
             <LabelWrapper>
               <Label>New Password</Label>
             </LabelWrapper>
-            <Field
+            <input
               name="password"
               type="password"
               component="input"
               autoComplete="none"
+              onChange={this.handleInput}
+              value={this.state.password}
             />
           </fieldset>
           <button>Save</button>
@@ -112,10 +164,5 @@ class Settings extends Component {
 function mapStateToProps(state) {
   return { errorMessage: state.auth.errorMessage };
 }
-export default compose(
-  connect(
-    mapStateToProps,
-    { updateSettings, signOut } //create action for Settings
-  ),
-  reduxForm({ form: "settings" })
-)(withRouter(Settings));
+export default
+  connect( mapStateToProps, { updateSettings, signOut })(withRouter(Settings));

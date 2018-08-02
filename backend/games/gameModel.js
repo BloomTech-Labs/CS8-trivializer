@@ -14,23 +14,16 @@ const gameSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  playedAt: { // come back to this
+  date: { 
     type: Date,
-    default: Date.now,
+    default: Date.now
   },
   logo: {
     data: Buffer,
-    contentType: String 
+    contentType: String, 
+    default: ''
   },
-  // createdBy: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   required: true,
-  //   ref: "User"
-  // },
-  // rounds: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: "Rounds" // should be an array of round ID's
-  // }
+
 });
 
 

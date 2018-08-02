@@ -31,6 +31,9 @@ export const ADDED_GAME = "created_game";
 export const SAVING_GAME = "saving_game";
 export const SAVED_GAME = "saved_game";
 
+export const DELETING_GAME = "deleting_game";
+export const DELETED_GAME = "deleted_game";
+
 export const FETCHING_GAMES = "fetching_games";
 export const FETCHED_GAMES = "fetched_games";
 

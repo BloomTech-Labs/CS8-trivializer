@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import StripeCheckout from "react-stripe-checkout";
 import jwt_decode from "jwt-decode";
 import { connect } from "react-redux";
+import { withRouter } from 'react-router';
 import axios from "axios";
+import { signOut} from '../actions';
+
 
 import {
   BillingWrapper,
@@ -10,6 +13,7 @@ import {
   BillingTitle,
   BillingButton,
   BillingRadio,
+  LogOut
 } from "./primitives/Billing";
 
 const tier1Price = 999;
@@ -31,11 +35,20 @@ class Billing extends Component {
     this.setState({ quantity: ev.target.value });
   };
 
+  logOut = async event => {
+    await this.props.signOut();
+    this.props.history.push("/")
+  }
+
   render() {
     console.log(this.state.type);
 
     return (
       <BillingWrapper className="Billing">
+      
+      <LogOut><h1 onClick={(e)=> {this.logOut(e)}}> LOG OUT </h1></LogOut>
+
+
         <BillingTitle>Billing</BillingTitle>
         <BillingTitle>Upgrade your game below!</BillingTitle>
         <form>
@@ -128,5 +141,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  null
-)(Billing);
+  {signOut}
+)(withRouter(Billing));

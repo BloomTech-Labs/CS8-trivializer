@@ -1,9 +1,10 @@
-import { ERROR, ADDING_GAME, ADDED_GAME, FETCHED_GAMES, FETCHING_GAMES, SAVING_GAME, SAVED_GAME, FETCHING_GAME, FETCHED_GAME } from '../actions/types';
+import { ERROR, ADDING_GAME, ADDED_GAME, FETCHED_GAMES, FETCHING_GAMES, SAVING_GAME, SAVED_GAME, FETCHING_GAME, FETCHED_GAME, DELETING_GAME, DELETED_GAME } from '../actions/types';
 
 const INITIAL_STATE = {
-     storedGames: [],
-     fetchingGames: false,
-     creatingGame: false,
+    storedGames: [],
+    fetchingGames: false,
+    creatingGame: false,
+    deletingGame: false,
     errorMessage: ''
 };
 
@@ -24,7 +25,11 @@ export default function(state=INITIAL_STATE, action) {
         case SAVING_GAME:
             return {...state, creatingGame: true };
         case SAVED_GAME:
-            return {...state, storedGames: state.storedGames.map(g => g._id === action.payload._id ? g = action.payload : g)  };    
+            return {...state, storedGames: state.storedGames.map(g => g._id === action.payload._id ? g = action.payload : g)  };
+        case DELETING_GAME:
+            return { ...state, deletingGame: true };
+        case DELETED_GAME:
+            return { ...state, storedGames: state.storedGames.filter(g => g._id !== action.payload._id) };            
         case ERROR:
             return {...state, errorMessage: action.payload };
         default:

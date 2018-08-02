@@ -34,7 +34,8 @@ import {
     FETCHED_GAMES,
     FETCHED_QUESTIONS,
     FETCHING_GAME,
-    FETCHED_GAME
+    FETCHED_GAME,
+    DELETED_GAME
 
   } from "./types";
 
@@ -76,7 +77,9 @@ export const signIn = (formProps, callback) => dispatch => {
 };
 
 
+
 export const signOut = () => {
+  localStorage.removeItem("accessToken");
   localStorage.removeItem("token");
   return {
     type: AUTH_USER,
@@ -263,3 +266,27 @@ export const deleteRound = id => dispatch => {
         dispatch({type: ERROR, errorMessage: "error deleting round", err})
     }) 
 }
+
+
+export const deleteGame = (id, callback) => dispatch => {
+    dispatch({ type: DELETING_ROUND });
+
+    axios
+    .delete(`http://localhost:5000/api/game/delete-game/${id}`)
+    .then(response => {
+        console.log(response)
+        dispatch({type: DELETED_GAME, payload: response.data})
+    })
+    .catch(err => {
+        dispatch({type: ERROR, errorMessage: "error deleting round", err})
+    }) 
+}
+
+export const reToken = (token) =>  {
+  return {
+      type: AUTH_USER,
+      payload: token
+  }
+      
+  };
+

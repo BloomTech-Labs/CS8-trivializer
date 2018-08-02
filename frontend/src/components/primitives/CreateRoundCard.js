@@ -5,8 +5,8 @@ export const CreateRoundCardWrapper = styled.div`
   /* flex-wrap: wrap; */
   justify-content: center;
   align-items: center;
-  height: 30%;
-  width: 300px;
+  height: 100vh;
+  width: 100%;
 `;
 
 export const LabelWrapper = styled.div`
