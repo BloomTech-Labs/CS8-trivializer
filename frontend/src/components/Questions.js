@@ -8,7 +8,7 @@ import Pdf from "./PDF";
 import { QuestionsWrapper, CorrectAnswer, QuestionsLine, QuestionsOuterWrapper, SubQuestionsWrapper } from "./primitives/Questions";
 
 let he = require("he");
-// let html2canvas = require('html2canvas');
+
 
 const alphabet = ["a","b","c","d"]
 
