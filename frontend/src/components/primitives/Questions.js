@@ -4,21 +4,19 @@ import styled from "styled-components";
 export const QuestionsWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  /* align-items: center; */
+  /* justify-content: center; */
   font-size: 1rem;
   border: 1px solid black;
   height: 100vh;
-  /* font-size: 9.9px; */
-  /* font-size: 1rem; */
+  font-size: 2rem;
   /* color: tomato; */
 `;
 
 export const CorrectAnswer = styled.div`
   font-weight: 900;
-  font-size: 3rem;
-  color: purple;
+  font-size: 2.4rem;
 `;
+
 
 export const Text = styled.p `
   font-size: 3rem;

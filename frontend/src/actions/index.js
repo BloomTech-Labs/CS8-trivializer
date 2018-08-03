@@ -44,7 +44,8 @@ export const signUp = (formProps, callback) => dispatch => {
   dispatch({ type: SIGNING_UP }); 
 
   axios
-      .post ("http://localhost:5000/signup", //MUST be http for localhost: not https
+    //   .post ("http://localhost:5000/signup", //MUST be http for localhost: not https
+      .post ("https://fathomless-lowlands-45973.herokuapp.com/signup", //MUST be http for localhost: not https
       formProps
       )
       .then(response => {
@@ -62,7 +63,8 @@ export const signIn = (formProps, callback) => dispatch => {
   dispatch({ type: SIGNING_IN }); 
 
   axios
-      .post ("http://localhost:5000/signin", //https://trivializer.herokuapp.com/signin
+    //   .post ("http://localhost:5000/signin", //https://trivializer.herokuapp.com/signin
+      .post ("https://fathomless-lowlands-45973.herokuapp.com/signin", //https://trivializer.herokuapp.com/signin
       formProps
       )
       .then(response => {
@@ -91,7 +93,8 @@ export const getRounds = gameId => dispatch => {
     dispatch({ type: FETCHING_ROUND });
     
     axios
-        .get('http://localhost:5000/api/round/get')
+        // .get('http://localhost:5000/api/round/get')
+        .get('https://fathomless-lowlands-45973.herokuapp.com/api/round/get')
         .then( response => {
             dispatch({type: FETCHED_ROUND, payload: {gameId: gameId, rounds:response.data} })
 
@@ -110,7 +113,8 @@ export const updateSettings = (formProps, callback) => dispatch => {
   dispatch({ type: UPDATING_SETTINGS });
 
   axios
-    .put(  "http://localhost:5000/api/user/update",{ formProps, id, hashedPassword })  //https://trivializer.herokuapp.com/settings
+    // .put(  "http://localhost:5000/api/user/update",{ formProps, id, hashedPassword })  //https://trivializer.herokuapp.com/settings
+    .put(  "https://fathomless-lowlands-45973.herokuapp.com/api/user/update",{ formProps, id, hashedPassword })  
     .then(response => {
       dispatch({ type: UPDATE_SETTINGS, payload: response.data })
       callback();
@@ -125,7 +129,8 @@ export const addRound = (gameId, round, callback) => dispatch => {
     dispatch({ type: ADDING_ROUND });
     console.log("ACTION ROUND", round)
     axios
-        .post('http://localhost:5000/api/round/create-round', {gameId, round})
+        // .post('http://localhost:5000/api/round/create-round', {gameId, round})
+        .post('https://fathomless-lowlands-45973.herokuapp.com/api/round/create-round', {gameId, round})
         .then( response => {
             dispatch({type: ADDED_ROUND, payload: response.data })
             callback(gameId)
@@ -177,7 +182,8 @@ export const updateRoundCard = (roundId, round) => dispatch => {
     dispatch({ type: UPDATING_ROUND }); 
 
     axios
-        .put('http://localhost:5000/api/round/update-round', {roundId, round})
+        // .put('http://localhost:5000/api/round/update-round', {roundId, round})
+        .put('https://fathomless-lowlands-45973.herokuapp.com', {roundId, round})
         .then( response => {
             dispatch({type: UPDATED_ROUND, payload: response.data })
         })
@@ -192,7 +198,8 @@ export const addGame = (userId, callback) => dispatch => {
     dispatch({ type: ADDING_GAME });
 
     axios
-        .post('http://localhost:5000/api/game/create-game', {userId})
+        // .post('http://localhost:5000/api/game/create-game', {userId})
+        .post('https://fathomless-lowlands-45973.herokuapp.com/api/game/create-game', {userId})
         .then(response => {
             console.log("CREATEGAME ID", response.data._id)
             dispatch({ type: ADDED_GAME, payload: response.data});
@@ -207,7 +214,8 @@ export const addGame = (userId, callback) => dispatch => {
 export const saveGame = (gameId, game) => dispatch => {
     dispatch({ type: SAVING_GAME })
     axios
-        .put('http://localhost:5000/api/game/update-game', {gameId, game})
+        // .put('http://localhost:5000/api/game/update-game', {gameId, game})
+        .put('https://fathomless-lowlands-45973.herokuapp.com/api/game/update-game', {gameId, game})
         .then( response => {
             dispatch({type: SAVED_GAME, payload: response.data })
             console.log(response.data)
@@ -221,7 +229,8 @@ export const getGames = userId => dispatch => {
     dispatch({ type: FETCHING_GAMES });
         
     axios
-        .get('http://localhost:5000/api/game/get')
+        // .get('http://localhost:5000/api/game/get')
+        .get('https://fathomless-lowlands-45973.herokuapp.com/api/game/get')
         .then(response => {
             console.log("getgames action",response)
             dispatch({ type: FETCHED_GAMES, payload: { userId: userId, games:response.data }});
@@ -243,10 +252,10 @@ export const getGame = gameId => dispatch => {
 export const getQuestions = questionId => dispatch => {
     
     axios
-    .get('http://localhost:5000/api/round/get')
+    // .get('http://localhost:5000/api/round/get')
+    .get('https://fathomless-lowlands-45973.herokuapp.com/api/round/get')
     .then( response => {
         dispatch({type: FETCHED_QUESTIONS, payload: {questionId: questionId, rounds:response.data} })
-
     })
     .catch(err => {
         dispatch({type: ERROR, errorMessage: "error adding round", err})
@@ -257,7 +266,8 @@ export const deleteRound = id => dispatch => {
     dispatch({ type: DELETING_ROUND });
 
     axios
-    .delete(`http://localhost:5000/api/round/delete-round/${id}`)
+    // .delete(`http://localhost:5000/api/round/delete-round/${id}`)
+    .delete(`https://fathomless-lowlands-45973.herokuapp.com/api/round/delete-round/${id}`)
     .then(response => {
         console.log(response)
         dispatch({type: DELETED_ROUND, payload: response.data})
@@ -272,7 +282,8 @@ export const deleteGame = (id, callback) => dispatch => {
     dispatch({ type: DELETING_ROUND });
 
     axios
-    .delete(`http://localhost:5000/api/game/delete-game/${id}`)
+    // .delete(`http://localhost:5000/api/game/delete-game/${id}`)
+    .delete(`https://fathomless-lowlands-45973.herokuapp.com/api/game/delete-game/${id}`)
     .then(response => {
         console.log(response)
         dispatch({type: DELETED_GAME, payload: response.data})
