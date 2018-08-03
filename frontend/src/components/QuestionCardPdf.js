@@ -4,7 +4,6 @@ import { getQuestions } from "../actions";
 import Pdf from "./Pdf";
 
 import {
-  QuestionsWrapper,
   CorrectAnswerPdf,
   PdfWrapper
 } from "./primitives/Pdf";
@@ -54,7 +53,7 @@ export default class FormattedQuestions extends Component {
 
     return (
       <PdfWrapper>
-        <div>_____________________________________________________________</div>
+        <div style={{fontSize:8}}>____________________________________________________________________________________________________________________________________________________________</div>
         <br />
         <h1>
           <span>{this.props.index + 1}. </span>

@@ -42,18 +42,17 @@ export default class FormattedQuestions extends Component {
     // );
     const fixedArray = [...this.props.question.incorrect_answers, this.props.question.correct_answer]
 
-    console.log("ANSWERS ARRAY PRE SHUFFLE", fixedArray);
+  
 
     let mixedAnswers = shuffle(fixedArray);
 
     if (mixedAnswers[0] === "True" || mixedAnswers[0] === "False") {
       mixedAnswers = ["True", "False"];
     }
-    console.log("MIXED", mixedAnswers);
 
     return (
       <div>
-        <div>_____________________________________________________________</div>
+        <hr style={{borderTop:"1px solid black"}}/>
         <br />
         <h1><span>{this.props.index + 1}.   </span>{he.decode(this.props.question.question)}</h1>
         {/* converts the HTML special character encoding to plain text; i.e &quote = "" */}
@@ -61,7 +60,6 @@ export default class FormattedQuestions extends Component {
         {mixedAnswers.map((answer, index) => {
           var letter = alphabet[index];
           if (answer === this.props.question.correct_answer) {
-            console.log("CORRECT ANSWER", this.props.question.correct_answer);
             answer = he.decode(answer);
             return (
               <CorrectAnswer key={index}>

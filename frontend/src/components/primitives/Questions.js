@@ -6,7 +6,6 @@ export const QuestionsWrapper = styled.div`
   flex-direction: column;
   /* justify-content: center; */
   font-size: 1rem;
-  border: 1px solid black;
   height: 100vh;
   font-size: 2rem;
   /* color: tomato; */
@@ -17,6 +16,9 @@ export const CorrectAnswer = styled.div`
   font-size: 2.4rem;
 `;
 
+export const TestDiv = styled.div`
+  margin: 0 auto;
+`
 
 export const Text = styled.p `
   font-size: 3rem;

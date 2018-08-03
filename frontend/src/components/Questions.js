@@ -4,7 +4,7 @@ import { getQuestions } from "../actions";
 import Pdf from "./Pdf";
 import QuestionCard from "./QuestionCard";
 
-import { QuestionsWrapper, pdfWrapper } from "./primitives/Questions";
+import { QuestionsWrapper, pdfWrapper, TestDiv} from "./primitives/Questions";
 
 class Questions extends Component {
   componentDidMount = props => {
@@ -15,10 +15,9 @@ class Questions extends Component {
   render() {
     let storedQuestions = this.props.storedQuestions;
     let subQuestions = null;
-   console.log("stored questions", storedQuestions)
     let numberOfQuestions = 0;
     let difficulty = "";
-    console.log("# OF QUESTIONS", numberOfQuestions);
+
     storedQuestions.map(q => {
       numberOfQuestions = q.length;
       difficulty = q[0].difficulty;
@@ -35,6 +34,7 @@ class Questions extends Component {
         <QuestionsWrapper>
           <h1>Questions: {numberOfQuestions}</h1>
           <h1>Difficulty: {difficulty}</h1>
+          <h2> Please note: Correct answers displayed in bold.</h2>
           
           {subQuestions}
         </QuestionsWrapper>
