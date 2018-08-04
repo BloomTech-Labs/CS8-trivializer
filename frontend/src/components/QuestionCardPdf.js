@@ -38,10 +38,14 @@ export default class FormattedQuestions extends Component {
     //   this.props.question.correct_answer
     // );
 
-    const fixedArray = [
-      ...this.props.question.incorrect_answers,
-      this.props.question.correct_answer
-    ];  // this must be a new variable as to not push correct_answer twice.
+    let fixedArray = [];
+    console.log("PROPS QUESTION IN QUESTION CARD", this.props.question)
+    if(this.props.question.incorrect_answers && this.props.question.correct_answer){
+      fixedArray = [...this.props.question.incorrect_answers,this.props.question.correct_answer];
+    }
+    
+    
+    // this must be a new variable as to not push correct_answer twice.
 
     
 
@@ -53,6 +57,7 @@ export default class FormattedQuestions extends Component {
 
     return (
       <PdfWrapper>
+        
         <div style={{fontSize:8}}>____________________________________________________________________________________________________________________________________________________________</div>
         <br />
         <h1>

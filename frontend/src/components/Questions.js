@@ -20,7 +20,7 @@ class Questions extends Component {
 
     storedQuestions.map(q => {
       numberOfQuestions = q.length;
-      difficulty = q[0].difficulty;
+      // difficulty = q[0].difficulty;
       subQuestions = q.map((subQ, subI) => {
         return <QuestionCard key={subI} question={subQ} index={subI} />;
       });

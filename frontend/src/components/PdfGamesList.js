@@ -33,22 +33,32 @@ class Pdf extends Component {
   }
 
   render() {
-    let storedQuestions = this.props.rootQuestions;
+    let storedRounds = this.props.rootQuestions;
+    console.log("QUESTIONS GAMES LIST PDF", storedRounds)
     let subQuestions = null;
     let numberOfQuestions = 0;
     let difficulty = "";
-    storedQuestions.map(q => {
-      numberOfQuestions = q.length;
-      difficulty = q[0].difficulty;
-      subQuestions = q.map((subQ, subI) => {
+    storedRounds.map(round => {
+      console.log("ROUND", round);
+      if(round){
+        numberOfQuestions = round.questions.length;
+        // difficulty = round.questions[0].difficulty;
+        subQuestions = round.questions.map((subQ, subI) => {
+          console.log("SUB Q's", subQ);
         return <QuestionCard key={subI} question={subQ} index={subI} />;
-      });
+        });
+      } else return;
     });
+
+    if(!subQuestions){
+      subQuestions = "Not loaded yet."
+    }
     return (
       <div>
         <PdfWrapper id="divToPrint" style={{ display: "none"}}>
         <PdfHeading>--- Answer Key ---</PdfHeading>
         <PdfHeading> Game Name - Round Name </PdfHeading>
+          {console.log("SUB QUESTIONS", subQuestions)}
           {subQuestions}
         </PdfWrapper>
         <button onClick={this.printDocument}>Print Answer Key</button>
