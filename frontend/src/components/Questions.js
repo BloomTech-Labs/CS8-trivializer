@@ -35,7 +35,6 @@ class Questions extends Component {
           <h1>Questions: {numberOfQuestions}</h1>
           <h1>Difficulty: {difficulty}</h1>
           <h2> Please note: Correct answers displayed in bold.</h2>
-          
           {subQuestions}
         </QuestionsWrapper>
       </div>

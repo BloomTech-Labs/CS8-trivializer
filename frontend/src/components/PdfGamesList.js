@@ -3,7 +3,7 @@ import jsPDF from "jspdf";
 import question from "../assets/question.png";
 import QuestionCard from "./QuestionCardPdf";
 
-import { PdfHeading, PdfWrapper } from "./primitives/Pdf";
+import { PdfHeading, PdfWrapper, RoundName } from "./primitives/Pdf";
 
 
 let he = require("he");
@@ -34,32 +34,43 @@ class Pdf extends Component {
 
   render() {
     let storedRounds = this.props.rootQuestions;
-    console.log("QUESTIONS GAMES LIST PDF", storedRounds)
-    let subQuestions = null;
+    
+    let subQuestions = [];
     let numberOfQuestions = 0;
     let difficulty = "";
+    let subQuestionArray= []
+
+
     storedRounds.map(round => {
-      console.log("ROUND", round);
-      if(round){
+      // put the round name in, add the questions
+      subQuestions.push(<RoundName><div style={{marginBottom: "10px"}}>______________________________________</div>{round.roundName}</RoundName>);
+
         numberOfQuestions = round.questions.length;
         // difficulty = round.questions[0].difficulty;
+
         subQuestions = round.questions.map((subQ, subI) => {
-          console.log("SUB Q's", subQ);
-        return <QuestionCard key={subI} question={subQ} index={subI} />;
-        });
-      } else return;
+        return <div><QuestionCard key={subI} question={subQ} index={subI} /></div>;
+      });
+      subQuestionArray.push(subQuestions);
     });
+
 
     if(!subQuestions){
       subQuestions = "Not loaded yet."
     }
+
+
+ 
+    const firstRoundName = this.props.rootQuestions && this.props.rootQuestions[0] ? this.props.rootQuestions[0].roundName : null;
+
+
     return (
       <div>
         <PdfWrapper id="divToPrint" style={{ display: "none"}}>
-        <PdfHeading>--- Answer Key ---</PdfHeading>
-        <PdfHeading> Game Name - Round Name </PdfHeading>
-          {console.log("SUB QUESTIONS", subQuestions)}
-          {subQuestions}
+          {console.log("WTF IS PROPS", this.props)}
+          <div>{this.props.gameName}</div>
+          <RoundName><div style={{marginBottom: "10px"}}>______________________________________</div>{firstRoundName}</RoundName>
+          {subQuestionArray}
         </PdfWrapper>
         <button onClick={this.printDocument}>Print Answer Key</button>
       </div>

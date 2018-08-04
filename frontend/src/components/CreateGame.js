@@ -147,7 +147,7 @@ class CreateGame extends Component {
 
     return (
       <div>
-        <Pdf rootQuestions={storedRounds}/> 
+        <Pdf rootQuestions={storedRounds} gameName={this.state.localGameName}/> 
         <CreateGameWrapper>
           <Nav>
             <Link onClick={() => this.props.history.push("/games")}>
