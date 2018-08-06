@@ -29,7 +29,7 @@ export const InputWrapper = styled.div`
     border-radius: 2%;
 
     
-    border: solid black;
+    /* border: solid black; */
 `
 
 export const LabelWrapper = styled.div`
