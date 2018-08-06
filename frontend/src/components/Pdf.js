@@ -1,17 +1,17 @@
 import React, { Component, Fragment } from "react";
 import jsPDF from "jspdf";
+import { Document, Page } from 'react-pdf';
 import question from "../assets/question.png";
+import blankSheet from "../assets/pdf/BlankSheets.pdf";
 import QuestionCard from "./QuestionCardPdf";
 
 import { PdfHeading, PdfWrapper } from "./primitives/Pdf";
-
 
 let he = require("he");
 
 class Pdf extends Component {
   printDocument() {
     const testDiv = document.createElement("div");
-    testDiv.innerHTML = <div>PRINT ME PLEASE</div>;
     var x = window.open();
     const input = document.getElementById("divToPrint");
     const pdf = new jsPDF();
@@ -32,6 +32,16 @@ class Pdf extends Component {
     x.document.close();
   }
 
+  printBlanks() {
+    return (
+      <div>
+        <Document file={blankSheet}>
+          <Page pageNumber={1}/>
+        </Document>
+      </div>
+    );
+  }
+
   render() {
     let storedQuestions = this.props.rootQuestions;
     let subQuestions = null;
@@ -46,12 +56,13 @@ class Pdf extends Component {
     });
     return (
       <div>
-        <PdfWrapper id="divToPrint" style={{ display: "none"}}>
-        <PdfHeading>--- Answer Key ---</PdfHeading>
-        <PdfHeading> Game Name - Round Name </PdfHeading>
+        <PdfWrapper id="divToPrint" style={{ display: "none" }}>
+          <PdfHeading>--- Answer Key ---</PdfHeading>
+          <PdfHeading> Game Name - Round Name </PdfHeading>
           {subQuestions}
         </PdfWrapper>
         <button onClick={this.printDocument}>Print Answer Key</button>
+        <button onClick={this.printBlanks}>Blank Sheets</button>
       </div>
     );
   }

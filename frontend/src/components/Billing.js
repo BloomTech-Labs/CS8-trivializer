@@ -13,7 +13,9 @@ import {
   BillingTitle,
   BillingButton,
   BillingRadio,
-  LogOut
+  LogOut,
+  Checkmark,
+  BillingInput
 } from "./primitives/Billing";
 
 const tier1Price = 999;
@@ -23,7 +25,7 @@ class Billing extends Component {
   state = {
     quantity: 1,
     description: "Test",
-    tier: "No Tier Selected"
+    type: "No Tier Selected"
   };
 
   toggleRadioButton = ev => {
@@ -45,7 +47,7 @@ class Billing extends Component {
 
     return (
       <BillingWrapper className="Billing">
-      
+      {console.log("THIS IS STATE", this.state)}
       <LogOut><h1 onClick={(e)=> {this.logOut(e)}}> LOG OUT </h1></LogOut>
 
 
@@ -55,7 +57,7 @@ class Billing extends Component {
           <BillingRadio className="radio">
             <BillingLabel className="billing-label">
               <input
-                type="radio"
+                type="checkbox"
                 value="tier1"
                 checked={this.state.type === "tier1"}
                 onChange={this.toggleRadioButton}
@@ -65,12 +67,13 @@ class Billing extends Component {
           </BillingRadio>
           <BillingRadio className="radio">
             <BillingLabel className="billing-label">
-              <input
-                type="radio"
+              <BillingInput
+                type="checkbox"
                 value="tier2"
                 checked={this.state.type === "tier2"}
                 onChange={this.toggleRadioButton}
               />
+              <Checkmark ></Checkmark>
               Premium Tier (Unlimited games, rounds, questions)
             </BillingLabel>
           </BillingRadio>
@@ -115,8 +118,8 @@ class Billing extends Component {
     const decoded = jwt_decode(localToken);
     const userId = decoded.sub;
     axios
-      // .post("http://localhost:5000/api/charge", {
-      .post("https://fathomless-lowlands-45973.herokuapp.com/api/charge", {
+      .post("http://localhost:5000/api/charge", {
+      // .post("https://fathomless-lowlands-45973.herokuapp.com/api/charge", {
         description,
         source: token.id,
         currency: "USD",

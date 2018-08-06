@@ -58,8 +58,6 @@ class Pdf extends Component {
     if(!subQuestions){
       subQuestions = "Not loaded yet."
     }
-
-
  
     const firstRoundName = this.props.rootQuestions && this.props.rootQuestions[0] ? this.props.rootQuestions[0].roundName : null;
 
@@ -67,8 +65,7 @@ class Pdf extends Component {
     return (
       <div>
         <PdfWrapper id="divToPrint" style={{ display: "none"}}>
-          {console.log("WTF IS PROPS", this.props)}
-          <div>{this.props.gameName}</div>
+          <h1 style={{fontSize: "40px", fontWeight: 900}}>{this.props.gameName}</h1>
           <RoundName><div style={{marginBottom: "10px"}}>______________________________________</div>{firstRoundName}</RoundName>
           {subQuestionArray}
         </PdfWrapper>

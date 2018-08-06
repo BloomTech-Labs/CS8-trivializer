@@ -55,6 +55,11 @@ export default class FormattedQuestions extends Component {
       mixedAnswers = ["True", "False"];
     }
 
+    const decodedQuestion = this.props.question && this.props.question.question ? he.decode(this.props.question.question) : "Loading...";
+    //conditional render for he.decode
+
+
+
     return (
       <PdfWrapper>
         
@@ -62,7 +67,9 @@ export default class FormattedQuestions extends Component {
         <br />
         <h1>
           <span>{this.props.index + 1}. </span>
-          {he.decode(this.props.question.question)}
+          {/* {console.log("=== PROBLEM PROPS?===", this.props.question.question)} */}
+          {/* {he.decode(this.props.question.question)} */}
+          {decodedQuestion}
         </h1>
         {/* converts the HTML special character encoding to plain text; i.e &quote = "" */}
         <br />
