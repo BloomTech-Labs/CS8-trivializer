@@ -36,7 +36,7 @@ injectGlobal`
      padding: 0;
      font-family: sans-serif;
      background: #83487e; 
-     font-size: 62.5% /* when using rem, you must set font size to this number globally*/
+     /* font-size: 62.5% when using rem, you must set font size to this number globally */
     }
 
 `
