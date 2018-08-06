@@ -93,7 +93,7 @@ class SignUp extends Component {
               value={this.state.password}
             />
           </fieldset>
-          {/* <fieldset>
+          <fieldset>
           <LabelWrapper><Label>Confirm Password</Label></LabelWrapper>
             <Input
               name="newPassword"
@@ -102,7 +102,7 @@ class SignUp extends Component {
               autoComplete="none"
               
             />
-          </fieldset> */}
+          </fieldset>
 
           <ButtonWrapper><LogButton>Sign Up</LogButton></ButtonWrapper>
           

@@ -66,7 +66,7 @@ export const LogButton = styled.button`
 export const Label = styled.label`
  font-weight: 900;
  font-size: 1rem;
- color: white;
+ color: #83487e;
 `;
 
 

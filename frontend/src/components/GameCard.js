@@ -7,7 +7,13 @@ import {
     ViewIconWrapper,
     TrashIconWrapper,
     TrashIcon,
-    ViewIcon
+    ViewIcon,
+    TopCard,
+    TopCard2,
+    TextFormatWrapper,
+    NameWrapper,
+    DateWrapper,
+    OutterDate,
     } from './primitives/GameCard';
 
 import trashIcon from '../assets/trashIcon.png'
@@ -30,20 +36,25 @@ const GameCard = (props) => {
     let playedOn = props.date.slice(0, 10)
     return (
             <GameCardWrapper className="card-1 hvr-rectangle-out ">
-                <div> {props.name} </div>
+             <TopCard onClick={()=> {props.history.push(`/create-game/${props.id}`)}}>
+                <TextFormatWrapper>
+                <NameWrapper><p> {props.name}</p> </NameWrapper>
                 {console.log(props)}
-                <div>created on:{createdOn}</div>
-                <div>played on:{playedOn}</div>
-                
+               <OutterDate> 
+                <DateWrapper><p>created on:{createdOn}</p></DateWrapper>
+                <DateWrapper><p>played on:{playedOn}</p></DateWrapper>
+               </OutterDate>  
+                </TextFormatWrapper>
 
-                <IconContainer>
-                    <TrashIconWrapper>
+                </TopCard>
+                <TopCard2 onClick={()=> {props.history.push(`/create-game/${props.id}`)}}  />
+                <IconContainer >
+                   
+                    <TrashIconWrapper >
                         <TrashIcon src={trashIcon} onClick={()=> delGameAndRounds()}/>
                     </TrashIconWrapper>
 
-                    <ViewIconWrapper>
-                        <ViewIcon src={viewIcon} onClick={()=> {props.history.push(`/create-game/${props.id}`)}}/> 
-                    </ViewIconWrapper>
+            
                 </IconContainer>
             </GameCardWrapper>
         )

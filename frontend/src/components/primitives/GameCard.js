@@ -43,6 +43,46 @@ export const GameCardWrapper = styled.div`
 }
 `;
 
+export const TopCard = styled.div`
+  height: 76%;
+`
+export const TopCard2 = styled.div`
+  
+  height: 24%;
+  width: 200px;
+  position: fixed;
+  left: 50px;
+`
+
+export const TextFormatWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+
+export const NameWrapper = styled.div`
+  font-size: 3rem;
+  margin: 4px;
+  margin-top: 20px;
+  font-weight: 1000;
+  
+`
+export const DateWrapper = styled.div`
+  font-size: 2rem;
+  margin: 10px;
+  width: 100%;
+`
+
+export const OutterDate = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  height: 150px;
+  text-align: center;
+`
 
 export const IconContainer = styled.div`
  display: flex;
@@ -50,8 +90,9 @@ export const IconContainer = styled.div`
  justify-content: center;
  height: auto;
  align-self: flex-end;
- position: relative;
- top: 80px;
+ position: fixed;
+ bottom: 5px;
+ right: 180px;
 
  /* border: solid black; */
 

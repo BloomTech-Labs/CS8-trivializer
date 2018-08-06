@@ -3,7 +3,7 @@ import jsPDF from "jspdf";
 
 import QuestionCard from "./QuestionCardPdf";
 
-import { PdfHeading, PdfWrapper } from "./primitives/Pdf";
+import { PdfHeading, PdfWrapper, PdfButton } from "./primitives/Pdf";
 
 
 let he = require("he");
@@ -51,7 +51,7 @@ class Pdf extends Component {
         <PdfHeading> Game Name - Round Name </PdfHeading>
           {subQuestions}
         </PdfWrapper>
-        <button onClick={this.printDocument}>Print Answer Key</button>
+        <PdfButton onClick={this.printDocument}>Print Answer Key</PdfButton>
       </div>
     );
   }

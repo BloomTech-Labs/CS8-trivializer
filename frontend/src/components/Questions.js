@@ -6,7 +6,8 @@ import QuestionCard from "./QuestionCard";
 
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
-import { QuestionsWrapper, pdfWrapper, TestDiv} from "./primitives/Questions";
+import { QuestionsWrapper, QuestionCardWrapper, OuterMostWrapper,
+   pdfWrapper, TestDiv, Bold} from "./primitives/Questions";
 
 class Questions extends Component {
   componentDidMount = props => {
@@ -35,25 +36,22 @@ class Questions extends Component {
 
 
     return (
-      <div>
+      <OuterMostWrapper>
         <Pdf rootQuestions={storedQuestions}/> 
         <QuestionsWrapper>
           <h1>Questions: {numberOfQuestions}</h1>
           <h1>Difficulty: {difficulty}</h1>
-          <h2> Please note: Correct answers displayed in bold.</h2>
+          <Bold><h2> Please note: Correct answers displayed in bold.</h2></Bold>
 
-        <DragDropContext
-      
-        onDragEnd={this.onDragEnd}
-      >
+       <QuestionCardWrapper>
           {subQuestions}
-
-        </DragDropContext>
+      </QuestionCardWrapper>
+        
 
 
         
         </QuestionsWrapper>
-      </div>
+      </OuterMostWrapper>
     );
   }
 }

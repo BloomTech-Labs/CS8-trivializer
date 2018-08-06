@@ -62,14 +62,14 @@ export const Button = styled.button`
 
 export const Label = styled.label`
   font-weight: 900;
-  font-size: 1rem;
+  font-size: 1.3rem;
   /* color: white; */
 `;
 
 export const TitleLabel = styled.label`
   font-weight: 900;
   font-size: 2rem;
-  color: white;
+  /* color: white; */
   position: relative;
   top: 15px;
 `;

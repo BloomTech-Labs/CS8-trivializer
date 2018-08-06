@@ -32,7 +32,7 @@ border-radius: 2%;
 
 export const Label = styled.label`
  font-weight: 900;
- font-size: 1rem;
+ font-size: 2rem;
  color: white;
 `;
 
@@ -175,4 +175,13 @@ export const NewRoundButton = styled.img`
         cursor: pointer;
     }
 
+`
+export const Input = styled.input `
+    /* width: 200px; */
+    height: 30px;
+    width: 180px;
+    padding: 3px;
+    border-radius: 3%;
+    border:thin solid #83487e;
+    padding: 3px;
 `

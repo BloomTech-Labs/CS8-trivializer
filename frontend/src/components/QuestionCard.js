@@ -5,12 +5,18 @@ import Pdf from "./Pdf";
 
 // import jsPDF from "jspdf";
 
+// import {
+//   QuestionsWrapper,
+//   CorrectAnswer,
+//   QuestionsLine,
+//   Text
+// } from "./primitives/Questions";
+
 import {
-  QuestionsWrapper,
-  CorrectAnswer,
-  QuestionsLine,
-  Text
-} from "./primitives/Questions";
+  QuestionCardWrapper,
+  Correct
+
+} from "./primitives/QuestionCard";
 
 let he = require("he");
 
@@ -51,10 +57,10 @@ export default class FormattedQuestions extends Component {
     }
 
     return (
-      <div>
-        <hr style={{borderTop:"1px solid black"}}/>
+      <QuestionCardWrapper>
+        {/* <hr style={{borderTop:"1px solid black"}}/> */}
         <br />
-        <h1><span>{this.props.index + 1}.   </span>{he.decode(this.props.question.question)}</h1>
+        <p><span>{this.props.index + 1}.   </span>{he.decode(this.props.question.question)}</p>
         {/* converts the HTML special character encoding to plain text; i.e &quote = "" */}
         <br />
         {mixedAnswers.map((answer, index) => {
@@ -62,23 +68,21 @@ export default class FormattedQuestions extends Component {
           if (answer === this.props.question.correct_answer) {
             answer = he.decode(answer);
             return (
-              <CorrectAnswer key={index}>
-                <span> {letter}. </span>
-                {answer}
-              </CorrectAnswer>
+              <div key={index}>
+                 <Correct>{letter}. {answer} </Correct>
+              </div>  // correct answer
             );
           } else {
             answer = he.decode(answer);
             return (
               <div key={index}>
-                <span> {letter}. </span>
-                {answer}
+                 {letter}. {answer}
               </div>
             );
           }
         })}
         
-      </div>
+      </QuestionCardWrapper>
     );
   }
 }

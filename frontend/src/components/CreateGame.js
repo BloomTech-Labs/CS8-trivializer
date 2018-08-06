@@ -49,7 +49,8 @@ import {
   Center,
   NewRoundButton,
   BigPlusWrapper,
-  NewRWrap
+  NewRWrap,
+  Input
 
 } from "./primitives/CreateGame";
 
@@ -266,7 +267,7 @@ class CreateGame extends Component {
                     <LabelWrapper>
                     <Label>Game Name</Label>
                     </LabelWrapper>
-                    <input
+                    <Input
                     name="name"
                     type="text"
                     component="input"

@@ -11,6 +11,7 @@ import {
     NewGameDiv, 
     ButtonWrapper,
     NewWrapper,
+    NameWrapper,
    
 } from './primitives/GameList';
 
@@ -148,7 +149,7 @@ class GameList extends Component {
              newGame = <NewWrapper style={hide}>
                             <NewCard className="tracking-out-contract">
                                 
-                                <TextWrapper><Text> New Game </Text></TextWrapper>
+                                <TextWrapper><NameWrapper> New Game </NameWrapper></TextWrapper>
                                 <AddIconWrapper><AddIcon className="pulsate-fwd" src={plus} onClick={()=> this.addGameHandler(userId)} /></AddIconWrapper>
                                 
                             </NewCard>
@@ -157,7 +158,7 @@ class GameList extends Component {
 
             if (this.props.storedGames < 1 ) {
                 newGame = <NewGameDiv className="tracking-out-contract" >
-                    <h1  >NEW GAME</h1>
+                    <h1>NEW GAME</h1>
                     <NewGameButton src={plus} onClick={()=> this.addGameHandler(userId)} className="pulsate-fwd"></NewGameButton>
                     </NewGameDiv>;
             }

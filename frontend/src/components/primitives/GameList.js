@@ -16,10 +16,10 @@ export const ListWrapper = styled.div`
     flex-direction: row-reverse;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    
 
-    /* border: solid black; */
-
-    /* width:50%; */
+    
 `
 export const ButtonWrapper = styled.div`
  display: flex;
@@ -96,4 +96,12 @@ export const NewWrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+`
+
+export const NameWrapper = styled.div`
+  font-size: 3rem;
+  margin: 4px;
+  margin-top: 20px;
+  font-weight: 800;
+  
 `
