@@ -15,6 +15,8 @@ import viewIcon from '../assets/view.png'
 
 import { deleteGame } from '../actions';
 
+import './primitives/css/GameCard.css'
+
 const GameCard = (props) => {
 
 
@@ -27,7 +29,7 @@ const GameCard = (props) => {
     let createdOn = props.created.slice(0, 10)
     let playedOn = props.date.slice(0, 10)
     return (
-            <GameCardWrapper>
+            <GameCardWrapper className="card-1 hvr-rectangle-out ">
                 <div> {props.name} </div>
                 {console.log(props)}
                 <div>created on:{createdOn}</div>

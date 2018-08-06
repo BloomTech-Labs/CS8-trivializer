@@ -27,6 +27,8 @@ import {
     FormWrap
   } from "./primitives/RCard";
 
+  import './primitives/css/RCard.css'
+
 class RCard extends Component {
     constructor(props){
         super(props);
@@ -51,6 +53,7 @@ class RCard extends Component {
      
         this.setState({ user_type: decoded.user_type});
         console.log("USER TYPE", decoded.user_type)
+
     }  
 
 
@@ -152,8 +155,10 @@ class RCard extends Component {
 
         return (
         
-            <RCardWrapper>
+            <RCardWrapper className="card-1 hvr-rectangle-out">
                 
+                
+
               <form>  
                 <FormWrap>   
                   <TitleLabel>{this.props.roundName}</TitleLabel>
@@ -233,6 +238,9 @@ class RCard extends Component {
                     </ViewIconWrapper>
                 </IconContainer>
 
+
+ 
+    
             </RCardWrapper>
         )
         

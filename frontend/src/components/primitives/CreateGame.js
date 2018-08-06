@@ -45,7 +45,7 @@ export const GameCardWrapper = styled.div`
   align-items: center;
   flex-wrap: wrap;
 
-  width: 100vw;
+  /* width: 100vw; */
   height: 100%;
   overflow: auto;
 `
@@ -68,27 +68,50 @@ export const RoundButton = styled.div`
 `;
 
 export const AddIcon = styled.img`
+    border-radius: 50%;
     width: 30%;
     height: auto;
+
+    &:hover {
+        background: greenyellow;
+        cursor: pointer;
+    }
+  
 `
-export const AddIconWrapper = styled.div`
+export const BigPlusWrapper = styled.div`
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+`
+
+export const NewRWrap = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`
+
+export const AddIconWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    height: 100%;
 `;
 
 export const Text = styled.p`
 
 `
 export const TextWrapper = styled.div`
-    display: flex;
+    /* display: flex;
     justify-content: center;
-    position: relative;
-    bottom: 20px;
+    height: 50%; */
 `
 export const CGListWrapper = styled.div` 
     display: flex;
-    width: 100vw;
+    /* width: 100%; */
     height: 100vh;
     flex-wrap: wrap;
     flex-direction: row-reverse;
@@ -97,7 +120,6 @@ export const CGListWrapper = styled.div`
 
     /* border: solid black; */
 
-    width:50%;
 `
 
 export const TopContainer = styled.div`
@@ -120,4 +142,21 @@ export const Center = styled.div`
 
     /* border: solid black; */
     /* width: 100%; */
+`
+
+export const NewRoundButton = styled.img`
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    background: white;
+
+      &:focus{
+        outline:0;
+    }
+
+    &:hover {
+        background: greenyellow;
+        cursor: pointer;
+    }
+
 `

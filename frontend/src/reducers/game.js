@@ -13,7 +13,7 @@ export default function(state=INITIAL_STATE, action) {
         case FETCHING_GAMES:
             return {...state, fetchingGames: true };
         case FETCHED_GAMES:
-            return {...state, storedGames: action.payload.games.filter(game => game.userId === action.payload.userId )  };
+            return {...state, storedGames: action.payload.games.filter(game => game.userId === action.payload.userId ), fetchingGames: false  };
         case FETCHING_GAME:
             return {...state, fetchingGames: true };
         case FETCHED_GAME:

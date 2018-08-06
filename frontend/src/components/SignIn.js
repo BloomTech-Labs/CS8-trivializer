@@ -11,17 +11,51 @@ import {
   LabelWrapper,
   ButtonWrapper,
   Button,
-  Title
+  Title,
+  Input,
+  Text,
+  InputWrapper,
+  LogButton
+  
 } from "./primitives/SignIn";
 
 
 //#TODO: ADD FORMAT VERIFICATION FOR EMAIL AND PASSWORD FIELDS
 class SignIn extends Component {
-  onSubmit = formProps => {
+  constructor(props){
+    super(props);
+    this.state = {
+    email: '',
+    password: ''
+    }
+
+    this.handleInput = this.handleInput.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  handleInput(event) {
+    const { name, value } = event.target;
+    this.setState({ [name]: value })
+
+  }
+  
+  onSubmit = (event) => {
+    event.preventDefault();
+    let formProps = this.state;
+  
     this.props.signIn(formProps, () => {
       this.props.history.push("/games");
     });
-  };
+     
+  }
+
+
+
+  // onSubmit = formProps => {
+  //   this.props.signIn(formProps, () => {
+  //     this.props.history.push("/games");
+  //   });
+  // };
 
   getRound = () => {
     this.props.getThree();
@@ -29,46 +63,43 @@ class SignIn extends Component {
 
   render() {
     const { handleSubmit } = this.props;
+
+    const showHideClassname = this.props.show ? "display display-block" : "modal display-none";
+
     return (
-      <SigninWrapper>
-            <Nav>
-                <Link onClick={()=> this.props.history.push('/games')}>Games List</Link>
-                <Link onClick={()=> this.props.history.push('/settings')}>Settings</Link>
-                <Link onClick={()=> this.props.history.push('/sign-up')}>Sign-Up</Link>
-                <Link onClick={()=> this.props.history.push('/billing')}>Billing</Link>
-            </Nav> 
-        <Title>SIGN IN PAGE</Title>
-        <form onSubmit={handleSubmit(this.onSubmit)}>
+      <SigninWrapper className={[showHideClassname, "slide-in-top"].join(' ')}>
+         <InputWrapper>
+        
+        <Title>SIGN IN </Title>
+        <form onSubmit={this.onSubmit}>
           <fieldset>
             <LabelWrapper><Label>Email</Label></LabelWrapper>
-            <Field
+            <Input
               name="email"
               type="text"
               component="input"
               autoComplete="none"
+              onChange={this.handleInput} 
+              value={this.state.email} 
             />
           </fieldset>
           <fieldset>
           <LabelWrapper><Label>Password</Label></LabelWrapper>
-            <Field
+            <Input
               name="password"
               type="password"
               component="input"
               autoComplete="none"
+              onChange={this.handleInput} 
+              value={this.state.password}
             />
           </fieldset>
-          <ButtonWrapper><Button>Sign In</Button></ButtonWrapper>
+          <ButtonWrapper><LogButton>Sign In</LogButton></ButtonWrapper>
           
-          <ButtonWrapper><Button
-            onClick={() => {
-              this.props.history.push("/");
-            }}
-          >
-            {" "}
-            Home{" "}
-          </Button></ButtonWrapper>
-        </form>
         
+          
+        </form>
+        </InputWrapper>
       </SigninWrapper>
     );
   }

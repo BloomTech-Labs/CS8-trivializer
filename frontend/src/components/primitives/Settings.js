@@ -6,6 +6,7 @@ export const SettingsWrapper = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
+ 
 `;
 
 export const LabelWrapper = styled.div`
@@ -35,3 +36,5 @@ export const Title = styled.h1`
  font-weight: 900;
  color: white;
 `;
+
+

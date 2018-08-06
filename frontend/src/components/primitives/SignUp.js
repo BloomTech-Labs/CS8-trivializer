@@ -1,17 +1,41 @@
 import styled from "styled-components";
 
 
-export const SignupWrapper = styled.div`
- display: flex;
- flex-direction: column;
- justify-content: center;
- align-items: center;
- height: 100vh;
+export const SignUpWrapper = styled.div`
+   
+
+    position: absolute; 
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    
+    z-index: 1;
+    max-width: 30%;
+    height: 450px;
+    background: white;
+    border-radius: 2%;
+
 
 `;
 
+export const InputWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 2%;
+
+    
+    border: solid black;
+`
+
 export const LabelWrapper = styled.div`
  padding-top: 1.5rem;
+ 
 `;
 
 export const ButtonWrapper = styled.div`
@@ -19,6 +43,7 @@ export const ButtonWrapper = styled.div`
  justify-content: center;
  align-items: center;
  padding-top: 20px;
+ width: 100%;
 `;
 
 export const Button = styled.button`
@@ -26,6 +51,17 @@ export const Button = styled.button`
  height: 30px;
  width: 90%;
 `;
+
+export const LogButton = styled.button`
+ border-radius: 2%;
+ border: solid #83487e;
+ background: white;
+ font-weight: 900px;
+ font-size: 2rem;
+ color: #83487e;
+    width: 100%;
+    height: 40px;
+`
 
 export const Label = styled.label`
  font-weight: 900;
@@ -35,7 +71,27 @@ export const Label = styled.label`
 
 
 export const Title = styled.h1`
- font-size: 2rem;
+ font-size: 4rem;
  font-weight: 900;
- color: white;
- `;
+ color: #83487e;
+`
+
+
+export const Input = styled.input `
+    width: 200px;
+    padding: 6px;
+    border-radius: 3%;
+    border:thin solid #83487e;
+`
+
+export const Text = styled.p`
+    font-size: 1.4rem;
+
+`
+
+export const TermsText = styled.p`
+    font-size: 1rem;
+`
+export const Terms = styled.a`
+    color: dodgerblue;
+`

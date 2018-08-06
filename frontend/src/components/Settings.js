@@ -3,14 +3,26 @@ import jwt_decode from "jwt-decode";
 import { withRouter } from 'react-router';
 import { connect } from "react-redux";
 import { updateSettings, signOut } from "../actions/index";
-import { Nav, Link } from './primitives/Nav';
+
+import { 
+  Hamburger,
+  NavText,
+  NavUl,
+  NavLi
+  } from './primitives/Nav'; 
+
+import Nav from './UI/Nav';
+import './primitives/css/Settings.css'
+
+
 import {
   SettingsWrapper,
   LabelWrapper,
   ButtonWrapper,
   Button,
   Label,
-  Title
+  Title,
+  Input
 } from "./primitives/Settings";
 
 class Settings extends Component {
@@ -20,14 +32,35 @@ class Settings extends Component {
         orgName: '' ,
         email: '',
         oldPassword: '',
-        password: ''
-      
+        password: '',
+        menu: false
     }
  
-
+    this.openNav = this.openNav.bind(this);
+    this.closeNav = this.closeNav.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
+
+  logOut = async event => {
+    await this.props.signOut();
+    this.props.history.push("/")
+  }
+
+  openNav() {
+    document.getElementById("mySidenav").style.width = "25%";
+    document.getElementById("main").style.marginLeft = "25%";
+    this.setState({ menu: true})
+  }
+
+  closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("main").style.marginLeft = "0";
+    this.setState({ menu: false})
+  }
+  
+
+
 
   componentDidMount(){
     const token = localStorage.getItem('token');
@@ -55,23 +88,6 @@ class Settings extends Component {
   });
 } 
 
-  // onSubmit = (event) => {
-  //   event.preventDefault();
-  //   let formProps = this.state;
-  //   const gameId = this.props.match.params.id;
-  //   let round = this.props.round;
-  //   console.log(this.state.roundName);
-  
-  //   this.props.getThree( formProps, () => {
-      
-  //       this.props.addRound(gameId, this.props.round, (id)=> {
-  //         this.props.history.push(`/create-game/${id}`);
-  //       });
-  //   });
-     
-  // }
-  
-
   
   render() {
 
@@ -80,15 +96,39 @@ class Settings extends Component {
     // const email = decoded.email;
     // const orgName = decoded.orgName;
     
-    
+    let hamburger;
+
+            if (this.state.menu === true) {
+                hamburger = <Hamburger onClick={()=> this.state.menu ? this.closeNav() : this.openNav()} class="col">
+                            <div class="con">
+                            <div class="bar arrow-top-r"></div>
+                            <div class="bar arrow-middle-r"></div>
+                            <div class="bar arrow-bottom-r"></div>
+                            </div>
+                         </Hamburger>
+            }
+            
+            if (this.state.menu === false) {
+                hamburger = <Hamburger onClick={()=> this.state.menu ? this.closeNav() : this.openNav()} class="col">
+                            <div class="con">
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            </div>
+                         </Hamburger>
+            }
+
     return (
-      <SettingsWrapper>
-                  <Nav>
-                    <Link onClick={()=> this.props.history.push('/games')}>Games List</Link>
-                    <Link onClick={()=> this.props.history.push('/sign-in')}>Sign-In</Link>
-                    <Link onClick={()=> this.props.history.push('/sign-up')}>Sign-Up</Link>
-                    <Link onClick={()=> this.props.history.push('/billing')}>Billing</Link>
-                </Nav>  
+      <SettingsWrapper id="main">
+           <Nav id="mySidenav">
+                <NavUl>
+                    <NavLi><NavText onClick={()=> this.props.history.push('/games')}>Games</NavText></NavLi>
+                    <NavLi><NavText onClick={()=> this.props.history.push('/billing')}>Upgrade</NavText></NavLi>
+                    <NavLi><NavText onClick={()=> this.logOut()}>Log Out</NavText></NavLi>
+                </NavUl>    
+            </Nav>
+
+                {hamburger}
 
         <Title>SETTINGS PAGE</Title>
         <form onSubmit={(e)=> this.onSubmit(e)} >

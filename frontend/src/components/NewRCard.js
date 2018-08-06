@@ -4,13 +4,14 @@ import {
     NewRCardWrapper,
     } from './primitives/NewRCard';
 
+import './primitives/css/NewRCard.css'
 
 const NewRCard = (props) => {
 
 
     
     return (
-            <NewRCardWrapper>
+            <NewRCardWrapper className="card-1 hvr-rectangle-out">
                 {props.children}
             </NewRCardWrapper>
         )

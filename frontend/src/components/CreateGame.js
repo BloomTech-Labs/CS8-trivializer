@@ -5,9 +5,9 @@ import { connect } from "react-redux";
 import Dropzone from 'react-dropzone';
 import DatePicker from 'react-date-picker';
 
-import { getGame, getRounds, saveGame } from '../actions';
+import { getGame, getRounds, saveGame, signOut } from '../actions';
 import { withRouter } from 'react-router';
-import { Nav, Link } from './primitives/Nav';
+
 import { 
     RoundButton, 
     RoundButtonWrapper,
@@ -18,10 +18,20 @@ import {
     ListWrapper
     } 
         from './primitives/CreateGame';
+import { 
+            Hamburger,
+            NavText,
+            NavUl,
+            NavLi
+            } from './primitives/Nav'; 
 
 import RCard from './RCard';
 import NewRCard from './NewRCard';
-import plus from '../assets/plus.png'
+import plus from '../assets/bluePlus.svg'
+
+import Nav from './UI/Nav';
+
+import './primitives/css/CreateGame.css'
 
 import jwt_decode from "jwt-decode";
 
@@ -35,10 +45,14 @@ import {
   GameCardWrapper,
   CGListWrapper,
   TopContainer,
-  Center
+  Center,
+  NewRoundButton,
+  BigPlusWrapper,
+  NewRWrap
 
 } from "./primitives/CreateGame";
 
+import './primitives/css/GameList.css';
 
 class CreateGame extends Component {
     constructor(props) {
@@ -49,12 +63,17 @@ class CreateGame extends Component {
             name: '',
             localGameName: null,
             user_type: null,
+            menu: false,
          }
          this.handleInput = this.handleInput.bind(this);
          this.saveGameHandler = this.saveGameHandler.bind(this);
-         
+         this.openNav = this.openNav.bind(this);
+         this.closeNav = this.closeNav.bind(this);
     }
   
+
+ 
+
     // ADD MODAL THAT SAYS GAME SAVED SUCCESSFULLY LATER
 
     onDrop(files) {
@@ -97,11 +116,27 @@ class CreateGame extends Component {
         this.props.saveGame(this.props.match.params.id, game)
     }
 
-    
+    logOut = async event => {
+        await this.props.signOut();
+        this.props.history.push("/")
+    }
 
     addRoundHandler = (gameId) => {
         this.props.history.push(`/create-round/${gameId}`)
       }
+
+
+    openNav() {
+        document.getElementById("mySidenav").style.width = "25%";
+        document.getElementById("main").style.marginLeft = "25%";
+        this.setState({ menu: true})
+    }
+
+    closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+        document.getElementById("main").style.marginLeft = "0";
+        this.setState({ menu: false})
+    }
 
     render(){
         let gameId = this.props.match.params.id;
@@ -138,21 +173,73 @@ class CreateGame extends Component {
         
             if (this.props.storedRound.length >= 10 && this.state.user_type === "Tier 1" ) { // && this.state.user_type === "Free"
                 hide = {display: "none"};
-            }          
+            }    
+            
+
+        let newRound;   
+            if(this.props.storedRound.length >= 1){
+                newRound = <NewRWrap style={hide}>
+                            <NewRCard>
+                                
+                                <AddIconWrapper>
+                                <TextWrapper><Text> New Round </Text></TextWrapper>
+                                    <AddIcon className="pulsate-fwd" src={plus} style={hide} onClick={()=> this.addRoundHandler(gameId)} /></AddIconWrapper>
+                            </NewRCard> 
+                           </NewRWrap>
+               }
+   
+               if (this.props.storedRound.length < 1 ) {
+                   newRound = <BigPlusWrapper>
+                        
+                       <h1  className="tracking-out-contract">NEW ROUND</h1>
+                       <NewRoundButton src={plus} onClick={()=> this.addRoundHandler(gameId)} className="pulsate-fwd"></NewRoundButton>
+                       
+                       </BigPlusWrapper>
+               }    
+
+
+
+               let hamburger;
+
+               if (this.state.menu === true) {
+                   hamburger = <Hamburger onClick={()=> this.state.menu ? this.closeNav() : this.openNav()} class="col">
+                               <div class="con">
+                               <div class="bar arrow-top-r"></div>
+                               <div class="bar arrow-middle-r"></div>
+                               <div class="bar arrow-bottom-r"></div>
+                               </div>
+                            </Hamburger>
+               }
+               
+               if (this.state.menu === false) {
+                   hamburger = <Hamburger onClick={()=> this.state.menu ? this.closeNav() : this.openNav()} class="col">
+                               <div class="con">
+                               <div className="bar"></div>
+                               <div className="bar"></div>
+                               <div className="bar"></div>
+                               </div>
+                            </Hamburger>
+               }
+
 
     return (
-        <CreateGameWrapper>
-            <Nav>
-              <Link onClick={()=> this.props.history.push('/games')}>Games List</Link>
-              <Link onClick={()=> this.props.history.push('/settings')}>Settings</Link>
-              <Link onClick={()=> this.props.history.push('/billing')}>Billing</Link>
+        <CreateGameWrapper id="main">
+            {hamburger}
+
+            <Nav id="mySidenav">
+                <NavUl>
+                    <NavLi><NavText onClick={()=> this.props.history.push('/games')}>Games</NavText></NavLi>
+                    <NavLi><NavText onClick={()=> this.props.history.push('/settings')}>Settings</NavText></NavLi>
+                    <NavLi><NavText onClick={()=> this.props.history.push('/billing')}>Upgrade</NavText></NavLi>
+                    <NavLi><NavText onClick={()=> this.logOut()}>Log Out</NavText></NavLi>
+                </NavUl>    
             </Nav>
     <TopContainer>         
             
             {console.log("STORED ROUND", this.props.storedRound)}
             {console.log("STATE",this.state)}
 
-            {/* <form> */}
+      
 
             <div>
                 <fieldset>        
@@ -188,7 +275,7 @@ class CreateGame extends Component {
                     />
                 </fieldset>
                </Center>
-            {/* </form>     */}
+            
 
      <div>
          <ButtonWrapper>
@@ -209,12 +296,10 @@ class CreateGame extends Component {
         
         
         <CGListWrapper>
-            <NewRCard>
-                <TextWrapper><Text> New Round </Text></TextWrapper>
-                <AddIconWrapper><AddIcon src={plus} style={hide}  style={hide} onClick={()=> this.addRoundHandler(gameId)} /></AddIconWrapper>
-            </NewRCard>        
+ 
+            {newRound}       
             {renderList}
-            {console.log("CreateGames SG", this.props.storedGames)}
+            
         </CGListWrapper>
         </CreateGameWrapper>
         )
@@ -230,4 +315,8 @@ function mapStateToProps(state) {
     };
   }
 
-  export default connect( mapStateToProps,{ getGame, getRounds, saveGame })(withRouter(CreateGame));
+  export default connect( mapStateToProps,
+                        { getGame,
+                          getRounds, 
+                          saveGame, 
+                          signOut })(withRouter(CreateGame));

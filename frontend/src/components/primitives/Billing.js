@@ -6,9 +6,9 @@ export const BillingWrapper = styled.div`
   flex-direction: column;
   align-items:center;
   height: 100vh;
-  width: 100vw;
   
-  border: solid black;
+  
+  
 `
 
 export const BillingLabel  = styled.div`
@@ -25,12 +25,22 @@ export const BillingButton = styled.button`
 `
 
 export const BillingRadio  = styled.div`
+  display: flex;
+  flex-direction: column;
 
+  background: white;
+  width: 100%;
+  height: 500px;
   margin:10px 0;
-`
 
-export const LogOut = styled.div`
-  position: relative;
-  bottom: 30px;
-  font-size: 3rem;
+  border: solid black;
+`
+export const RadioContainer = styled.div`
+  display: flex;
+  width: 700px;
+  border: solid yellow;
+  
+`
+export const Radio = styled.input`
+ top: 90px;
 `
