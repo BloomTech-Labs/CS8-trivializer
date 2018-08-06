@@ -72,9 +72,9 @@ class Landing extends Component {
       <LandingWrapper>
         
         <Img >
-           <Modal show={this.state.show} handleClose={this.hideModal}>
+           {/* <Modal show={this.state.show} handleClose={this.hideModal}> */}
             
-           </Modal>
+           {/* </Modal> */}
            <SignUp show={this.state.show1} handleClose={this.hideModal}  />
            <SignIn show={this.state.show2} handleClose={this.hideModal} />
       <TopDiv>
