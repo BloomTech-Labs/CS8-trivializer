@@ -9,7 +9,7 @@ const Modal = ({ handleClose, show, children}) => {
 
     return (
        
-<ModalWrapper onClick={handleClose} className={[showHideClassname, "slide-in-top"].join(' ')}> 
+<ModalWrapper onClick={handleClose} className={showHideClassname}> 
                 {children}
             </ModalWrapper>
        
