@@ -45,11 +45,11 @@ export const ButtonWrapper = styled.div`
  width: 100%;
 `;
 
-export const Button = styled.button`
- border-radius: 1%;
- height: 30px;
- width: 90%;
-`;
+// export const Button = styled.button`
+//  border-radius: 1%;
+//  height: 30px;
+//  width: 90%;
+// `;
 
 export const LogButton = styled.button`
  border-radius: 2%;

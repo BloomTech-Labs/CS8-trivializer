@@ -16,7 +16,8 @@ import {
   Label,
   Input,
   Select,
-  FormWrapper
+  FormWrapper,
+  Upgrade
 } from "./primitives/CreateRoundCard";
 
 import { 
@@ -126,7 +127,7 @@ class CreateRoundCard extends Component {
         <option value="3">3</option>
         <option value="4">4</option>
         <option value="5">5</option>
-        <option value="a">click here to upgrade</option>
+        <option value="a"><Upgrade>click here to upgrade</Upgrade></option>
       </Select>
       </fieldset>
       )
@@ -153,7 +154,7 @@ class CreateRoundCard extends Component {
         <option value="8">8</option>
         <option value="9">9</option>
         <option value="10">10</option>
-        <option value="a">upgrade to premium</option>
+        <option value="a"><Upgrade>upgrade to premium</Upgrade></option>
       </Select>
       </fieldset>
       )
@@ -284,7 +285,7 @@ class CreateRoundCard extends Component {
           </fieldset>
         
           <ButtonWrapper>
-            <button>get questions</button>
+            <Button>get questions</Button>
           </ButtonWrapper>
           
       

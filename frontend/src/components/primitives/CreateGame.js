@@ -20,9 +20,14 @@ export const ButtonWrapper = styled.div`
 `;
 
 export const Button = styled.button`
- border-radius: 1%;
- height: 30px;
- width: 90%;
+border-radius: 2%;
+ border: solid #83487e;
+ background: white;
+ font-weight: 900px;
+ font-size: 2rem;
+ color: #83487e;
+    width: 100%;
+    height: 40px;
 `;
 
 export const Label = styled.label`
@@ -127,7 +132,18 @@ export const TopContainer = styled.div`
     justify-content: space-around;
     align-items: center;
     width: 60%;
-    height: auto;
+    height: 400px;
+    margin-bottom: 100px;
+    /* border: solid black; */
+`
+
+export const OutterButton = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    height: 400px;
 
     /* border: solid black; */
 `

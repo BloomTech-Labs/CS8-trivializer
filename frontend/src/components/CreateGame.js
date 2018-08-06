@@ -15,7 +15,8 @@ import {
     AddIconWrapper,
     Text,
     TextWrapper,
-    ListWrapper
+    ListWrapper,
+    OutterButton
     } 
         from './primitives/CreateGame';
 import { 
@@ -241,7 +242,7 @@ class CreateGame extends Component {
 
       
 
-            <div>
+            {/* <div>
                 <fieldset>        
                     <Dropzone
                     onDrop={this.onDrop.bind(this)}
@@ -250,11 +251,12 @@ class CreateGame extends Component {
                     <p>Try dropping some files here, or click to select files to upload.</p>
                     </Dropzone>
                 </fieldset>
-            </div>
+            </div> */}
 
             <Center>
                 <fieldset>
                     <DatePicker
+                        className="datePicker"
                         onChange={this.onChangeDate}
                         value={this.state.date}
                     />      
@@ -277,7 +279,7 @@ class CreateGame extends Component {
                </Center>
             
 
-     <div>
+     <OutterButton>
          <ButtonWrapper>
           <Button>Print Answer Sheets</Button>
         </ButtonWrapper>
@@ -289,7 +291,7 @@ class CreateGame extends Component {
         <ButtonWrapper>
           <Button onClick={(e)=> this.saveGameHandler(e)}>Save Game</Button>
         </ButtonWrapper>
-     </div> 
+     </OutterButton> 
 
     </TopContainer>
       

@@ -22,11 +22,6 @@ export const ButtonWrapper = styled.div`
   padding-top: 20px;
 `;
 
-export const Button = styled.button`
-  border-radius: 1%;
-  height: 30px;
-  width: 90%;
-`;
 
 export const Label = styled.label`
   font-weight: 900;
@@ -64,4 +59,33 @@ background: #696969;
 border-radius: 3%;
 box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 
+`
+export const Button = styled.button`
+ border-radius: 2%;
+ border: solid #83487e;
+ background: white;
+ font-weight: 900px;
+ font-size: 2rem;
+ color: #83487e;
+    width: 100%;
+    height: 40px;
+
+      &:focus{
+        outline:0;
+    }
+
+      &:hover {
+        background: white;
+        cursor: pointer;
+    }
+`
+
+export const Upgrade = styled.p`
+    font-weight: 900;
+    color: gold;
+
+  &:hover {
+        background: white;
+        cursor: pointer;
+    }
 `

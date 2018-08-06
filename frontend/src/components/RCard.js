@@ -24,7 +24,8 @@ import {
     ViewIconWrapper,
     ViewIcon,
     RedoIcon,
-    FormWrap
+    FormWrap,
+    
   } from "./primitives/RCard";
 
   import './primitives/css/RCard.css'

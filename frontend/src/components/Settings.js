@@ -22,7 +22,8 @@ import {
   Button,
   Label,
   Title,
-  Input
+  Input,
+  FormWrapper
 } from "./primitives/Settings";
 
 class Settings extends Component {
@@ -120,6 +121,7 @@ class Settings extends Component {
 
     return (
       <SettingsWrapper id="main">
+        <FormWrapper>
            <Nav id="mySidenav">
                 <NavUl>
                     <NavLi><NavText onClick={()=> this.props.history.push('/games')}>Games</NavText></NavLi>
@@ -136,7 +138,7 @@ class Settings extends Component {
             <LabelWrapper>
               <Label>Organization Name</Label>
             </LabelWrapper>
-            <input
+            <Input
               name="orgName"
               placeholder={this.state.orgName}
               type="text"
@@ -150,7 +152,7 @@ class Settings extends Component {
             <LabelWrapper>
               <Label>Email</Label>
             </LabelWrapper>
-            <input
+            <Input
               name="email"
               type="text"
               component="input"
@@ -164,7 +166,7 @@ class Settings extends Component {
             <LabelWrapper>
               <Label>Old Password</Label>
             </LabelWrapper>
-            <input
+            <Input
               name="oldPassword"
               type="password"
               component="input"
@@ -177,7 +179,7 @@ class Settings extends Component {
             <LabelWrapper>
               <Label>New Password</Label>
             </LabelWrapper>
-            <input
+            <Input
               name="password"
               type="password"
               component="input"
@@ -186,17 +188,10 @@ class Settings extends Component {
               value={this.state.password}
             />
           </fieldset>
-          <button>Save</button>
-          <button
-            onClick={() => {
-              this.props.history.push("/");
-            }}
-          >
-            {" "}
-            Home{" "}
-          </button>
-          <button onClick={() => this.props.signOut()}>Sign Out</button>
+          <Button>Save & Update </Button>
+         
         </form>
+        </FormWrapper>
       </SettingsWrapper>
     );
   }
