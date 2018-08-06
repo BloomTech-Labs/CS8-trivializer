@@ -19,6 +19,10 @@ export const ButtonWrapper = styled.div`
  padding-top: 20px;
 `;
 
+export const NRW = styled.h1`
+    font-size: 4rem;
+`
+
 export const Button = styled.button`
 border-radius: 2%;
  border: solid #83487e;

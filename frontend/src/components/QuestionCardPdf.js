@@ -66,10 +66,9 @@ export default class FormattedQuestions extends Component {
         <div style={{fontSize:8}}>____________________________________________________________________________________________________________________________________________________________</div>
         <br />
         <h1>
-          <span>{this.props.index + 1}. </span>
           {/* {console.log("=== PROBLEM PROPS?===", this.props.question.question)} */}
           {/* {he.decode(this.props.question.question)} */}
-          {decodedQuestion}
+          <div style={{color: "black", fontSize:"3rem"}}>{this.props.index + 1}. {decodedQuestion}</div>
         </h1>
         {/* converts the HTML special character encoding to plain text; i.e &quote = "" */}
         <br />

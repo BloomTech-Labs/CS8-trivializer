@@ -21,6 +21,10 @@ export const ListWrapper = styled.div`
 
     
 `
+
+export const NGW = styled.h1`
+    font-size: 4rem;
+`
 export const ButtonWrapper = styled.div`
  display: flex;
  justify-content: center;

@@ -50,7 +50,8 @@ import {
   NewRoundButton,
   BigPlusWrapper,
   NewRWrap,
-  Input
+  Input,
+  NRW
 
 } from "./primitives/CreateGame";
 
@@ -193,7 +194,7 @@ class CreateGame extends Component {
                if (this.props.storedRound.length < 1 ) {
                    newRound = <BigPlusWrapper>
                         
-                       <h1  className="tracking-out-contract">NEW ROUND</h1>
+                       <NRW  className="tracking-out-contract">NEW ROUND</NRW>
                        <NewRoundButton src={plus} onClick={()=> this.addRoundHandler(gameId)} className="pulsate-fwd"></NewRoundButton>
                        
                        </BigPlusWrapper>
