@@ -16,7 +16,8 @@ import {
     Text,
     TextWrapper,
     ListWrapper,
-    OutterButton
+    OutterButton,
+    PositionMenu
     } 
         from './primitives/CreateGame';
 import { 
@@ -226,7 +227,7 @@ class CreateGame extends Component {
 
     return (
         <CreateGameWrapper id="main">
-            {hamburger}
+            
 
             <Nav id="mySidenav">
                 <NavUl>
@@ -236,6 +237,9 @@ class CreateGame extends Component {
                     <NavLi><NavText onClick={()=> this.logOut()}>Log Out</NavText></NavLi>
                 </NavUl>    
             </Nav>
+
+            <PositionMenu>{hamburger}</PositionMenu>
+
     <TopContainer>         
             
             {console.log("STORED ROUND", this.props.storedRound)}

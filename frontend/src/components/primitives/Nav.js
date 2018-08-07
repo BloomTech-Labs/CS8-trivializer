@@ -12,6 +12,7 @@ export const NavWrapper = styled.nav`
     overflow-x: hidden; 
     padding-top: 60px; 
     transition:  0.5s; 
+
 `
 
 export const Link = styled.h1`

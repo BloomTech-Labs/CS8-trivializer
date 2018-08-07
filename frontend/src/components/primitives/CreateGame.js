@@ -185,3 +185,17 @@ export const Input = styled.input `
     border:thin solid #83487e;
     padding: 3px;
 `
+
+export const PositionMenu = styled.div`
+    width: 100px; 
+    position: absolute;
+    z-index: 1; 
+    top: 0;
+    left: 0;
+    
+    overflow-x: hidden; 
+    padding: 10px;
+    
+    transition:  0.5s; 
+
+`

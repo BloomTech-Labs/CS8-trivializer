@@ -12,6 +12,7 @@ import {
     ButtonWrapper,
     NewWrapper,
     NameWrapper,
+    PositionMenu
    
 } from './primitives/GameList';
 
@@ -189,7 +190,7 @@ class GameList extends Component {
      
         return( 
             <GameWrapper  id="main">
-            {hamburger}
+            
                 <Nav id="mySidenav">
 
                     <NavUl>
@@ -199,6 +200,7 @@ class GameList extends Component {
                     </NavUl>    
                 </Nav>
                 
+                <PositionMenu>{hamburger}</PositionMenu>
                 
 
                 <ListWrapper>

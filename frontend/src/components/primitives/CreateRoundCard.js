@@ -89,3 +89,17 @@ export const Upgrade = styled.p`
         cursor: pointer;
     }
 `
+
+export const PositionMenu = styled.div`
+    width: 100px; 
+    position: absolute;
+    z-index: 1; 
+    top: 0;
+    left: 0;
+    
+    overflow-x: hidden; 
+    padding: 10px;
+    
+    transition:  0.5s; 
+
+`
