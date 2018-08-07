@@ -23,7 +23,8 @@ import {
   Label,
   Title,
   Input,
-  FormWrapper
+  FormWrapper,
+  PositionMenu
 } from "./primitives/Settings";
 
 class Settings extends Component {
@@ -130,7 +131,7 @@ class Settings extends Component {
                 </NavUl>    
             </Nav>
 
-                {hamburger}
+                <PositionMenu>{hamburger}</PositionMenu>
 
         <Title>SETTINGS PAGE</Title>
         <form onSubmit={(e)=> this.onSubmit(e)} >

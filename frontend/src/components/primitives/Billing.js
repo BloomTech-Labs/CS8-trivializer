@@ -13,8 +13,14 @@ export const PriceContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items:center;
+<<<<<<< HEAD
   width: 60%;
   /* background: #C16B86; */
+=======
+  width: 80%;
+  height: auto;
+  background: darkgrey;
+>>>>>>> e0b4bfd140c338d5e3ec077eb550135a3b748f3e
   border-radius: 2%;
 `
 export const PriceDiv = styled.div`
@@ -121,4 +127,18 @@ export const Button = styled.div`
         background: white;
         cursor: pointer;
     }
+`
+export const PositionMenu = styled.div`
+
+    width: 100px; 
+    position: absolute;
+    z-index: 1; 
+    top: 0;
+    left: 0;
+    
+    overflow-x: hidden; 
+    padding: 10px;
+    
+    transition:  0.5s; 
+
 `

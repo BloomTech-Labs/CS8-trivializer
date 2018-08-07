@@ -17,7 +17,8 @@ import {
   Input,
   Select,
   FormWrapper,
-  Upgrade
+  Upgrade,
+  PositionMenu
 } from "./primitives/CreateRoundCard";
 
 import { 
@@ -210,7 +211,7 @@ class CreateRoundCard extends Component {
                   <NavLi><NavText onClick={()=> this.logOut()}>Log Out</NavText></NavLi>
               </NavUl>    
             </Nav>
-        {hamburger}
+        <PositionMenu>{hamburger}</PositionMenu>
         
         <form onSubmit={(e)=> this.onSubmit(e)}>
           <fieldset>

@@ -20,7 +20,8 @@ import {
   Title,
   Li,
   Price,
-  Button
+  Button,
+  PositionMenu
 
 } from "./primitives/Billing";
 
@@ -114,7 +115,7 @@ class Billing extends Component {
             </NavLi>
           </NavUl>
         </Nav>
-        {hamburger}
+        <PositionMenu>{hamburger}</PositionMenu>
         <PriceContainer>
    
           <PriceDiv>

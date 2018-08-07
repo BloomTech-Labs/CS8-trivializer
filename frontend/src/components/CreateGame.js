@@ -2,35 +2,38 @@ import React, { Component } from "react";
 
 import { connect } from "react-redux";
 
-import Dropzone from "react-dropzone";
-import DatePicker from "react-date-picker";
+import Dropzone from 'react-dropzone';
+import DatePicker from 'react-date-picker';
 
-import { getGame, getRounds, saveGame, signOut } from "../actions";
-import { withRouter } from "react-router";
+import { getGame, getRounds, saveGame, signOut } from '../actions';
+import { withRouter } from 'react-router';
 
-import Pdf from "./PdfGamesList";
-import PdfBlanksGames from "./PdfBlanksGames";
+import { 
+    RoundButton, 
+    RoundButtonWrapper,
+    AddIcon,
+    AddIconWrapper,
+    Text,
+    TextWrapper,
+    ListWrapper,
+    OutterButton,
+    PositionMenu
+    } 
+        from './primitives/CreateGame';
+import { 
+            Hamburger,
+            NavText,
+            NavUl,
+            NavLi
+            } from './primitives/Nav'; 
 
-import {
-  RoundButton,
-  RoundButtonWrapper,
-  AddIcon,
-  AddIconWrapper,
-  Text,
-  TextWrapper,
-  ListWrapper,
-  OutterButton
-} from "./primitives/CreateGame";
+import RCard from './RCard';
+import NewRCard from './NewRCard';
+import plus from '../assets/bluePlus.svg'
 
-import { Hamburger, NavText, NavUl, NavLi } from "./primitives/Nav";
+import Nav from './UI/Nav';
 
-import RCard from "./RCard";
-import NewRCard from "./NewRCard";
-import plus from "../assets/bluePlus.svg";
-
-import Nav from "./UI/Nav";
-
-import "./primitives/css/CreateGame.css";
+import './primitives/css/CreateGame.css'
 
 import jwt_decode from "jwt-decode";
 
@@ -244,6 +247,7 @@ class CreateGame extends Component {
     }
     let storedRounds = this.props.storedRound
     return (
+<<<<<<< HEAD
       <CreateGameWrapper id="main">
         {hamburger}
 
@@ -274,6 +278,30 @@ class CreateGame extends Component {
           {console.log("STATE", this.state)}
 
           {/* <div>
+=======
+        <CreateGameWrapper id="main">
+            
+
+            <Nav id="mySidenav">
+                <NavUl>
+                    <NavLi><NavText onClick={()=> this.props.history.push('/games')}>Games</NavText></NavLi>
+                    <NavLi><NavText onClick={()=> this.props.history.push('/settings')}>Settings</NavText></NavLi>
+                    <NavLi><NavText onClick={()=> this.props.history.push('/billing')}>Upgrade</NavText></NavLi>
+                    <NavLi><NavText onClick={()=> this.logOut()}>Log Out</NavText></NavLi>
+                </NavUl>    
+            </Nav>
+
+            <PositionMenu>{hamburger}</PositionMenu>
+
+    <TopContainer>         
+            
+            {console.log("STORED ROUND", this.props.storedRound)}
+            {console.log("STATE",this.state)}
+
+      
+
+            {/* <div>
+>>>>>>> e0b4bfd140c338d5e3ec077eb550135a3b748f3e
                 <fieldset>        
                     <Dropzone
                     onDrop={this.onDrop.bind(this)}
