@@ -12,11 +12,8 @@ import {
     ButtonWrapper,
     NewWrapper,
     NameWrapper,
-<<<<<<< HEAD
-    NGW,
-=======
-    PositionMenu
->>>>>>> e0b4bfd140c338d5e3ec077eb550135a3b748f3e
+    PositionMenu,
+    NGW
    
 } from './primitives/GameList';
 

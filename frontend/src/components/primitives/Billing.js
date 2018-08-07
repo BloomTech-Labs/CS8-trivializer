@@ -13,14 +13,9 @@ export const PriceContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items:center;
-<<<<<<< HEAD
-  width: 60%;
-  /* background: #C16B86; */
-=======
   width: 80%;
   height: auto;
-  background: darkgrey;
->>>>>>> e0b4bfd140c338d5e3ec077eb550135a3b748f3e
+  /* background: darkgrey; */
   border-radius: 2%;
 `
 export const PriceDiv = styled.div`
@@ -82,7 +77,7 @@ export const Bot = styled.div`
   height: 15%;
   background: #999999;
   border-radius: 0.5%;
-  background-color: #4b8ab7;
+  background-color: #F8B195;
 
 `
 export const Title = styled.div`
@@ -93,7 +88,7 @@ export const Title = styled.div`
   border-radius: 1%;
   display: flex;
   align-items: center;
-  background-color: #4b8ab7;
+  background-color: #F8B195;
   justify-content: center;
 `
 export const Li = styled.div`

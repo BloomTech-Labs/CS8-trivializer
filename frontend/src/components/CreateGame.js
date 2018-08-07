@@ -8,6 +8,9 @@ import DatePicker from 'react-date-picker';
 import { getGame, getRounds, saveGame, signOut } from '../actions';
 import { withRouter } from 'react-router';
 
+import PdfBlanksGames from "./PdfBlanksGames";
+import Pdf from "./PdfGamesList";
+
 import { 
     RoundButton, 
     RoundButtonWrapper,
@@ -247,38 +250,6 @@ class CreateGame extends Component {
     }
     let storedRounds = this.props.storedRound
     return (
-<<<<<<< HEAD
-      <CreateGameWrapper id="main">
-        {hamburger}
-
-        <Nav id="mySidenav">
-          <NavUl>
-            <NavLi>
-              <NavText onClick={() => this.props.history.push("/games")}>
-                Games
-              </NavText>
-            </NavLi>
-            <NavLi>
-              <NavText onClick={() => this.props.history.push("/settings")}>
-                Settings
-              </NavText>
-            </NavLi>
-            <NavLi>
-              <NavText onClick={() => this.props.history.push("/billing")}>
-                Upgrade
-              </NavText>
-            </NavLi>
-            <NavLi>
-              <NavText onClick={() => this.logOut()}>Log Out</NavText>
-            </NavLi>
-          </NavUl>
-        </Nav>
-        <TopContainer>
-          {console.log("STORED ROUND", this.props.storedRound)}
-          {console.log("STATE", this.state)}
-
-          {/* <div>
-=======
         <CreateGameWrapper id="main">
             
 
@@ -301,7 +272,6 @@ class CreateGame extends Component {
       
 
             {/* <div>
->>>>>>> e0b4bfd140c338d5e3ec077eb550135a3b748f3e
                 <fieldset>        
                     <Dropzone
                     onDrop={this.onDrop.bind(this)}
