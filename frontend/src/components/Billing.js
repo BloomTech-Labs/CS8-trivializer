@@ -13,13 +13,15 @@ import Nav from "./UI/Nav";
 
 import {
   BillingWrapper,
-  BillingLabel,
-  BillingTitle,
-  BillingButton,
-  BillingRadio,
-  LogOut,
-  RadioContainer,
-  Radio
+  PriceContainer,
+  PriceDiv,
+  Top,
+  Bot,
+  Title,
+  Li,
+  Price,
+  Button
+
 } from "./primitives/Billing";
 
 const tier1Price = 999;
@@ -113,42 +115,55 @@ class Billing extends Component {
           </NavUl>
         </Nav>
         {hamburger}
+        <PriceContainer>
+   
+          <PriceDiv>
+            <Top>
+              <Title><div>Free</div></Title>
+              <Price>$0</Price>
 
-        <BillingTitle>Billing</BillingTitle>
-        <BillingTitle>Upgrade your game below!</BillingTitle>
-        <form>
-          <RadioContainer>
-            <BillingRadio className="radio">
-              <div>
-                <Radio
-                  className=" radio"
-                  type="radio"
-                  value="tier1"
-                  checked={this.state.type === "tier1"}
-                  onChange={this.toggleRadioButton}
-                />
+              <Li><div>1 Game</div></Li>
+              <Li>3 Rounds</Li>
+              <Li> 5 questions</Li>
+            </Top>
+            <Bot>
+              {/* <div>{this.checkoutButton2()}</div> */}
+            </Bot>
+          </PriceDiv>
 
-                <BillingLabel className="billing-label">
-                  Basic Tier (create up to 10 games with 10 rounds of 10
-                  questions)
-                </BillingLabel>
-              </div>
-            </BillingRadio>
-            <BillingRadio className="radio">
-              <BillingLabel className="billing-label">
-                <Radio
-                  type="checkbox"
-                  value="tier2"
-                  checked={this.state.type === "tier2"}
-                  onChange={this.toggleRadioButton}
-                />
-                Premium Tier (Unlimited games, rounds, questions)
-              </BillingLabel>
-            </BillingRadio>
-          </RadioContainer>
-        </form>
-        {this.checkoutButton()}
-        {this.checkoutButton2()}
+
+          <PriceDiv>
+            <Top>
+              <Title><div>Basic</div></Title>
+              <Price>$9.99</Price>
+
+              <Li><div><b>Unlimited</b> Games</div></Li>
+              <Li><b>Unlimited</b> Rounds</Li>
+              <Li>Up to 50 questions</Li>
+            </Top>
+            <Bot>
+              <div>{this.checkoutButton()}</div>
+            </Bot>
+          </PriceDiv>
+              
+
+          <PriceDiv>
+            <Top>
+              <Title><div>Premium</div></Title>
+              <Price>$29.99</Price>
+
+              <Li><div><b>Unlimited</b> Games</div></Li>
+              <Li><b>Unlimited</b> Rounds</Li>
+              <Li>Up to 50 questions</Li>
+            </Top>
+            <Bot>
+              <div>{this.checkoutButton2()}</div>
+            </Bot>
+          </PriceDiv>
+
+       </PriceContainer>
+        
+        
       </BillingWrapper>
     );
   }
@@ -181,7 +196,7 @@ class Billing extends Component {
         stripeKey={process.env.STRIPE_PK || "pk_test_6Il0D2PIhZrVUAjYbIW8ePpR"}
       >
         {" "}
-        <button>Basic</button>
+        <Button>Basic</Button>
       </StripeCheckout>
     );
   };
@@ -195,11 +210,6 @@ class Billing extends Component {
     const { description } = this.state;
     let amount = null;
     amount = tier2Price;
-    // if (this.state.type === "tier1") {
-    //   amount = tier1Price;
-    // } else if (this.state.type === "tier2") {
-    //   amount = tier2Price;
-    // }
 
     return (
       <StripeCheckout
@@ -212,7 +222,7 @@ class Billing extends Component {
         currency="USD"
         stripeKey={process.env.STRIPE_PK || "pk_test_6Il0D2PIhZrVUAjYbIW8ePpR"}
       >
-        <button>Premium</button>
+        <Button>Premium</Button>
       </StripeCheckout>
     );
   };

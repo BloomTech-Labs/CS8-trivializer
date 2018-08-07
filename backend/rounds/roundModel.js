@@ -8,7 +8,7 @@ const roundSchema = new mongoose.Schema({
     },
     roundName: {
         type: String,
-        default: "Trivializer Round"
+        default:  "New Round"
     },
     numberOfQuestions: {
         type: String,
