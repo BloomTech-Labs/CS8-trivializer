@@ -59,3 +59,4 @@ ReactDOM.render(
         </BrowserRouter>
     </Root>
 , document.getElementById('root'));
+registerServiceWorker()
