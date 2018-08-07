@@ -23,25 +23,6 @@ import Checkout from './components/Billing';
 import RCard from './components/RCard'
 import "./index.css";
 
-// InjectGlobal is akin to a index.css
-// injectGlobal` 
-//  /* css reset */
-//     ${reset}; 
-
-//     *{
-//         box-sizing: border-box;
-//     }
-
-//     html, body {
-//      margin: 0;
-//      padding: 0;
-//      font-family: sans-serif;
-//      background: #83487e; 
-//      /* font-size: 62.5% when using rem, you must set font size to this number globally */
-//     }
-
-// `
-
 ReactDOM.render(
     <Root>
         <BrowserRouter>
