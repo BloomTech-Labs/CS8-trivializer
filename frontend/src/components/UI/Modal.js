@@ -5,11 +5,13 @@ import { ModalWrapper } from './primitives/Modal';
 
 
 const Modal = ({ handleClose, show, children}) => {
+    console.log("HANDLE CLOSE", handleClose);
+    console.log("SHOW", show);
     const showHideClassname = show ? "modal display-block" : "modal display-none";
-
+    console.log("SHOW HIDE CLASSNAME", showHideClassname);
     return (
-       
-<ModalWrapper onClick={handleClose} className={showHideClassname}> 
+        
+        <ModalWrapper onClick={handleClose} className={showHideClassname}> 
                 {children}
             </ModalWrapper>
        

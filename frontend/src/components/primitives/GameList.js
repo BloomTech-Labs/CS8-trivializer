@@ -41,6 +41,7 @@ export const Button = styled.div`
  font-weight: 900;
  font-size: 1.2rem;
  padding-top: 5px;
+ 
 `;
 
 export const AddIcon = styled.img`

@@ -40,8 +40,10 @@ export const Img = styled.div`
     height: 100vh;
 `
 export const MainTitle = styled.h1`
-    
+    font-family: 'Luckiest Guy', cursive;
     color: white;
+    letter-spacing: 2px;
+    /* font-kerning: normal; */
 `
 
 export const SignInButton = styled.button`
@@ -50,7 +52,7 @@ export const SignInButton = styled.button`
     background: #52132e;
     font-size: 2rem;
     font-weight: 900;
-    height: auto;
+    height: 90px;
     width: 20%;
     
     &:focus{

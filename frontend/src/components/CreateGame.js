@@ -309,7 +309,6 @@ class CreateGame extends Component {
 
           <OutterButton>
             <ButtonWrapper>
-              {/* <Button>Print Answer Sheets</Button> */}
               <PdfBlanksGames rootQuestions={storedRounds} gameName={this.state.localGameName} />
             </ButtonWrapper>
 

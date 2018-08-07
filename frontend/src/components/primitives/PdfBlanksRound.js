@@ -26,6 +26,10 @@ export const PdfButton = styled.button`
    &:focus{
         outline:0;
     }
+    &:hover {
+    background: #006578;
+    color: white;
+  }
 `;
 
 export const GameName = styled.h1`

@@ -27,14 +27,15 @@ h1 {
 }
 
 .con:hover .bar {
-  background-color: #f92c8c;
+  background-color: #8f68f8;
 }
 
 .bar {
   display: block;
   height: 5px;
   width: 50px;
-  background: #6FFFE9;
+  background: #F3CED1;
+  /* background: #00A38F; */
   margin: 10px auto;
 }
 

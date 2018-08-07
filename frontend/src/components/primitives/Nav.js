@@ -27,7 +27,6 @@ export const Hamburger = styled.div`
     padding: 10px;
     border: solid skyblue;
     
-    
 `
 
 export const NavUl = styled.ul`

@@ -48,11 +48,11 @@ class Landing extends Component {
   };
 
   showModal = () => {
-    this.setState({ show: true });
+    this.setState({ show: 1 });
   };
 
   hideModal = () => {
-    this.setState({ show: false, show1: false, show2: false });
+    this.setState({ show: !1, show1: !1, show2: !1 });
   };
 
   showSignUp = () => {
@@ -63,9 +63,12 @@ class Landing extends Component {
     this.setState({ show: true, show2: true });
   };
 
+
+
   render() {
     return (
       <LandingWrapper>
+      {console.log("SHOW", this.state.show)}
         <Img>
           <SignUp show={this.state.show1} handleClose={this.hideModal} />
           <SignIn show={this.state.show2} handleClose={this.hideModal} />
@@ -79,10 +82,11 @@ class Landing extends Component {
 
           <BotDiv>
             <SignUpButton type="button" onClick={this.showSignUp}>
-              Sign up it's free
+              Sign up; it's free!
             </SignUpButton>
           </BotDiv>
         </Img>
+        {console.log("SHOW RIGHT BEFORE MODAL", this.state.show)}
         <Modal show={this.state.show} handleClose={this.hideModal} />
       </LandingWrapper>
     );

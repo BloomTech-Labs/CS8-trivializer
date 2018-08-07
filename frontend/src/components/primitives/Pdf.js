@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const CorrectAnswerPdf = styled.div`
-  font-weight: 900;
-  font-size: 1.8rem;
+  font-weight: bold;
+  font-size: 1.4rem;
 `;
 
 export const PdfWrapper = styled.div`
@@ -23,16 +23,21 @@ export const PdfButton = styled.button`
   width: 15%;
   height: 50px;
   margin: 8px;
-   &:focus{
-        outline:0;
-    }
+  &:hover {
+    background: #006578;
+    color: white;
+  }
+  &:focus {
+    outline: 0;
+  }
 `;
 
+
 export const GameName = styled.h1`
-color: black;
-font-weight: 900;
-font-size: 4rem;
-`
+  color: black;
+  font-weight: 900;
+  font-size: 4rem;
+`;
 
 export const RoundName = styled.div`
   font-weight: 500;
@@ -40,14 +45,22 @@ export const RoundName = styled.div`
 `;
 
 export const Button = styled.button`
-border-radius: 2%;
- border: solid #83487e;
- background: white;
- font-weight: 900px;
- font-size: 2rem;
- color: #83487e;
-    width: 100%;
-    height: 40px;
+  border-radius: 2%;
+  border: solid #83487e;
+  background: white;
+  font-weight: 900px;
+  font-size: 2rem;
+  color: #83487e;
+  width: 100%;
+  height: 40px;
+  &:hover {
+    background: #006578;
+    color: white;
+  }
+  &:focus {
+    outline: 0;
+  }
+  
 `;
 
 export const PdfHeading = styled.div`
