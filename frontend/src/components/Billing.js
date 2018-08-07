@@ -115,7 +115,9 @@ class Billing extends Component {
             </NavLi>
           </NavUl>
         </Nav>
+
         <PositionMenu>{hamburger}</PositionMenu>
+        
         <PriceContainer>
    
           <PriceDiv>
@@ -138,9 +140,9 @@ class Billing extends Component {
               <Title><div>Basic</div></Title>
               <Price>$9.99</Price>
 
-              <Li><div><b>Unlimited</b> Games</div></Li>
-              <Li><b>Unlimited</b> Rounds</Li>
-              <Li>Up to 50 questions</Li>
+              <Li><div><b>10</b> Games</div></Li>
+              <Li><b>10</b> Rounds</Li>
+              <Li> Up to 10 questions</Li>
             </Top>
             <Bot>
               <div>{this.checkoutButton()}</div>
@@ -197,7 +199,7 @@ class Billing extends Component {
         stripeKey={process.env.STRIPE_PK || "pk_test_6Il0D2PIhZrVUAjYbIW8ePpR"}
       >
         {" "}
-        <Button>Basic</Button>
+        <Button>Purchase</Button>
       </StripeCheckout>
     );
   };
@@ -223,7 +225,7 @@ class Billing extends Component {
         currency="USD"
         stripeKey={process.env.STRIPE_PK || "pk_test_6Il0D2PIhZrVUAjYbIW8ePpR"}
       >
-        <Button>Premium</Button>
+        <Button>Purchase</Button>
       </StripeCheckout>
     );
   };

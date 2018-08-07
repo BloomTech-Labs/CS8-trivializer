@@ -88,10 +88,11 @@ export const Select = styled.select`
 `
 
 export const Input = styled.input`
-  width: 20%;
+  width: 80%;
   /* padding: 12px; */
   border-radius: 4px;
   resize: vertical;
+
 `
 
 export const IconContainer = styled.div`

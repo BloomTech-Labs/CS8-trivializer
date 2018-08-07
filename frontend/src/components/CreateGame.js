@@ -17,7 +17,10 @@ import {
     TextWrapper,
     ListWrapper,
     OutterButton,
-    PositionMenu
+    PositionMenu,
+    GameInfo,
+    Left,
+    Right
     } 
         from './primitives/CreateGame';
 import { 
@@ -41,6 +44,7 @@ import {
   CreateGameWrapper,
   LabelWrapper,
   ButtonWrapper,
+  SaveButtonWrapper,
   Button,
   Label,
   Title,
@@ -51,7 +55,9 @@ import {
   NewRoundButton,
   BigPlusWrapper,
   NewRWrap,
-  Input
+  Input,
+  DateDiv,
+  GameDiv
 
 } from "./primitives/CreateGame";
 
@@ -65,8 +71,10 @@ class CreateGame extends Component {
             date: new Date(),
             name: '',
             localGameName: null,
+            gamePlayedDate: null,
             user_type: null,
             menu: false,
+            count: 0,
          }
          this.handleInput = this.handleInput.bind(this);
          this.saveGameHandler = this.saveGameHandler.bind(this);
@@ -79,11 +87,9 @@ class CreateGame extends Component {
 
     // ADD MODAL THAT SAYS GAME SAVED SUCCESSFULLY LATER
 
-    onDrop(files) {
-      this.setState({
-        files
-      });
-    };
+  count() {
+      this.setState({ count:  1 });
+  }
 
     onChangeDate = date => this.setState({ date });
 
@@ -105,18 +111,45 @@ class CreateGame extends Component {
         this.props.getGame(this.props.match.params.id)
         
          this.setState({localGameName: localStorage.getItem(`gameName${this.props.match.params.id}` )})
-
+         this.setState({gamePlayedDate: localStorage.getItem(`gamePlayedDate${this.props.match.params.id}` )})
+        //  localStorage.setItem(`gamePlayedDate${this.props.match.params.id}`, date )
+        //  if(this.props.storedGames[0] !== undefined){
+        //  this.setState({ gamePlayedDate: localStorage.getItem(`gamePlayedDate${this.props.match.params.id}` )})
+        //  }
         console.log("CreateGame CDM rounds", this.props.storedRound)    
     }
 
     saveGameHandler = (event) => {
         event.preventDefault()
-        let { files, date, name } = this.state;
-        let game = { files, date, name };
+        let { date, name, count } = this.state;
+        let game;
+       
         
-        localStorage.setItem(`gameName${this.props.match.params.id}`, name)
+        if (name === "" || name === '' ) {
+            game = { date }
+       }
 
-        this.props.saveGame(this.props.match.params.id, game)
+       if ( name.length > 0 && count === 0) {
+            game = { name }
+            localStorage.setItem(`gameName${this.props.match.params.id}`, name)
+
+       }
+
+       if (name.length > 0 && count > 0) {
+        game = {  date, name };
+        localStorage.setItem(`gameName${this.props.match.params.id}`, name)
+        localStorage.setItem(`gamePlayedDate${this.props.match.params.id}`, date )
+       }
+    //    if (this.state.date === date)
+        
+    //     localStorage.setItem(`gamePlayedDate${this.props.match.params.id}`, date )
+        
+
+        this.props.saveGame(this.props.match.params.id, game, ()=> {
+            this.props.history.push('/games');
+        })
+            
+    
     }
 
     logOut = async event => {
@@ -139,6 +172,26 @@ class CreateGame extends Component {
         document.getElementById("mySidenav").style.width = "0";
         document.getElementById("main").style.marginLeft = "0";
         this.setState({ menu: false})
+    }
+
+    toggleEditName() {
+        let x = document.getElementById("name")
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        }   else {
+            x.style.display = "none";
+        }
+    }
+
+    toggleEditCalendar() {
+        let x = document.getElementById("calendar")
+        if (x.style.display === "none") {
+            x.style.display = "block";
+            
+        }   else {
+            x.style.display = "none";
+            
+        }
     }
 
     render(){
@@ -228,6 +281,7 @@ class CreateGame extends Component {
     return (
         <CreateGameWrapper id="main">
             
+            
 
             <Nav id="mySidenav">
                 <NavUl>
@@ -241,10 +295,8 @@ class CreateGame extends Component {
             <PositionMenu>{hamburger}</PositionMenu>
 
     <TopContainer>         
-            
-            {console.log("STORED ROUND", this.props.storedRound)}
-            {console.log("STATE",this.state)}
-
+        
+    
       
 
             {/* <div>
@@ -257,20 +309,30 @@ class CreateGame extends Component {
                     </Dropzone>
                 </fieldset>
             </div> */}
-
+        
             <Center>
-                <fieldset>
+          <Left>      
+            <DateDiv> Date to be played: {localStorage.getItem(`gamePlayedDate${this.props.match.params.id}` ).slice(0,10)}</DateDiv>
+                <fieldset id="calendar">
+                
+                   <div onClick={()=> this.count()} >
                     <DatePicker
                         className="datePicker"
                         onChange={this.onChangeDate}
-                        value={this.state.date}
-                    />      
+                        value={this.state.date}    
+                    />
+                    </div>      
                 </fieldset>
-                {console.log("games", this.props.storedGames)}
-                <fieldset>
-                    <LabelWrapper>
-                    <Label>Game Name</Label>
-                    </LabelWrapper>
+                
+               
+                <GameDiv>Game Name:{this.state.localGameName}</GameDiv>
+                <fieldset id="name">
+            
+                    
+
+                    {/* <LabelWrapper>
+                    <Label>update name</Label>
+                    </LabelWrapper> */}
                     <Input
                     name="name"
                     type="text"
@@ -279,24 +341,39 @@ class CreateGame extends Component {
                     placeholder={this.state.localGameName}
                     onChange={this.handleInput}
                     value={this.state.name}
+                    maxLength="12"
+                    
                     />
                 </fieldset>
+                <SaveButtonWrapper>
+                     <Button onClick={(e)=> this.saveGameHandler(e)}>Save Game</Button>
+                </SaveButtonWrapper>
+            </Left>
+
+            <Right>
+
+                
+                
+                
+
+                <ButtonWrapper>
+                    <Button>Print Answer Sheets</Button>
+                    </ButtonWrapper>
+
+                    <ButtonWrapper>
+                    <Button>Print Answer Key</Button>
+                </ButtonWrapper>
+            
+            </Right>   
+            
                </Center>
             
 
-     <OutterButton>
-         <ButtonWrapper>
-          <Button>Print Answer Sheets</Button>
-        </ButtonWrapper>
+     
+         
 
-        <ButtonWrapper>
-          <Button>Print Answer Key</Button>
-        </ButtonWrapper>
-
-        <ButtonWrapper>
-          <Button onClick={(e)=> this.saveGameHandler(e)}>Save Game</Button>
-        </ButtonWrapper>
-     </OutterButton> 
+        
+     
 
     </TopContainer>
       
@@ -308,6 +385,7 @@ class CreateGame extends Component {
             {renderList}
             
         </CGListWrapper>
+        
         </CreateGameWrapper>
         )
     }

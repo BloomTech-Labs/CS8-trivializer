@@ -8,7 +8,7 @@ const gameSchema = new mongoose.Schema({
   name: {
     type: String,
     default: "New Game" ,
-    maxlength: 36 //arbitrary
+    maxlength: 36 
   },
   createdAt: {
     type: Date,
@@ -16,7 +16,7 @@ const gameSchema = new mongoose.Schema({
   },
   date: { 
     type: Date,
-    default: Date.now
+    // default: Date.now
   },
   logo: {
     data: Buffer,

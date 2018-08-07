@@ -66,7 +66,20 @@ class RCard extends Component {
 
     updateRound(event) {
         event.preventDefault()
-        const formProps = this.state;
+        const {roundName, numberOfQuestions, category, difficulty, type} = this.state;
+        let formProps;
+
+        if (roundName === "" || roundName === '' ) {
+            formProps = { numberOfQuestions, category, difficulty, type }
+       }
+
+       if (roundName.length > 0) {
+        formProps = {  roundName, numberOfQuestions, category, difficulty, type};
+       }
+
+        
+
+
       
         this.props.getThreeUpdate(formProps, () => {
                 (console.log("ROUND IN RCCARD",this.props.round))
@@ -85,14 +98,14 @@ class RCard extends Component {
       renderNumQuestions = (  
       <fieldset>
       <LabelWrapper>
-      <Label># of Questions</Label>
+      <Label>Number of questions</Label>
       </LabelWrapper>
       <Select  
         name="numberOfQuestions" 
         onChange={this.handleInput} 
         value={this.state.numberOfQuestions} 
       >
-        <option  value={this.props.numberOfQuestions}>{this.props.numberOfQuestions}</option>
+        <option value="1">Select # of questions</option>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -108,14 +121,14 @@ class RCard extends Component {
       renderNumQuestions = (  
       <fieldset>
       <LabelWrapper>
-      <Label># of Questions</Label>
+      <Label>Number of questions</Label>
       </LabelWrapper>
       <Select  
         name="numberOfQuestions" 
         onChange={this.handleInput} 
         value={this.state.numberOfQuestions} 
-      >
-        <option value={this.props.numberOfQuestions}>{this.props.numberOfQuestions}</option>
+      ><option value="1">Select # of questions</option>
+        
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -136,7 +149,7 @@ class RCard extends Component {
       renderNumQuestions = (  
       <fieldset>
       <LabelWrapper>
-      <Label>Please enter # of Questions: 1-50</Label>
+      <Label>Number of questions: 1-50</Label>
       </LabelWrapper>
       <Input  
         name="numberOfQuestions" 
@@ -152,7 +165,14 @@ class RCard extends Component {
       )
     }
 
+        let title;
+        if(this.state.roundName === '') {
+            title = this.props.roundName;
+        }
 
+        if(this.state.roundName.length > 2) {
+            title = this.state.roundName;
+        }
 
         return (
         
@@ -162,8 +182,29 @@ class RCard extends Component {
 
               <form>  
                 <FormWrap>   
-                  <TitleLabel>{this.props.roundName}</TitleLabel>
+                  <TitleLabel>
+                    {title}
+                    
+                  
+                  </TitleLabel>
                      
+                  <fieldset>
+                    <LabelWrapper>
+                    <Label>Round Name</Label>
+                    </LabelWrapper>
+                    <Input
+                    name="roundName"
+                    placeholder="update round name"
+                    type="text"
+                    component="input"
+                    autoComplete="none"
+                    onChange={this.handleInput}
+                    value={this.state.roundName}
+                    maxLength="15"
+                    />
+                </fieldset>
+
+
                   {renderNumQuestions}
     
                 <fieldset>

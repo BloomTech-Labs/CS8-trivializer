@@ -33,7 +33,7 @@ const GameCard = (props) => {
     }  
 
     let createdOn = props.created.slice(0, 10)
-    let playedOn = props.date.slice(0, 10)
+    let playedOn = props.datePlayed.slice(0, 10)
     return (
             <GameCardWrapper className="card-1 hvr-rectangle-out ">
              <TopCard onClick={()=> {props.history.push(`/create-game/${props.id}`)}}>

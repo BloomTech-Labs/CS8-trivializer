@@ -85,11 +85,17 @@ class CreateRoundCard extends Component {
 
   onSubmit = (event) => {
     event.preventDefault();
-    let formProps = this.state;
+    let { roundName, numberOfQuestions, category, difficulty, type } = this.state;
     const gameId = this.props.match.params.id;
     let round = this.props.round;
     console.log(this.state.roundName);
   
+    if (roundName === '' || roundName === "") {
+      roundName = "New Round";
+    }
+    
+    let formProps = { roundName, numberOfQuestions, category, difficulty, type }
+
     this.props.getThree( formProps, () => {
       
         this.props.addRound(gameId, this.props.round, (id)=> {

@@ -106,8 +106,15 @@ class GameList extends Component {
         let renderList;
      
         let list =  this.props.storedGames.map((g, i) => { 
-            return <GameCard key={g._id} id={g._id} gameId={g._id} created={g.createdAt} name={g.name} logo={g.logo} date={g.date}  />
-            
+        return (
+               <div> 
+                <GameCard key={g._id} id={g._id} gameId={g._id} created={g.createdAt} name={g.name} logo={g.logo} datePlayed={g.date}  /> 
+                {localStorage.setItem(`gamePlayedDate${g._id}`, g.date )}
+                </div>
+                )
+                            
+           
+                    
             });
 
     

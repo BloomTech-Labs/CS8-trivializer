@@ -19,21 +19,33 @@ export const ButtonWrapper = styled.div`
  padding-top: 20px;
 `;
 
+export const SaveButtonWrapper = styled.div`
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ /* padding-top: 20px; */
+ width: 80%;
+ height: 80%;
+ /* border: solid black; */
+ margin-top: 5px;
+`;
+
 export const Button = styled.button`
 border-radius: 2%;
  border: solid #83487e;
  background: white;
  font-weight: 900px;
- font-size: 2rem;
+ font-size: 1.5rem;
  color: #83487e;
-    width: 100%;
+    width: 50%;
     height: 40px;
 `;
 
 export const Label = styled.label`
  font-weight: 900;
  font-size: 2rem;
- color: white;
+ color: black;
+ /* border: solid black; */
 `;
 
 
@@ -123,17 +135,19 @@ export const CGListWrapper = styled.div`
     justify-content: center;
     align-items: center;
 
+    padding-top: 150px;
+
     /* border: solid black; */
 
 `
 
 export const TopContainer = styled.div`
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     width: 60%;
-    height: 400px;
-    margin-bottom: 100px;
+    height: 100%;
+    /* margin-bottom: 100px; */
     /* border: solid black; */
 `
 
@@ -150,14 +164,35 @@ export const OutterButton = styled.div`
 
 export const Center = styled.div`
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     position: relative; 
     right: 30px;
-
+    background: lightgrey;
     /* border: solid black; */
-    /* width: 100%; */
+    width: 100%;
+    height: 100%;
+    border-radius: 2%;
+`
+
+export const Left = styled.div`
+    /* border: solid green; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+    /* padding: 5px; */
+    margin-top: 10px;
+    border-radius: 2%;
+`
+
+export const Right = styled.div`
+    /* border: solid red; */
+    width: 50%;
+    height: 100%;
 `
 
 export const NewRoundButton = styled.img`
@@ -197,5 +232,18 @@ export const PositionMenu = styled.div`
     padding: 10px;
     
     transition:  0.5s; 
+
+`
+export const GameDiv = styled.div`
+ 
+    font-size: 2rem;
+    padding: 10px;
+    /* border: solid black; */
+`
+export const DateDiv = styled.div`
+    font-size: 2rem;
+    /* background: white; */
+    padding: 10px;
+    /* border: solid black; */
 
 `

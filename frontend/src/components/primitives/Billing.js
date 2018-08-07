@@ -124,7 +124,7 @@ export const Button = styled.div`
 export const PositionMenu = styled.div`
 
     width: 100px; 
-    position: absolute;
+    position: fixed;
     z-index: 1; 
     top: 0;
     left: 0;
