@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const CorrectAnswerPdf = styled.div`
   font-weight: 900;
-  font-size: 1.8rem;
+  font-size: 2.4rem;
 `;
 
 export const PdfWrapper = styled.div`
@@ -31,7 +31,7 @@ export const PdfButton = styled.button`
 export const GameName = styled.h1`
 color: black;
 font-weight: 900;
-font-size: 4rem;
+font-size: 3rem;
 `
 
 export const RoundName = styled.div`
@@ -56,5 +56,9 @@ export const PdfHeading = styled.div`
 
 export const PdfQuestion = styled.div`
   color: black;
-  font-size: 2.2rem;
+  font-size: 3rem;
+`;
+
+export const BlankLine = styled.div`
+  margin-top: 20px;
 `;

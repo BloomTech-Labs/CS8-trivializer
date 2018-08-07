@@ -76,7 +76,7 @@ class SignIn extends Component {
             <LabelWrapper><Label>Email</Label></LabelWrapper>
             <Input
               name="email"
-              type="text"
+              type="email"
               component="input"
               autoComplete="none"
               onChange={this.handleInput} 

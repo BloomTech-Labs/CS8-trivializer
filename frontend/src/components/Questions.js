@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { getQuestions } from "../actions";
 import Pdf from "./Pdf";
 import QuestionCard from "./QuestionCard";
+import PdfBlanksRound from "./PdfBlanksRound";
 
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
@@ -38,6 +39,7 @@ class Questions extends Component {
     return (
       <OuterMostWrapper>
         <Pdf rootQuestions={storedQuestions}/> 
+        <PdfBlanksRound rootQuestionsBlank={storedQuestions} />
         <QuestionsWrapper>
           <h1>Questions: {numberOfQuestions}</h1>
           <h1>Difficulty: {difficulty}</h1>

@@ -3,21 +3,25 @@ import jsPDF from "jspdf";
 
 import QuestionCard from "./QuestionCardPdf";
 
-import { PdfHeading, PdfWrapper, PdfButton } from "./primitives/Pdf";
-
+import {
+  PdfHeading,
+  PdfWrapper,
+  PdfButton,
+  BlankLine,
+} from "./primitives/PdfBlanksRound";
 
 let he = require("he");
 
-class Pdf extends Component {
+class PdfBlanksRound extends Component {
   printDocument() {
     const testDiv = document.createElement("div");
     testDiv.innerHTML = <div>PRINT ME PLEASE</div>;
     var x = window.open();
-    const input = document.getElementById("divToPrint");
+    const input = document.getElementById("blankToPrint");
     const pdf = new jsPDF();
 
     var options = {
-      width: 185
+      width: 210
     };
 
     pdf.fromHTML(input, 10, 15, options);
@@ -33,27 +37,33 @@ class Pdf extends Component {
   }
 
   render() {
-    let storedQuestions = this.props.rootQuestions;
+    let storedQuestions = this.props.rootQuestionsBlank;
     let subQuestions = null;
     let numberOfQuestions = 0;
     let difficulty = "";
     storedQuestions.map(q => {
       numberOfQuestions = q.length;
-      subQuestions = q.map((subQ, subI) => {
-        return <QuestionCard key={subI} question={subQ} index={subI} />;
+      subQuestions = q.map((subQ, index) => {
+        return (
+          <BlankLine>
+            {index + 1}. <div>
+              {" "}
+              _________________________________________________________________________________________
+            </div>
+          </BlankLine>
+        );
       });
     });
     return (
       <div>
-        <PdfWrapper id="divToPrint" style={{ display: "none"}}>
-        <PdfHeading>--- Answer Key ---</PdfHeading>
-        <PdfHeading> Game Name - Round Name </PdfHeading>
+        <PdfWrapper id="blankToPrint" style={{ display: "none" }}>
+          <PdfHeading> Game Name - Round Name </PdfHeading>
           {subQuestions}
         </PdfWrapper>
-        <PdfButton onClick={this.printDocument}>Print Answer Key</PdfButton>
+        <PdfButton onClick={this.printDocument}>Print Blank Sheets</PdfButton>
       </div>
     );
   }
 }
 
-export default Pdf;
+export default PdfBlanksRound;

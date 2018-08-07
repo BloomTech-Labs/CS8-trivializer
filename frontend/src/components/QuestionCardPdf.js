@@ -4,6 +4,7 @@ import { getQuestions } from "../actions";
 import Pdf from "./Pdf";
 
 import {
+  PdfQuestion,
   CorrectAnswerPdf,
   PdfWrapper
 } from "./primitives/Pdf";
@@ -34,12 +35,7 @@ export default class FormattedQuestions extends Component {
       return array;
     }
 
-    // this.props.question.incorrect_answers.push(
-    //   this.props.question.correct_answer
-    // );
-
     let fixedArray = [];
-    console.log("PROPS QUESTION IN QUESTION CARD", this.props.question)
     if(this.props.question.incorrect_answers && this.props.question.correct_answer){
       fixedArray = [...this.props.question.incorrect_answers,this.props.question.correct_answer];
     }
@@ -66,9 +62,7 @@ export default class FormattedQuestions extends Component {
         <div style={{fontSize:8}}>____________________________________________________________________________________________________________________________________________________________</div>
         <br />
         <h1>
-          {/* {console.log("=== PROBLEM PROPS?===", this.props.question.question)} */}
-          {/* {he.decode(this.props.question.question)} */}
-          <div style={{color: "black", fontSize:"3rem"}}>{this.props.index + 1}. {decodedQuestion}</div>
+          <PdfQuestion>{this.props.index + 1}. {decodedQuestion}</PdfQuestion>
         </h1>
         {/* converts the HTML special character encoding to plain text; i.e &quote = "" */}
         <br />
