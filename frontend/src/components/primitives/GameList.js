@@ -55,7 +55,6 @@ export const AddIcon = styled.img`
         background: greenyellow;
         cursor: pointer;
     }
-    border: solid black;
 `
 
 

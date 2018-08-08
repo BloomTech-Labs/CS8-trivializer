@@ -86,6 +86,9 @@ export const AddIcon = styled.img`
   border-radius: 50%;
   width: 30%;
   height: auto;
+  &:focus {
+    outline: 0;
+  }
 
   &:hover {
     background: greenyellow;
@@ -156,10 +159,7 @@ export const CenterSpinner = styled.div`
   bottom: 100px;
   right: 0;
   z-index: 999;
-
-  
-
-`
+`;
 
 export const OutterButton = styled.div`
   display: flex;
