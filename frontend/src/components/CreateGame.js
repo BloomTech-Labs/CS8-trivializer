@@ -55,10 +55,13 @@ import {
   BigPlusWrapper,
   NewRWrap,
   Input,
-  NRW
+  NRW,
+  CenterSpinner
 } from "./primitives/CreateGame";
 
 import "./primitives/css/GameList.css";
+import Spinner from './UI/Spinner';
+
 
 class CreateGame extends Component {
   constructor(props) {
@@ -79,11 +82,7 @@ class CreateGame extends Component {
 
   // ADD MODAL THAT SAYS GAME SAVED SUCCESSFULLY LATER
 
-  onDrop(files) {
-    this.setState({
-      files
-    });
-  }
+  
 
   onChangeDate = date => this.setState({ date });
 
@@ -112,13 +111,31 @@ class CreateGame extends Component {
   }
 
   saveGameHandler = event => {
-    event.preventDefault();
-    let { files, date, name } = this.state;
-    let game = { files, date, name };
+    // event.preventDefault();
+    // let { files, date, name } = this.state;
+    // let game = { files, date, name };
 
-    localStorage.setItem(`gameName${this.props.match.params.id}`, name);
+    // localStorage.setItem(`gameName${this.props.match.params.id}`, name);
+    event.preventDefault()
+        let { date, name } = this.state;
+        let game;
+       
+        
+        if (name === "" || name === '' ) {
+            game = { date }
+       }
 
-    this.props.saveGame(this.props.match.params.id, game);
+       if ( name.length > 0 ) {
+            game = { name }   
+            localStorage.setItem(`gameName${this.props.match.params.id}`, name);
+       }
+
+       
+
+
+    this.props.saveGame(this.props.match.params.id, game, ()=> {
+      this.props.history.push('/games');
+  })
   };
 
   logOut = async event => {
@@ -249,6 +266,16 @@ class CreateGame extends Component {
       );
     }
     let storedRounds = this.props.storedRound
+
+
+    let load;
+    if(this.props.updatingRound){
+
+        load = (
+            <CenterSpinner><Spinner /></CenterSpinner>
+        )
+    }
+
     return (
         <CreateGameWrapper id="main">
             
@@ -283,6 +310,7 @@ class CreateGame extends Component {
             </div> */}
 
           <Center>
+          
             <fieldset>
               <DatePicker
                 className="datePicker"
@@ -305,6 +333,9 @@ class CreateGame extends Component {
                 value={this.state.name}
               />
             </fieldset>
+            <ButtonWrapper>
+              <Button onClick={e => this.saveGameHandler(e)}>Save Game</Button>
+            </ButtonWrapper>
           </Center>
 
           <OutterButton>
@@ -316,12 +347,10 @@ class CreateGame extends Component {
             <Pdf rootQuestions={storedRounds} gameName={this.state.localGameName} />
             </ButtonWrapper>
 
-            <ButtonWrapper>
-              <Button onClick={e => this.saveGameHandler(e)}>Save Game</Button>
-            </ButtonWrapper>
+            
           </OutterButton>
         </TopContainer>
-
+        {load}
         <CGListWrapper>
           {newRound}
           {renderList}
@@ -333,6 +362,7 @@ class CreateGame extends Component {
 
 function mapStateToProps(state) {
   return {
+    updatingRound: state.round.updatingRound,
     storedGames: state.game.storedGames,
     storedRound: state.round.storedRound,
     round: state.round.round,

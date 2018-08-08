@@ -7,7 +7,7 @@ export const NewRCardWrapper = styled.div`
     border-radius: 4%;
     font-size: 2rem;
     width: 280px;
-    height: 250px;
+    height: 330px;
     
     margin: 30px 30px;
     background: white;

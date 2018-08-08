@@ -30,6 +30,7 @@ export const ButtonWrapper = styled.div`
  justify-content: center;
  align-items: center;
  padding-top: 20px;
+ 
 `;
 
 export const Button = styled.div`
@@ -54,6 +55,7 @@ export const AddIcon = styled.img`
         background: greenyellow;
         cursor: pointer;
     }
+    border: solid black;
 `
 
 

@@ -87,8 +87,10 @@ export const Select = styled.select`
   resize: vertical;
 `
 
+
+
 export const Input = styled.input`
-  width: 20%;
+  width: 80%;
   /* padding: 12px; */
   border-radius: 4px;
   resize: vertical;
@@ -111,16 +113,32 @@ export const TrashIconWrapper = styled.div`
 `;
 
 export const TrashIcon = styled.img`
- width: 80%;
+ width: 100%;
  height: auto;
  position: relative;
  left: 5px;
+
+transition: all 1000ms;
+   &:hover {
+       transform: scale(1.3);
+        cursor: pointer;
+    }
+
+
 `
 export const ViewIcon = styled.img`
- width: 15%;
+ width: 20%;
  height: auto;
  position: relative;
- top: 6px;
+ top: 8px;
+  left: 20px;
+ transition: all 1000ms;
+   &:hover {
+       transform: scale(1.5);
+        cursor: pointer;
+    }
+
+
  
 `
 export const RedoIcon = styled.img`
@@ -131,6 +149,14 @@ export const RedoIcon = styled.img`
  left: 45px;
  /* padding-right: 8px; */
  padding-bottom: 5px;
+ transition: all 1000ms;
+   &:hover {
+       transform: scale(1.3);
+        cursor: pointer;
+    }
+
+   
+
 `
 
 export const FormWrap = styled.div`

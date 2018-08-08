@@ -43,6 +43,8 @@ export const MainTitle = styled.h1`
     font-family: 'Luckiest Guy', cursive;
     color: white;
     letter-spacing: 2px;
+    padding-top: 10px;
+    padding-left: 10px;
     /* font-kerning: normal; */
 `
 
