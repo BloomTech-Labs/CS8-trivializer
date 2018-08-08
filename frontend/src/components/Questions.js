@@ -61,7 +61,7 @@ class Questions extends Component {
 function mapStateToProps(state) {
   return {
     storedQuestions: state.round.storedQuestions,
-    erorrMessage: state.auth.erorrMessage
+    errorMessage: state.auth.errorMessage
   };
 }
 

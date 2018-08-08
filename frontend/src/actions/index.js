@@ -55,7 +55,8 @@ export const signUp = (formProps, callback) => dispatch => {
       })
       
       .catch(err => {
-          dispatch({ type: ERROR, errorMessage: 'Error signing in user', err})
+          console.log("CATCH ERR", err);
+          dispatch({ type: ERROR, errorMessage: 'Error signing up user'})
       });
 };
 

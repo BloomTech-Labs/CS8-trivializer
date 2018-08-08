@@ -68,11 +68,11 @@ class Landing extends Component {
   render() {
     return (
       <LandingWrapper>
-      {console.log("SHOW", this.state.show)}
+      {console.log("LANDING PROPS", this.props.auth)}
         <Img>
           <SignUp show={this.state.show1} handleClose={this.hideModal} />
           <SignIn show={this.state.show2} handleClose={this.hideModal} />
-          <TopDiv>
+          <TopDiv >
             <MainTitle className="ml6">
               <span className="letters textShadow">Trivializer</span>
             </MainTitle>

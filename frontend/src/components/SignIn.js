@@ -46,7 +46,6 @@ class SignIn extends Component {
     this.props.signIn(formProps, () => {
       this.props.history.push("/games");
     });
-     
   }
 
 
@@ -108,7 +107,7 @@ class SignIn extends Component {
 function mapStateToProps(state) {
   return { 
     round : state.round.round,
-    errorMessage: state.auth.errorMessage 
+    state: state.auth.errorMessage 
   };
 }
 export default compose(

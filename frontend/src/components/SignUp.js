@@ -30,17 +30,18 @@ class SignUp extends Component {
     super(props);
     this.state = {
     email: '',
-    password: ''
+    password: '',
+    errorMessage: "",
     }
 
     this.handleInput = this.handleInput.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    console.log("PROPS INSIDE STATE", this.state);
   }
 
   handleInput(event) {
     const { name, value } = event.target;
     this.setState({ [name]: value })
-
   }
   
   onSubmit = (event) => {
@@ -50,17 +51,14 @@ class SignUp extends Component {
     this.props.signUp(formProps, () => {
       this.props.history.push("/games");
     });
-     
+    // this.setState({error: this.props.errorMessage})
+    console.log("PROPS ?", this.props);
+    // console.log("STATE AFTER SETSTATE IN ONSUBMIT", this.state);
+
   }
 
 
 
-
-  // onSubmit = formProps => {
-  //   this.props.signUp(formProps, () => {
-  //     this.props.history.push("/games");
-  //   });
-  // };
   render() {
     
 
@@ -68,7 +66,6 @@ class SignUp extends Component {
     return (
       <SignUpWrapper className={[showHideClassname, "slide-in-top"].join(' ')}>
          <InputWrapper>
-        
         <Title>SIGN UP </Title>
         <form onSubmit={this.onSubmit}>
           <fieldset>
@@ -118,7 +115,11 @@ class SignUp extends Component {
 
 
 function mapStateToProps(state) {
-  return { erorrMessage: state.auth.erorrMessage };
+  // console.log("MAP STATE TO PROPS STATE", state);
+  return { errorMessage: state.auth.errorMessage,
+          auth: state.auth.authenticated
+    };
+
 }
 
 export default compose(
