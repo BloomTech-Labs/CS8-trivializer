@@ -33,11 +33,9 @@ router
 
 router
     .put('/update-round',(req, res)=> {
-        console.log(req.body)
-        const { roundId, round } = req.body
-        const { roundName, numberOfQuestions, category, difficulty, type, questions } = round;
-        console.log("ROUND", round)
-        Round.findByIdAndUpdate(roundId, { roundName, numberOfQuestions, category, difficulty, type, questions })
+        const { roundId, round } = req.body;
+
+        Round.findByIdAndUpdate(roundId, round)
         .then(updated => {
                 console.log("UPDATED",updated)
                 res.status(200).json(updated)

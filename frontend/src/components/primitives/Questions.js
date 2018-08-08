@@ -46,4 +46,41 @@ export const QuestionCardWrapper = styled.div`
   background: #696969;
   border-radius: 0.5%;
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+
 `
+export const ButtonWrap = styled.div`
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 15%;
+  /* border: solid black; */
+  margin: 20px;
+`
+ export const QuestionsText = styled.div`
+  margin: 5px;
+  font-size: 3rem;
+  font-weight: 900;
+  color: white;
+ `
+
+// export const DifficultyText = styled.div`
+//   margin: 5px;
+//   font-size: 3rem;
+//   color: white
+//   font-weight: 900;
+// `
+
+
+export const PositionMenu = styled.div`
+  width: 100px;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+
+
+  overflow-x: hidden;
+  padding: 10px;
+
+  transition: 0.5s;
+`;

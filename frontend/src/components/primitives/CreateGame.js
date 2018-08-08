@@ -138,18 +138,36 @@ export const TopContainer = styled.div`
   justify-content: space-around;
   align-items: center;
   width: 60%;
-  height: 400px;
-  margin-bottom: 100px;
+  height: 100%;
+  /* margin-bottom: 100px;                                      */
   /* border: solid black; */
 `;
+
+export const CenterSpinner = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* width: 100%; */
+  height: auto;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 100px;
+  right: 0;
+  z-index: 999;
+
+  
+
+`
 
 export const OutterButton = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 
-  height: 400px;
+  /* height: 100%; */
 
   /* border: solid black; */
 `;
@@ -158,9 +176,9 @@ export const Center = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  /* align-items: center;
   position: relative;
-  right: 30px;
+  right: 30px; */
 
   /* border: solid black; */
   /* width: 100%; */

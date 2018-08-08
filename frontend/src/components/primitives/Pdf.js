@@ -20,7 +20,7 @@ export const PdfButton = styled.button`
   font-weight: 900px;
   font-size: 2rem;
   color: #83487e;
-  width: 15%;
+  width: 100%;
   height: 50px;
   margin: 8px;
   &:hover {

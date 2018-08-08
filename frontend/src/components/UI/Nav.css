@@ -11,6 +11,10 @@
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
 }
 
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
 /* The navigation menu links */
 .sidenav a {
     padding: 8px 8px 8px 32px;

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const NewGameCardWrapper = styled.div`
     border-radius: 4%;
     font-size: 2rem;
-    width: 250px;
+    width: 280px;
     height: 280px;
     margin: 30px 6%;
 

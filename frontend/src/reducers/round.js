@@ -27,7 +27,7 @@ export default function(state=INITIAL_STATE, action) {
         case UPDATING_ROUND:
             return { ...state, updatingRound: true };
         case UPDATED_ROUND:
-            return { ...state, storedRound: state.storedRound.map(r => r._id === action.payload._id ? r = action.payload : r) };
+            return { ...state, storedRound: state.storedRound.map(r => r._id === action.payload._id ? r = action.payload : r), updatingRound: false };
         case DELETING_ROUND:
             return { ...state, deletingRound: true };
         case DELETED_ROUND:

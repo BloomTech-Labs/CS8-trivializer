@@ -234,14 +234,14 @@ export const addGame = (userId, callback) => dispatch => {
         });
 };
 
-export const saveGame = (gameId, game) => dispatch => {
+export const saveGame = (gameId, game, callback) => dispatch => {
     dispatch({ type: SAVING_GAME })
     axios
         .put('http://localhost:5000/api/game/update-game', {gameId, game})
         // .put('https://fathomless-lowlands-45973.herokuapp.com/api/game/update-game', {gameId, game})
         .then( response => {
             dispatch({type: SAVED_GAME, payload: response.data })
-            console.log(response.data)
+            callback()
         })
         .catch(err => {
             dispatch({type: ERROR, errorMessage: "error updating game", err})

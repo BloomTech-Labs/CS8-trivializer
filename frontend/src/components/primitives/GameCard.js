@@ -36,7 +36,9 @@ export const GameCardWrapper = styled.div`
     &:hover {
   -webkit-transform: scale(1.15, 1.15);
   transform: scale(1.15, 1.15);
+  cursor: pointer;
 }
+
 
     &:hover::after {
     opacity: 1;
@@ -112,8 +114,14 @@ export const TrashIconWrapper = styled.div`
 `;
 
 export const TrashIcon = styled.img`
- width: 80%;
+ width: 60%;
  height: auto;
+ transition: all 1000ms;
+ &:hover {
+       transform: scale(1.3);
+        cursor: pointer;
+    }
+
 `
 export const ViewIcon = styled.img`
  width: 15%;
