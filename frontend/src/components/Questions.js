@@ -19,7 +19,7 @@ import {
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 import { QuestionsWrapper, QuestionCardWrapper, OuterMostWrapper,
-   pdfWrapper, TestDiv, Bold, PositionMenu, ButtonWrap} from "./primitives/Questions";
+   pdfWrapper, TestDiv, Bold, PositionMenu, ButtonWrap, QuestionsText} from "./primitives/Questions";
 
 class Questions extends Component {
   constructor(props) {
@@ -121,8 +121,8 @@ class Questions extends Component {
           <PdfBlanksRound rootQuestionsBlank={storedQuestions} />
         </ButtonWrap>
         <QuestionsWrapper>
-          <h1>Questions: {numberOfQuestions}</h1>
-          <h1>Difficulty: {difficulty}</h1>
+          <QuestionsText>Questions: {numberOfQuestions}</QuestionsText>
+          {/* <DifficultyText>Difficulty: {difficulty}</DifficultyText> */}
           <Bold><h2> Please note: Correct answers displayed in bold.</h2></Bold>
 
        <QuestionCardWrapper>

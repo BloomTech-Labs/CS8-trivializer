@@ -56,6 +56,20 @@ export const ButtonWrap = styled.div`
   /* border: solid black; */
   margin: 20px;
 `
+ export const QuestionsText = styled.div`
+  margin: 5px;
+  font-size: 3rem;
+  font-weight: 900;
+  color: white;
+ `
+
+// export const DifficultyText = styled.div`
+//   margin: 5px;
+//   font-size: 3rem;
+//   color: white
+//   font-weight: 900;
+// `
+
 
 export const PositionMenu = styled.div`
   width: 100px;

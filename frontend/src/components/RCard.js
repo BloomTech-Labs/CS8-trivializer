@@ -111,7 +111,6 @@ class RCard extends Component {
         onChange={this.handleInput} 
         value={this.state.numberOfQuestions} 
       >
-        <option >Select # of questions</option>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -133,7 +132,7 @@ class RCard extends Component {
         name="numberOfQuestions" 
         onChange={this.handleInput} 
         value={this.state.numberOfQuestions} 
-      ><option>Select # of questions</option>
+      >
         
         <option value="1">1</option>
         <option value="2">2</option>
