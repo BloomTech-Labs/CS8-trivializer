@@ -68,8 +68,6 @@ class SignIn extends Component {
          <InputWrapper>
         
         <Title>SIGN IN </Title>
-        
-        <ErrorMessage>{this.props.errorMessage}</ErrorMessage>
         <form onSubmit={this.onSubmit}>
           <fieldset>
             <LabelWrapper><Label>Email</Label></LabelWrapper>
@@ -93,7 +91,7 @@ class SignIn extends Component {
               value={this.state.password}
             />
           </fieldset>
-          {/* <ErrorMessage>{this.props.errorMessage}</ErrorMessage> */}
+          <ErrorMessage>{this.props.errorMessage}</ErrorMessage>
           <ButtonWrapper><LogButton>Sign In</LogButton></ButtonWrapper>
           
         
