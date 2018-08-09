@@ -59,8 +59,7 @@ class SignUp extends Component {
   };
 
   render() {
-    // let renderPTag;
-
+    console.log("SIGNUP PROPS", this.props);
     const showHideClassname = this.props.show
       ? "display display-block"
       : "modal display-none";
@@ -108,8 +107,7 @@ class SignUp extends Component {
                 value={this.state.confirmPassword}
               />
             </fieldset>
-            <ErrorMessage>{this.state.errorMessage}</ErrorMessage>
-
+            <ErrorMessage>{this.props.errorMessage}</ErrorMessage>
             <ButtonWrapper>
               <LogButton>Sign Up</LogButton>
             </ButtonWrapper>

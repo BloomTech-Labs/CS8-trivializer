@@ -307,9 +307,6 @@ class CreateGame extends Component {
 
           <Center>
             <fieldset>
-              <LabelWrapper>
-                <Label>Scheduled For </Label>
-              </LabelWrapper>
               <DatePicker
                 className="datePicker"
                 onChange={this.onChangeDate}
@@ -381,3 +378,5 @@ export default connect(
     signOut
   }
 )(withRouter(CreateGame));
+
+
