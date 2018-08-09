@@ -95,7 +95,7 @@ class RCard extends Component {
 
     render(){
         let renderNumQuestions;
-
+        
         if(this.state.numberOfQuestions === 'a' ){
             this.props.history.push('/billing')
           }

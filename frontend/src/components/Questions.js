@@ -25,7 +25,6 @@ class Questions extends Component {
   constructor(props) {
     super(props);
     this.state = {
-    
       menu: false
     };
     this.openNav = this.openNav.bind(this);
@@ -62,14 +61,22 @@ class Questions extends Component {
     let subQuestions = null;
     let numberOfQuestions = 0;
     let difficulty = "";
+    let errMessage = "";
+    let errMsgFormat = "0"
+
 
     storedQuestions.map(q => {
       numberOfQuestions = q.length;
-      // difficulty = q[0].difficulty;
+      if(numberOfQuestions === 0){
+        errMessage = "The trivia database does not contain enough questions of that difficulty in that category. Please try a different combination.";
+        errMsgFormat = "200px";
+      }
       subQuestions = q.map((subQ, subI) => {
         return <QuestionCard key={subI} question={subQ} index={subI} />;
       });
     });
+
+
 
     let hamburger;
 
@@ -124,6 +131,7 @@ class Questions extends Component {
           <QuestionsText>Questions: {numberOfQuestions}</QuestionsText>
           {/* <DifficultyText>Difficulty: {difficulty}</DifficultyText> */}
           <Bold><h2> Please note: Correct answers displayed in bold.</h2></Bold>
+          <Bold><h2 style={{marginTop: errMsgFormat}}>{errMessage}</h2></Bold>
 
        <QuestionCardWrapper>
           {subQuestions}
