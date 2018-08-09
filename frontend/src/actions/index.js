@@ -384,7 +384,7 @@ export const signUp = (formProps, callback) => dispatch => {
       })
       
       .catch(err => {
-          dispatch({ type: ERROR, errorMessage: 'Error signing in user', err})
+          dispatch({ type: ERROR, errorMessage: 'Username already in use.', err})
       });
 };
 
@@ -402,7 +402,7 @@ export const signIn = (formProps, callback) => dispatch => {
           callback();
       })
       .catch(err => {
-          dispatch({ type: ERROR, errorMessage: 'Error signing in user', err})
+          dispatch({ type: ERROR, errorMessage: 'User not found.', err})
       });
 
 };

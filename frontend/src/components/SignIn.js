@@ -15,7 +15,8 @@ import {
   Input,
   Text,
   InputWrapper,
-  LogButton
+  LogButton,
+  ErrorMessage
   
 } from "./primitives/SignIn";
 
@@ -26,7 +27,8 @@ class SignIn extends Component {
     super(props);
     this.state = {
     email: '',
-    password: ''
+    password: '',
+    signInError: "",
     }
 
     this.handleInput = this.handleInput.bind(this);
@@ -46,15 +48,11 @@ class SignIn extends Component {
     this.props.signIn(formProps, () => {
       this.props.history.push("/games");
     });
+    this.setState({signInError: this.props.errorMessage})
+    console.log("SIGNIN ERROR", this.props);
   }
 
 
-
-  // onSubmit = formProps => {
-  //   this.props.signIn(formProps, () => {
-  //     this.props.history.push("/games");
-  //   });
-  // };
 
   getRound = () => {
     this.props.getThree();
@@ -70,6 +68,8 @@ class SignIn extends Component {
          <InputWrapper>
         
         <Title>SIGN IN </Title>
+        
+        <ErrorMessage>{this.props.errorMessage}</ErrorMessage>
         <form onSubmit={this.onSubmit}>
           <fieldset>
             <LabelWrapper><Label>Email</Label></LabelWrapper>
@@ -93,6 +93,7 @@ class SignIn extends Component {
               value={this.state.password}
             />
           </fieldset>
+          {/* <ErrorMessage>{this.props.errorMessage}</ErrorMessage> */}
           <ButtonWrapper><LogButton>Sign In</LogButton></ButtonWrapper>
           
         
@@ -107,7 +108,7 @@ class SignIn extends Component {
 function mapStateToProps(state) {
   return { 
     round : state.round.round,
-    state: state.auth.errorMessage 
+    errorMessage: state.auth.errorMessage 
   };
 }
 export default compose(

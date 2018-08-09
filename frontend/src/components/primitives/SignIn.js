@@ -95,3 +95,9 @@ export const Text = styled.p`
 export const Terms = styled.a`
     color: dodgerblue;
 `
+
+export const ErrorMessage = styled.p`
+padding: 5px;
+font-size: 1.8rem;
+color: red;
+`;
