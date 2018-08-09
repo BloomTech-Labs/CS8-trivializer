@@ -60,6 +60,10 @@ export const LogButton = styled.button`
  color: #83487e;
     width: 100%;
     height: 40px;
+    &:hover {
+        background:#006578;
+        color: white;
+    }
 `
 
 export const Label = styled.label`

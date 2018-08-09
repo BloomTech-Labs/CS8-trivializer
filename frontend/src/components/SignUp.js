@@ -31,6 +31,7 @@ class SignUp extends Component {
     this.state = {
     email: '',
     password: '',
+    confirmPassword: '',
     errorMessage: "",
     }
 
@@ -57,9 +58,9 @@ class SignUp extends Component {
 
   }
 
-
-
+  
   render() {
+    let renderP;
     
 
     const showHideClassname = this.props.show ? "display display-block" : "modal display-none";
@@ -97,7 +98,8 @@ class SignUp extends Component {
               type="password"
               component="input"
               autoComplete="none"
-              
+              onChange={this.handleInput}
+              value={this.state.confirmPassword}
             />
           </fieldset>
 

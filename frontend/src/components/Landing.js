@@ -25,7 +25,7 @@ import {
 import "./primitives/css/Landing.css";
 
 class Landing extends Component {
-  state = { show: false, show1: false, show2: false };
+  state = { show: !1, show1: false, show2: false };
 
   componentDidMount = () => {
     $(".ml6 .letters").each(function() {

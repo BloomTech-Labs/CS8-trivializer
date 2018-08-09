@@ -187,10 +187,10 @@ class Billing extends Component {
 
     return (
       <StripeCheckout
-        name={`Trivializer ${this.state.type} Purchase`}
+        name={`Trivializer Purchase`}
         email={email}
         allowRememberMe={false}
-        description={description}
+        description="Basic Tier"
         amount={amount}
         token={this.onToken(amount, description)}
         currency="USD"
@@ -214,10 +214,10 @@ class Billing extends Component {
 
     return (
       <StripeCheckout
-        name={`Trivializer ${this.state.type} Purchase`}
+        name={`Trivializer Purchase`}
         email={email}
         allowRememberMe={false}
-        description={description}
+        description="Premium Tier"
         amount={amount}
         token={this.onToken(amount, description)}
         currency="USD"
