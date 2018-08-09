@@ -8,17 +8,17 @@ const INITIAL_STATE = {
 };
 
 export default function(state = INITIAL_STATE, action) {
-  console.log("ACTION.TYPE IN REDUCERS", action.type);
   switch (action.type) {
     case SIGNING_IN:
-      return { ...state, signingIn: true };
+    return { ...state, signingIn: true };
     case SIGNING_UP:
-      return { ...state, signingUp: true };
+    return { ...state, signingUp: true };
     case AUTH_USER:
-      return { ...state, authenticated: action.payload };
+    return { ...state, authenticated: action.payload };
     case ERROR:
     //   console.log("ACTION IN ERROR", action);
-      return { ...state, errorMessage: action.errorMessage };
+    console.log("ERROR MESSAGE IN REDUCERS", state);
+    return { ...state, errorMessage: action.errorMessage };
     default:
       return state;
   }

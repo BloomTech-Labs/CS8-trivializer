@@ -48,7 +48,6 @@ class SignIn extends Component {
     this.props.signIn(formProps, () => {
       this.props.history.push("/games");
     });
-    this.setState({signInError: this.props.errorMessage})
     console.log("SIGNIN ERROR", this.props);
   }
 
@@ -91,6 +90,7 @@ class SignIn extends Component {
               value={this.state.password}
             />
           </fieldset>
+
           <ErrorMessage>{this.props.errorMessage}</ErrorMessage>
           <ButtonWrapper><LogButton>Sign In</LogButton></ButtonWrapper>
           

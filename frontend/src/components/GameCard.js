@@ -30,10 +30,10 @@ const GameCard = props => {
   };
   console.log("PROPS GAMECARD", props);
   let createdOn = props.created.slice(0, 10);
-  let playedOn;
-  if(props.date){
-    playedOn = props.date.slice(0, 10);
-  }
+  let playedOn = props.date.slice(0, 10);
+  // if(props.date) {
+  //   playedOn = props.date.slice(0, 10);
+  // }
   return (
     <GameCardWrapper className="card-1 hvr-rectangle-out ">
       <TopCard
