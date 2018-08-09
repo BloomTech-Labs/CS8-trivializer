@@ -60,7 +60,7 @@ class SignUp extends Component {
 
   
   render() {
-    let renderP;
+    // let renderPTag;
     
 
     const showHideClassname = this.props.show ? "display display-block" : "modal display-none";
@@ -68,6 +68,7 @@ class SignUp extends Component {
       <SignUpWrapper className={[showHideClassname, "slide-in-top"].join(' ')}>
          <InputWrapper>
         <Title>SIGN UP </Title>
+        {/* <p>${renderPTag}</p> */}
         <form onSubmit={this.onSubmit}>
           <fieldset>
             <LabelWrapper><Label>Email</Label></LabelWrapper>

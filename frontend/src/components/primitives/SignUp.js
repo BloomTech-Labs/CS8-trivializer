@@ -10,7 +10,6 @@ export const SignUpWrapper = styled.div`
     bottom: 0;
     right: 0;
     margin: auto;
-    
     z-index: 1;
     max-width: 30%;
     height: 450px;

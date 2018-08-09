@@ -19,7 +19,8 @@ import {
   SignUpWrapper,
   SignUpButton,
   SignInButton,
-  BotDiv
+  BotDiv,
+  Subtitle,
 } from "./primitives/Landing.js";
 
 import "./primitives/css/Landing.css";
@@ -82,6 +83,8 @@ class Landing extends Component {
 
           <BotDiv>
             <SignUpButton type="button" onClick={this.showSignUp}>
+              Hosting trivia night has never been easier.
+              <br />
               Sign up here!
             </SignUpButton>
           </BotDiv>

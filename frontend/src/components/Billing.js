@@ -138,9 +138,9 @@ class Billing extends Component {
               <Title><div>Basic</div></Title>
               <Price>$9.99</Price>
 
-              <Li><div><b>Unlimited</b> Games</div></Li>
-              <Li><b>Unlimited</b> Rounds</Li>
-              <Li>Up to 50 questions</Li>
+              <Li><div><b>10</b> Games</div></Li>
+              <Li><b>10</b> Rounds</Li>
+              <Li>Up to 10 questions</Li>
             </Top>
             <Bot>
               <div>{this.checkoutButton()}</div>
