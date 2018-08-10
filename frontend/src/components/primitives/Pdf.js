@@ -42,6 +42,7 @@ export const GameName = styled.h1`
 export const RoundName = styled.div`
   font-weight: 500;
   font-size: 3rem;
+  page-break-before: always;
 `;
 
 export const Button = styled.button`

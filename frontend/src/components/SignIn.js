@@ -51,6 +51,12 @@ class SignIn extends Component {
     console.log("SIGNIN ERROR", this.props);
   }
 
+  componentDidUpdate(prevProps){
+    if(this.props.errorMessage !== prevProps.errorMessage){
+      this.setState({signInError: this.props.errorMessage})
+    }
+  }
+
 
 
   getRound = () => {
@@ -91,7 +97,7 @@ class SignIn extends Component {
             />
           </fieldset>
 
-          <ErrorMessage>{this.props.errorMessage}</ErrorMessage>
+          <ErrorMessage>{this.state.signInError}</ErrorMessage>
           <ButtonWrapper><LogButton>Sign In</LogButton></ButtonWrapper>
           
         

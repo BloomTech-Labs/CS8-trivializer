@@ -51,9 +51,6 @@ class Questions extends Component {
     this.props.getQuestions(questionId);
   };
 
-  
-
-  
 
 
   render() {

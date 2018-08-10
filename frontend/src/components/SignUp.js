@@ -31,7 +31,7 @@ class SignUp extends Component {
       email: "",
       password: "",
       confirmPassword: "",
-      errorMessage: ""
+      signUpError: ""
     };
 
     this.handleInput = this.handleInput.bind(this);
@@ -55,8 +55,19 @@ class SignUp extends Component {
       });
     } else this.setState({ errorMessage: "Passwords must match." });
     // this.setState({error: this.props.errorMessage})
-    console.log("PROPS ?", this.props);
+    console.log("PROPS IN SIGNUP ?", this.props);
   };
+
+  // componentDidUpdate(prevProps){
+  //   console.log("PREV PROPS", prevProps);
+  //   if(this.props.errorMessage !== prevProps.errorMessage){
+  //     this.setState({signUpError: this.props.errorMessage})
+  //   }
+  // } 
+
+  getError =  () => {
+    
+  }
 
   render() {
     console.log("SIGNUP PROPS", this.props);
