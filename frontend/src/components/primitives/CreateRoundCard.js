@@ -30,9 +30,10 @@ export const Label = styled.label`
 `;
 
 export const Title = styled.h1`
-  font-size: 2rem;
-  font-weight: 900;
-  color: white;
+ font-size: 3rem;
+ font-weight: 900;
+ color: white;
+ margin-bottom: 10px;
 `;
 
 export const Input = styled.input `
@@ -53,21 +54,23 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
-height: 100vh;
-width: 50%;
-background: #696969;
+height: 50vh;
+width: 35%;
+background: #571633;
 border-radius: 3%;
 box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 
 `
 export const Button = styled.button`
+align-self: auto;
  border-radius: 2%;
  border: solid #83487e;
  background: white;
  font-weight: 900px;
  font-size: 2rem;
  color: #83487e;
-    width: 100%;
+ margin-top: 15px;
+    width: 90%;
     height: 40px;
 
       &:focus{
@@ -75,7 +78,10 @@ export const Button = styled.button`
     }
 
       &:hover {
-        background: white;
+        /* background: #006578; */
+        border: solid white;
+        background: #BE5D4C;
+        color: white;
         cursor: pointer;
     }
 `

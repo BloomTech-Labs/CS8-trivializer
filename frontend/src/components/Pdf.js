@@ -20,6 +20,8 @@ class Pdf extends Component {
       width: 185
     };
 
+
+
     pdf.fromHTML(input, 10, 15, options);
     // pdf.addImage(question, "JPEG", 0, 0, 20, 15);
     // pdf.text(50, 10, "--- Answer Sheet ---");
@@ -45,6 +47,7 @@ class Pdf extends Component {
     });
     return (
       <div>
+        {console.log("SUB QUESTIONS", subQuestions)}
         <PdfWrapper id="divToPrint" style={{ display: "none"}}>
         <PdfHeading>--- Answer Key ---</PdfHeading>
         <PdfHeading> Game Name - Round Name </PdfHeading>

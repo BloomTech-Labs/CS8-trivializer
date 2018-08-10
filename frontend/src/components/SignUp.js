@@ -10,12 +10,9 @@ import {
   Label,
   LabelWrapper,
   ButtonWrapper,
-  Button,
   Title,
   LogButton,
   InputWrapper,
-  TermsText,
-  Terms,
   Input,
   ErrorMessage
 } from "./primitives/SignUp";
@@ -36,7 +33,6 @@ class SignUp extends Component {
 
     this.handleInput = this.handleInput.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    console.log("PROPS INSIDE STATE", this.state);
   }
 
   handleInput(event) {
@@ -47,30 +43,23 @@ class SignUp extends Component {
   onSubmit = event => {
     event.preventDefault();
     let formProps = this.state;
-    console.log("STATE AFTER SETSTATE IN ONSUBMIT", this.props);
 
     if (this.state.password === this.state.confirmPassword) {
       this.props.signUp(formProps, () => {
         this.props.history.push("/games");
       });
+    this.setState({errorMessage: ""})
     } else this.setState({ errorMessage: "Passwords must match." });
-    // this.setState({error: this.props.errorMessage})
-    console.log("PROPS IN SIGNUP ?", this.props);
+    console.log("SIGNUP STATE", this.state);
   };
 
-  // componentDidUpdate(prevProps){
-  //   console.log("PREV PROPS", prevProps);
-  //   if(this.props.errorMessage !== prevProps.errorMessage){
-  //     this.setState({signUpError: this.props.errorMessage})
-  //   }
-  // } 
-
-  getError =  () => {
-    
-  }
 
   render() {
-    console.log("SIGNUP PROPS", this.props);
+    let errorMessageVar;
+    if(this.props.errorMessage !== "User not found."){
+      errorMessageVar = this.props.errorMessage;
+    } else errorMessageVar = "";
+
     const showHideClassname = this.props.show
       ? "display display-block"
       : "modal display-none";
@@ -118,7 +107,8 @@ class SignUp extends Component {
                 value={this.state.confirmPassword}
               />
             </fieldset>
-            <ErrorMessage>{this.props.errorMessage}</ErrorMessage>
+            <ErrorMessage >{errorMessageVar}</ErrorMessage>
+            <ErrorMessage >{this.state.errorMessage}</ErrorMessage>
             <ButtonWrapper>
               <LogButton>Sign Up</LogButton>
             </ButtonWrapper>
@@ -130,7 +120,6 @@ class SignUp extends Component {
 }
 
 function mapStateToProps(state) {
-  // console.log("MAP STATE TO PROPS STATE", state);
   return {
     errorMessage: state.auth.errorMessage,
     auth: state.auth.authenticated

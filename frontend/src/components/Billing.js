@@ -125,7 +125,7 @@ class Billing extends Component {
 
               <Li><div>1 Game</div></Li>
               <Li>3 Rounds</Li>
-              <Li> 5 questions</Li>
+              <Li>Up to 5 questions per round</Li>
             </Top>
             <Bot>
               {/* <div>{this.checkoutButton2()}</div> */}
@@ -140,7 +140,7 @@ class Billing extends Component {
 
               <Li><div><b>10</b> Games</div></Li>
               <Li><b>10</b> Rounds</Li>
-              <Li>Up to 10 questions</Li>
+              <Li>Up to 10 questions per round</Li>
             </Top>
             <Bot>
               <div>{this.checkoutButton()}</div>
@@ -155,7 +155,7 @@ class Billing extends Component {
 
               <Li><div><b>Unlimited</b> Games</div></Li>
               <Li><b>Unlimited</b> Rounds</Li>
-              <Li>Up to 50 questions</Li>
+              <Li>Up to 50 questions per round</Li>
             </Top>
             <Bot>
               <div>{this.checkoutButton2()}</div>

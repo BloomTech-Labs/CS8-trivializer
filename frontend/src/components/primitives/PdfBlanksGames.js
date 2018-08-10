@@ -13,7 +13,6 @@ export const PdfWrapper = styled.div`
   /* color: tomato; */
 `;
 
-
 export const GameName = styled.h1`
   color: black;
   font-weight: 900;
@@ -35,12 +34,14 @@ export const Button = styled.button`
   width: 100%;
   height: 40px;
   &:hover {
-        background:#006578;
-        color: white;
-    }
-    &:focus{
-        outline:0;
-    }
+    border: solid white;
+    background: #be5d4c;
+    color: white;
+    cursor: pointer;
+  }
+  &:focus {
+    outline: 0;
+  }
 `;
 
 export const PdfHeading = styled.div`

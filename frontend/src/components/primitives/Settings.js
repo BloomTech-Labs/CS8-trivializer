@@ -33,7 +33,7 @@ export const Title = styled.h1`
  font-size: 3rem;
  font-weight: 900;
  color: white;
- margin-top: 50px;
+ margin-bottom: 10px;
 `;
 
 export const Button = styled.button`
@@ -52,7 +52,9 @@ export const Button = styled.button`
     }
 
       &:hover {
-        background: #006578;
+        /* background: #006578; */
+        border: solid white;
+        background: #BE5D4C;
         color: white;
         cursor: pointer;
     }
@@ -63,9 +65,10 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
-height: 100vh;
-width: 50%;
-background: #696969;
+height: 45vh;
+width: 35%;
+/* background: #696969; */
+background: #571633;
 border-radius: 3%;
 box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 

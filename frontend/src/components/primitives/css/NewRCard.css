@@ -26,6 +26,7 @@
     transition-property: color;
     -webkit-transition-duration: 0.3s;
     transition-duration: 0.3s;
+    border-radius: 3%
   }
   .hvr-rectangle-out:before {
     content: "";
@@ -35,7 +36,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: #00A38F;
+    background: rgb(207, 114, 97);
+    border-radius: 3%;
     -webkit-transform: scale(0);
     transform: scale(0);
     -webkit-transition-property: transform;

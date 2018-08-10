@@ -20,7 +20,7 @@ import {
   SignUpButton,
   SignInButton,
   BotDiv,
-  Subtitle,
+  Subtitle
 } from "./primitives/Landing.js";
 
 import "./primitives/css/Landing.css";
@@ -64,16 +64,14 @@ class Landing extends Component {
     this.setState({ show: true, show2: true });
   };
 
-
-
   render() {
     return (
       <LandingWrapper>
-      {/* {console.log("LANDING PROPS", this.props.auth)} */}
+        {/* {console.log("LANDING PROPS", this.props.auth)} */}
         <Img>
           <SignUp show={this.state.show1} handleClose={this.hideModal} />
           <SignIn show={this.state.show2} handleClose={this.hideModal} />
-          <TopDiv >
+          <TopDiv>
             <MainTitle className="ml6">
               <span className="letters textShadow">Trivializer</span>
             </MainTitle>

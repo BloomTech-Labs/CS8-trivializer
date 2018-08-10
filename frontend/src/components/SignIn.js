@@ -48,15 +48,7 @@ class SignIn extends Component {
     this.props.signIn(formProps, () => {
       this.props.history.push("/games");
     });
-    console.log("SIGNIN ERROR", this.props);
   }
-
-  componentDidUpdate(prevProps){
-    if(this.props.errorMessage !== prevProps.errorMessage){
-      this.setState({signInError: this.props.errorMessage})
-    }
-  }
-
 
 
   getRound = () => {
@@ -67,6 +59,11 @@ class SignIn extends Component {
     const { handleSubmit } = this.props;
 
     const showHideClassname = this.props.show ? "display display-block" : "modal display-none";
+
+    let errorMessageVar;
+    if(this.props.errorMessage !== "Username already in use."){
+      errorMessageVar = this.props.errorMessage;
+    } else errorMessageVar = "";
 
     return (
       <SigninWrapper className={[showHideClassname, "slide-in-top"].join(' ')}>
@@ -97,7 +94,7 @@ class SignIn extends Component {
             />
           </fieldset>
 
-          <ErrorMessage>{this.state.signInError}</ErrorMessage>
+          <ErrorMessage>{errorMessageVar}</ErrorMessage>
           <ButtonWrapper><LogButton>Sign In</LogButton></ButtonWrapper>
           
         

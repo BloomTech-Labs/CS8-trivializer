@@ -133,7 +133,7 @@ class Settings extends Component {
 
                 <PositionMenu>{hamburger}</PositionMenu>
 
-        <Title>SETTINGS PAGE</Title>
+        <Title>SETTINGS</Title>
         <form onSubmit={(e)=> this.onSubmit(e)} >
           <fieldset>
             <LabelWrapper>

@@ -32,7 +32,6 @@ export const PdfButton = styled.button`
   }
 `;
 
-
 export const GameName = styled.h1`
   color: black;
   font-weight: 900;
@@ -42,7 +41,7 @@ export const GameName = styled.h1`
 export const RoundName = styled.div`
   font-weight: 500;
   font-size: 3rem;
-  page-break-before: always;
+  page-break-after: always;
 `;
 
 export const Button = styled.button`
@@ -55,13 +54,14 @@ export const Button = styled.button`
   width: 100%;
   height: 40px;
   &:hover {
-    background: #006578;
+    border: solid white;
+    background: #be5d4c;
     color: white;
+    cursor: pointer;
   }
   &:focus {
     outline: 0;
   }
-  
 `;
 
 export const PdfHeading = styled.div`

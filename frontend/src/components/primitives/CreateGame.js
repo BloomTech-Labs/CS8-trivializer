@@ -33,8 +33,10 @@ export const Button = styled.button`
   width: 100%;
   height: 40px;
   &:hover {
-    background: #006578;
+    border: solid white;
+    background: #be5d4c;
     color: white;
+    cursor: pointer;
   }
   &:focus {
     outline: 0;
@@ -91,7 +93,7 @@ export const AddIcon = styled.img`
   }
 
   &:hover {
-    background: greenyellow;
+    background: #885384;
     cursor: pointer;
   }
 `;
