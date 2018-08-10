@@ -54,8 +54,8 @@ class RCard extends Component {
     componentDidMount() {
         const token = localStorage.getItem('token');
         const decoded = jwt_decode(token);
-     
-        this.setState({ user_type: decoded.user_type});
+        let userId = decoded.sub;
+        this.setState({ user_type:localStorage.getItem(`Tier${userId}`)});
         console.log("USER TYPE", decoded.user_type)
 
         if(this.state.numberOfQuestions === '') {

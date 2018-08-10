@@ -94,8 +94,9 @@ class CreateGame extends Component {
   componentDidMount() {
     const token = localStorage.getItem("token");
     const decoded = jwt_decode(token);
-    this.setState({ user_type: decoded.user_type });
-    console.log("USER TYPE", decoded.user_type);
+    let  userId = decoded.sub
+    this.setState({ user_type: localStorage.getItem(`Tier${userId}`) });
+   
 
     let gameId = this.props.match.params.id;
     this.props.getRounds(gameId);
@@ -109,6 +110,15 @@ class CreateGame extends Component {
 
     console.log("CreateGame CDM rounds", this.props.storedRound);
   }
+
+  componentDidUpdate(){
+    const localToken = localStorage.getItem("token");
+    const decoded = jwt_decode(localToken);
+    const userId = decoded.sub;
+    console.log("INSIDE CDU ID",localStorage.getItem(`Tier${userId}`));
+  }
+
+
 
   saveGameHandler = event => {
     // event.preventDefault();

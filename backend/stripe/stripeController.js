@@ -14,8 +14,8 @@ const stripeCharge = async function(req, res) {
         currency: 'usd',
         description: 'Paid Tier 1',
         source: req.body.source,
-      });
-      User.findByIdAndUpdate(req.body.userId, {user_type: "Tier 1"})
+      })
+      User.findByIdAndUpdate(req.body.userId, {user_type: "Tier 1"}, {new: true})
       .then(updated => {
         if (updated === undefined) {
           res.status(404).json(updated);
@@ -36,7 +36,7 @@ const stripeCharge = async function(req, res) {
         description: `Paid Tier 2`,
         source: req.body.source,
       });
-      User.findByIdAndUpdate(req.body.userId, {user_type: "Tier 2"})
+      User.findByIdAndUpdate(req.body.userId, {user_type: "Tier 2"}, {new: true})
       .then(updated => {
         if (updated === undefined) {
           res.status(404).json(updated);

@@ -51,12 +51,10 @@ class GameList extends Component {
   componentDidMount() {
     const token = localStorage.getItem("token");
     const decoded = jwt_decode(token);
-    const userId = decoded.sub;
-
+    let  userId = decoded.sub
+    this.setState({ user_type: localStorage.getItem(`Tier${userId}`) });
     this.props.getGames(userId);
-    this.setState({ user_type: decoded.user_type });
-    console.log("USER TYPE", decoded.user_type);
-    console.log("USER ID", decoded.sub);
+  
   }
 
   openNav() {
