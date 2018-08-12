@@ -44,7 +44,7 @@ export const RoundName = styled.div`
   page-break-after: always;
 `;
 
-export const Button = styled.a`
+export const Button = styled.button`
   text-decoration: none;
   border-radius: 2%;
   border: solid #83487e;

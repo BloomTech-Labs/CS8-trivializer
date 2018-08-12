@@ -1,43 +1,36 @@
-
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
 
-import Dropzone from 'react-dropzone';
-import DatePicker from 'react-date-picker';
+import Dropzone from "react-dropzone";
+import DatePicker from "react-date-picker";
 
-import { getGame, getRounds, saveGame, signOut } from '../actions';
-import { withRouter } from 'react-router';
+import { getGame, getRounds, saveGame, signOut } from "../actions";
+import { withRouter } from "react-router";
 
 import PdfBlanksGames from "./PdfBlanksGames";
 import Pdf from "./PdfGamesList";
 
-import { 
-    RoundButton, 
-    RoundButtonWrapper,
-    AddIcon,
-    AddIconWrapper,
-    Text,
-    TextWrapper,
-    ListWrapper,
-    OutterButton,
-    PositionMenu
-    } 
-        from './primitives/CreateGame';
-import { 
-            Hamburger,
-            NavText,
-            NavUl,
-            NavLi
-            } from './primitives/Nav'; 
+import {
+  RoundButton,
+  RoundButtonWrapper,
+  AddIcon,
+  AddIconWrapper,
+  Text,
+  TextWrapper,
+  ListWrapper,
+  OutterButton,
+  PositionMenu
+} from "./primitives/CreateGame";
+import { Hamburger, NavText, NavUl, NavLi } from "./primitives/Nav";
 
-import RCard from './RCard';
-import NewRCard from './NewRCard';
-import plus from '../assets/bluePlus.svg'
+import RCard from "./RCard";
+import NewRCard from "./NewRCard";
+import plus from "../assets/bluePlus.svg";
 
-import Nav from './UI/Nav';
+import Nav from "./UI/Nav";
 
-import './primitives/css/CreateGame.css'
+import "./primitives/css/CreateGame.css";
 
 import jwt_decode from "jwt-decode";
 
@@ -61,8 +54,7 @@ import {
 } from "./primitives/CreateGame";
 
 import "./primitives/css/GameList.css";
-import Spinner from './UI/Spinner';
-
+import Spinner from "./UI/Spinner";
 
 class CreateGame extends Component {
   constructor(props) {
@@ -82,8 +74,6 @@ class CreateGame extends Component {
   }
 
   // ADD MODAL THAT SAYS GAME SAVED SUCCESSFULLY LATER
-
-  
 
   onChangeDate = date => this.setState({ date });
 
@@ -121,30 +111,26 @@ class CreateGame extends Component {
     // let game = { files, date, name };
 
     // localStorage.setItem(`gameName${this.props.match.params.id}`, name);
-    event.preventDefault()
-        let { date, name } = this.state;
-        let game;
-       
-        
-        if (name === "") {
-            game = { date }
-       }
+    event.preventDefault();
+    let { date, name } = this.state;
+    let game;
 
-       if ( name.length > 0 ) {
-            game = { name }   
-            localStorage.setItem(`gameName${this.props.match.params.id}`, name);
-       }
+    if (name === "") {
+      game = { date };
+    }
 
-      //  if(name && date){
+    if (name.length > 0) {
+      game = { name };
+      localStorage.setItem(`gameName${this.props.match.params.id}`, name);
+    }
 
-      //  }
+    //  if(name && date){
 
-       
+    //  }
 
-
-    this.props.saveGame(this.props.match.params.id, game, ()=> {
-      this.props.history.push('/games');
-  })
+    this.props.saveGame(this.props.match.params.id, game, () => {
+      this.props.history.push("/games");
+    });
   };
 
   logOut = async event => {
@@ -274,40 +260,50 @@ class CreateGame extends Component {
         </Hamburger>
       );
     }
-    let storedRounds = this.props.storedRound
-
+    let storedRounds = this.props.storedRound;
+    console.log("STORED ROUNDS CREATE GAME", storedRounds);
 
     let load;
-    if(this.props.updatingRound){
-
-        load = (
-            <CenterSpinner><Spinner /></CenterSpinner>
-        )
+    if (this.props.updatingRound) {
+      load = (
+        <CenterSpinner>
+          <Spinner />
+        </CenterSpinner>
+      );
     }
 
     return (
-        <CreateGameWrapper id="main">
-            
+      <CreateGameWrapper id="main">
+        <Nav id="mySidenav">
+          <NavUl>
+            <NavLi>
+              <NavText onClick={() => this.props.history.push("/games")}>
+                Games
+              </NavText>
+            </NavLi>
+            <NavLi>
+              <NavText onClick={() => this.props.history.push("/settings")}>
+                Settings
+              </NavText>
+            </NavLi>
+            <NavLi>
+              <NavText onClick={() => this.props.history.push("/billing")}>
+                Upgrade
+              </NavText>
+            </NavLi>
+            <NavLi>
+              <NavText onClick={() => this.logOut()}>Log Out</NavText>
+            </NavLi>
+          </NavUl>
+        </Nav>
 
-            <Nav id="mySidenav">
-                <NavUl>
-                    <NavLi><NavText onClick={()=> this.props.history.push('/games')}>Games</NavText></NavLi>
-                    <NavLi><NavText onClick={()=> this.props.history.push('/settings')}>Settings</NavText></NavLi>
-                    <NavLi><NavText onClick={()=> this.props.history.push('/billing')}>Upgrade</NavText></NavLi>
-                    <NavLi><NavText onClick={()=> this.logOut()}>Log Out</NavText></NavLi>
-                </NavUl>    
-            </Nav>
+        <PositionMenu>{hamburger}</PositionMenu>
 
-            <PositionMenu>{hamburger}</PositionMenu>
+        <TopContainer>
+          {console.log("STORED ROUND", this.props.storedRound)}
+          {console.log("STATE", this.state)}
 
-    <TopContainer>         
-            
-            {console.log("STORED ROUND", this.props.storedRound)}
-            {console.log("STATE",this.state)}
-
-      
-
-            {/* <div>
+          {/* <div>
                 <fieldset>        
                     <Dropzone
                     onDrop={this.onDrop.bind(this)}
@@ -319,7 +315,6 @@ class CreateGame extends Component {
             </div> */}
 
           <Center>
-          
             <fieldset>
               <DatePicker
                 className="datePicker"
@@ -349,14 +344,19 @@ class CreateGame extends Component {
 
           <OutterButton>
             <ButtonWrapper>
-              <PdfBlanksGames rootQuestions={storedRounds} gameName={this.state.localGameName} />
+              <PdfBlanksGames
+                rootQuestions={storedRounds}
+                gameName={this.state.localGameName}
+              />
             </ButtonWrapper>
 
             <ButtonWrapper>
-            <Pdf rootQuestions={storedRounds} gameName={this.state.localGameName} />
+              <Pdf
+                rootQuestions={storedRounds}
+                gameName={this.state.localGameName}
+                name={this.state.name}
+              />
             </ButtonWrapper>
-
-            
           </OutterButton>
         </TopContainer>
         {load}

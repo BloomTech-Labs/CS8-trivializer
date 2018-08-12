@@ -1,119 +1,6 @@
-// import React, { Component, Fragment } from "react";
-// import jsPDF from "jspdf";
-// import QuestionCard from "./QuestionCardPdf";
-
-// import { PdfHeading, PdfWrapper, RoundName, Button } from "./primitives/Pdf";
-
-// let he = require("he");
-
-// class Pdf extends Component {
-//   printDocument() {
-//     const testDiv = document.createElement("div");
-//     testDiv.innerHTML = <div>PRINT ME PLEASE</div>;
-//     var x = window.open();
-//     const input = document.getElementById("divToPrint");
-//     const input2 = document.getElementById("roundToPrint");
-//     const pdf = new jsPDF();
-
-//     let storedRounds;
-
-//     var options = {
-//       width: 185
-//     };
-
-//     pdf.fromHTML(input, 10, 15, options);
-
-//     //for every round
-//       //fromHTML that round
-//       //pdf.newPage
-// console.log("STORED ROUNDS IN PRINT DOC", storedRounds);
-//     // pdf.fromHTML(input2, 10, 15, options, function() {
-//     //   pdf.addPage();
-//     // });
-//     // pdf.addImage(question, "JPEG", 0, 0, 20, 15);
-//     // pdf.text(50, 10, "--- Answer Sheet ---");
-
-//     var string = pdf.output("dataurlstring");
-//     var iframe =
-//       "<iframe width='100%' height='100%' src='" + string + "'></iframe>";
-//     x.document.open();
-//     x.document.write(iframe);
-//     x.document.close();
-//   }
-
-//   render() {
-//     let storedRounds = this.props.rootQuestions;
-
-//     let subQuestions = [];
-//     // let numberOfQuestions = 0;
-//     // let difficulty = "";
-//     let subQuestionArray = [];
-
-//     storedRounds.map(round => {
-//       // put the round name in, add the questions
-//       console.log("ROUND", round);
-//       subQuestions.push(
-//         <RoundName>
-//           <div style={{ marginBottom: "10px" }}>
-//             ______________________________________
-//           </div>
-//           {round.roundName}
-//         </RoundName>
-//       );
-
-//       // numberOfQuestions = round.questions.length;
-//       // difficulty = round.questions[0].difficulty;
-
-//       subQuestions = round.questions.map((subQ, subI) => {
-//         return (
-//           <div>
-//             <QuestionCard key={subI} question={subQ} index={subI} />
-//           </div>
-//         );
-//       });
-//       subQuestionArray.push(subQuestions);
-//       subQuestionArray.push(<div>&#12;</div>);
-//     });
-
-//     console.log("SUB QUESTIONS ARRAY", subQuestionArray);
-//     console.log("SUB QUESTIONS", subQuestions)
-//     console.log("STORED ROUNDS", storedRounds);
-
-//     if (!subQuestions) {
-//       subQuestions = "Not loaded yet.";
-//     }
-
-//     const firstRoundName =
-//       this.props.rootQuestions && this.props.rootQuestions[0]
-//         ? this.props.rootQuestions[0].roundName
-//         : null;
-
-//     return (
-//       <div>
-//         {console.log("SUB QUESTIONS", subQuestionArray)}
-//         <PdfWrapper id="divToPrint" style={{ display: "none" }}>
-//           <h1 style={{ fontSize: "40px", fontWeight: 900, color: "black" }}>
-//             {this.props.gameName}
-//           </h1>
-//           <RoundName>
-//             <div style={{ marginBottom: "10px" }}>
-//               ______________________________________
-//             </div>
-//             {firstRoundName}
-//           </RoundName>
-//           {subQuestionArray}
-//         </PdfWrapper>
-//         <Button onClick={this.printDocument}>Print Answer Key</Button>
-//       </div>
-//     );
-//   }
-// }
-
-// export default Pdf;
-
 import React, { Component } from "react";
 import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
-import { Button } from "./primitives/Pdf"
+import { Button } from "./primitives/Pdf";
 
 let he = require("he");
 const alphabet = ["a", "b", "c", "d"];
@@ -124,15 +11,28 @@ class Pdf extends Component {
     pageNumber: 1,
     storedRounds: "",
     testStr: "Test",
-    url: null
+    url: null,
+    size: ""
   };
 
-  // componentDidMount() {
-  //   this.setState({ storedRounds: this.props.rootQuestions });
-  // }
+  componentDidMount() {
+    this.setState({ storedRounds: this.props.rootQuestions });
+  }
+
+  shouldComponentUpdate(prevProps, nextState) {
+    console.log("PREV PROPS", prevProps);
+    console.log("CURRENT PROPS", this.props);
+    if(this.props.rootQuestions[0] && prevProps.rootQuestions === this.props.rootQuestions){
+      return false;
+    } else return true;
+  }
 
   onRender = ({ blob }) => {
+    console.log("WHAT IS BLOB", blob);
+    console.log("WHAT IS PROPS", this.props);
+    console.log("WHAT IS STATE", this.state);
     let urlBlob = URL.createObjectURL(blob);
+    this.state.url = urlBlob;
     let initialUrl = urlBlob;
     console.log("URL BLOB", urlBlob);
     console.log("STATE URL", this.state.url);
@@ -141,7 +41,10 @@ class Pdf extends Component {
       this.props.rootQuestions &&
       this.props.rootQuestions[0]
     ) {
-      this.setState({ url: URL.createObjectURL(blob) });
+      let urlBlobChanged = urlBlob;
+      this.setState({storedRounds: this.props.rootQuestions})
+      console.log("state in onrender", this.state);
+      this.setState({ url: urlBlobChanged });
     }
   };
 
@@ -158,6 +61,7 @@ class Pdf extends Component {
         ? this.props.rootQuestions
         : [1, 2, 3];
     console.log("STORED ROUNDS VARIABLE", storedRounds);
+    console.log("PROPS", this.props);
 
     // let renderedQuestions = <Text>Loading...</Text>
 
@@ -179,14 +83,10 @@ class Pdf extends Component {
       </Page>
     );
 
-
-
-    if (this.props.rootQuestions[0]) {
+    if (this.props.rootQuestions[0] && this.props.rootQuestions[0].questions) {
       renderedRounds = storedRounds.map(round => {
         return (
           <Page style={{ paddingTop: 25, paddingBottom: 25 }} size="A4" wrap>
-            {/* {console.log("RENDERED QUESTIONS", renderedQuestions)} */}
-            {/* <Text>{renderedQuestions}</Text> */}
             <View style={{ color: "black", textAlign: "center", margin: 30 }}>
               <Text
                 style={{
@@ -226,7 +126,7 @@ class Pdf extends Component {
                 // ];
 
                 let fixedArray;
-                let mixedAnswers = [1,2,3];
+                let mixedAnswers = [1, 2, 3];
                 if (question.incorrect_answers) {
                   fixedArray = [
                     ...question.incorrect_answers,
@@ -235,12 +135,18 @@ class Pdf extends Component {
                   mixedAnswers = shuffle(fixedArray);
                 }
 
-                if(question.incorrect_answers){
-                  if (mixedAnswers[0] === "True" || mixedAnswers[0] === "False") {
+                if (question.incorrect_answers) {
+                  if (
+                    mixedAnswers[0] === "True" ||
+                    mixedAnswers[0] === "False"
+                  ) {
                     mixedAnswers = ["True", "False"];
                   }
                 }
-                const decodedQuestion = question && question.question ? he.decode(question.question) : "Loading...";
+                const decodedQuestion =
+                  question && question.question
+                    ? he.decode(question.question)
+                    : "Loading...";
                 return (
                   <View wrap={false}>
                     <Text style={{ margin: 30 }}>
@@ -248,8 +154,14 @@ class Pdf extends Component {
                     </Text>
                     <View>
                       {mixedAnswers.map((answer, index) => {
-                        const decodedCorrectAnswer = answer && question.correct_answer ? he.decode(question.correct_answer) : "Loading..."
-                        const decodedAnswer = answer && question.correct_answer ? he.decode(answer) : "Loading..."
+                        const decodedCorrectAnswer =
+                          answer && question.correct_answer
+                            ? he.decode(question.correct_answer)
+                            : "Loading...";
+                        const decodedAnswer =
+                          answer && question.correct_answer
+                            ? he.decode(answer)
+                            : "Loading...";
                         var letter = alphabet[index];
                         let correctAnswer;
                         if (answer === question.correct_answer) {
@@ -278,9 +190,12 @@ class Pdf extends Component {
       });
     }
 
+    console.log("rendered rounds children", renderedRounds)
+
     if (this.props.rootQuestions[0]) {
       return (
         <div>
+            {console.log("RENDERED ROUNDS", renderedRounds)}
           <Document shallow onRender={this.onRender}>
             {renderedRounds}
           </Document>
