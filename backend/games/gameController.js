@@ -35,8 +35,9 @@ router
         .put('/update-game', (req, res) => {
             const { gameId } = req.body;
             let creds = req.body.game;
+            console.log("UPDATE INFO", creds)
             
-            Game.findByIdAndUpdate(gameId,  creds )
+            Game.findByIdAndUpdate(gameId,  creds, {new: true} )
             .then(updated => {
                     console.log("UPDATED",updated)
                     res.status(200).json(updated)
