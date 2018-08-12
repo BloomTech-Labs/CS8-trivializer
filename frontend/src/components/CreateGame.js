@@ -111,6 +111,10 @@ class CreateGame extends Component {
     console.log("CreateGame CDM rounds", this.props.storedRound);
   }
 
+  // shouldComponentUpdate(prevProps){
+  //   return prevProps.storedRound === this.props.storedRound;
+  // }
+
   saveGameHandler = event => {
     // event.preventDefault();
     // let { files, date, name } = this.state;

@@ -113,7 +113,7 @@
 
 import React, { Component } from "react";
 import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
-import QuestionCard from "./QuestionCardPdf";
+import { Button } from "./primitives/Pdf"
 
 let he = require("he");
 const alphabet = ["a", "b", "c", "d"];
@@ -144,6 +144,11 @@ class Pdf extends Component {
       this.setState({ url: URL.createObjectURL(blob) });
     }
   };
+
+  // onClickWindow = () => {
+  //   let x = window.open()
+  //   window.open(this.state.url, "/pdf");
+  // }
 
   render() {
     const { pageNumber, numPages } = this.state;
@@ -179,7 +184,7 @@ class Pdf extends Component {
     if (this.props.rootQuestions[0]) {
       renderedRounds = storedRounds.map(round => {
         return (
-          <Page style={{ paddingTop: 25 }} size="A4" wrap>
+          <Page style={{ paddingTop: 25, paddingBottom: 25 }} size="A4" wrap>
             {/* {console.log("RENDERED QUESTIONS", renderedQuestions)} */}
             {/* <Text>{renderedQuestions}</Text> */}
             <View style={{ color: "black", textAlign: "center", margin: 30 }}>
@@ -279,9 +284,9 @@ class Pdf extends Component {
           <Document shallow onRender={this.onRender}>
             {renderedRounds}
           </Document>
-          <a href={this.state.url} target="/pdf">
-            Download
-          </a>
+          <Button onClick={() => window.open(this.state.url, "/pdf")}>
+            Print Answer Key
+          </Button>
         </div>
       );
     } else return <div>Loading...</div>;
