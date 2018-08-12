@@ -115,6 +115,9 @@ import React, { Component } from "react";
 import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
 import QuestionCard from "./QuestionCardPdf";
 
+let he = require("he");
+const alphabet = ["a", "b", "c", "d"];
+
 class Pdf extends Component {
   state = {
     numPages: null,
@@ -151,38 +154,121 @@ class Pdf extends Component {
         : [1, 2, 3];
     console.log("STORED ROUNDS VARIABLE", storedRounds);
 
-    let renderedQuestions = <Text>Loading...</Text>
+    // let renderedQuestions = <Text>Loading...</Text>
 
-    if (this.props.rootQuestions[0]) {
-      renderedQuestions = storedRounds.map(round => {
-        round.questions.map(question => {
-          console.log("QUESTIONS IN ROUNDS", question)
-          return(
-           `${question.question}`
-          )
-        });
-      });
-    }
-    console.log("RENDERED QUESTIONS AFTER MAPPING", renderedQuestions);
+    // if (this.props.rootQuestions[0]) {
+    //   renderedQuestions = storedRounds.map(round => {
+    //     round.questions.map(question => {
+    //       console.log("QUESTIONS IN ROUNDS", question)
+    //       return(
+    //        `${he.decode(question.question)}`
+    //       )
+    //     });
+    //   });
+    // }
+    // console.log("RENDERED QUESTIONS AFTER MAPPING", renderedQuestions);
 
     let renderedRounds = (
       <Page>
-        <Text>Loading</Text>
+        <Text>Loading...</Text>
       </Page>
     );
+
+
 
     if (this.props.rootQuestions[0]) {
       renderedRounds = storedRounds.map(round => {
         return (
-          <Page size="A4" wrap>
-            <Text>{round.roundName}</Text>
-            {console.log("RENDERED QUESTIONS", renderedQuestions)}
+          <Page style={{ paddingTop: 25 }} size="A4" wrap>
+            {/* {console.log("RENDERED QUESTIONS", renderedQuestions)} */}
             {/* <Text>{renderedQuestions}</Text> */}
-            <View style={{ color: 'black', textAlign: 'center', margin: 30 }}>{round.questions.map(question => {
-              return <Text style={{margin: 30}}>{question.question}</Text>
-            })}</View>
+            <View style={{ color: "black", textAlign: "center", margin: 30 }}>
+              <Text
+                style={{
+                  textAlign: "center",
+                  paddingTop: 10,
+                  fontSize: 40,
+                  borderTop: "2px solid black",
+                  borderBottom: "2px solid black"
+                }}
+              >
+                {round.roundName}
+              </Text>
+              {round.questions.map(question => {
+                function shuffle(array) {
+                  var currentIndex = array.length,
+                    temporaryValue,
+                    randomIndex;
+
+                  // While there remain elements to shuffle...
+                  while (0 !== currentIndex) {
+                    // Pick a remaining element...
+                    randomIndex = Math.floor(Math.random() * currentIndex);
+                    currentIndex -= 1;
+
+                    // And swap it with the current element.
+                    temporaryValue = array[currentIndex];
+                    array[currentIndex] = array[randomIndex];
+                    array[randomIndex] = temporaryValue;
+                  }
+                  return array;
+                }
+                // console.log("QUESTION", question.correct_answer);
+
+                // const fixedArray = [
+                //   ...question.incorrect_answers,
+                //   question.correct_answer
+                // ];
+
+                let fixedArray;
+                let mixedAnswers = [1,2,3];
+                if (question.incorrect_answers) {
+                  fixedArray = [
+                    ...question.incorrect_answers,
+                    question.correct_answer
+                  ];
+                  mixedAnswers = shuffle(fixedArray);
+                }
+
+                if(question.incorrect_answers){
+                  if (mixedAnswers[0] === "True" || mixedAnswers[0] === "False") {
+                    mixedAnswers = ["True", "False"];
+                  }
+                }
+                const decodedQuestion = question && question.question ? he.decode(question.question) : "Loading...";
+                return (
+                  <View wrap={false}>
+                    <Text style={{ margin: 30 }}>
+                      {he.decode(decodedQuestion)}
+                    </Text>
+                    <View>
+                      {mixedAnswers.map((answer, index) => {
+                        const decodedCorrectAnswer = answer && question.correct_answer ? he.decode(question.correct_answer) : "Loading..."
+                        const decodedAnswer = answer && question.answer ? he.decode(question.answer) : "Loading..."
+                        var letter = alphabet[index];
+                        let correctAnswer;
+                        if (answer === question.correct_answer) {
+                          correctAnswer = answer;
+                          return (
+                            <Text style={{ color: "red" }}>
+                              {letter}. {decodedCorrectAnswer}
+                            </Text>
+                          );
+                        } else {
+                          return (
+                            <Text>
+                              {letter}. {decodedAnswer}
+                            </Text>
+                          );
+                        }
+                      })}
+                    </View>
+                  </View>
+                );
+              })}
+            </View>
             {console.log("ROUND", round)}
-            {/* <Text>{round.questions.map(question => <Text>{question.correctAnswer}</Text>)}</Text> */}
+
           </Page>
         );
       });
