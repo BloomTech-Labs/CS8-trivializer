@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "yoga-layout": "github:naminho/yoga-layout-windows",
+    "@react-pdf/renderer": "^1.0.0-alpha.14",
     "animejs": "^2.2.0",
     "axios": "^0.18.0",
     "bower": "^1.8.4",
