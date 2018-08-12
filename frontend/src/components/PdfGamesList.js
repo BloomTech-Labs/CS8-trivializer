@@ -244,7 +244,7 @@ class Pdf extends Component {
                     <View>
                       {mixedAnswers.map((answer, index) => {
                         const decodedCorrectAnswer = answer && question.correct_answer ? he.decode(question.correct_answer) : "Loading..."
-                        const decodedAnswer = answer && question.answer ? he.decode(question.answer) : "Loading..."
+                        const decodedAnswer = answer && question.correct_answer ? he.decode(answer) : "Loading..."
                         var letter = alphabet[index];
                         let correctAnswer;
                         if (answer === question.correct_answer) {
@@ -268,7 +268,6 @@ class Pdf extends Component {
               })}
             </View>
             {console.log("ROUND", round)}
-
           </Page>
         );
       });
