@@ -75,7 +75,7 @@ class RCard extends Component {
         const {roundName, numberOfQuestions, category, difficulty, type} = this.state;
         let formProps;
 
-        if (roundName === "" || roundName === '' ) {
+        if (roundName === "") {
             formProps = { numberOfQuestions, category, difficulty, type }
        }
 

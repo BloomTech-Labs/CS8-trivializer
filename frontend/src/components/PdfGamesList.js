@@ -22,6 +22,13 @@ class Pdf extends Component {
   shouldComponentUpdate(prevProps, nextState) {
     console.log("PREV PROPS", prevProps);
     console.log("CURRENT PROPS", this.props);
+    console.log("NEXT STATE", nextState);
+    console.log("stored rounds", this.state.storedRounds)
+    // let compareArr;
+    // this.props.rootQuestions.map(round => {
+    //   compareArr.append(round);
+    // })
+    // this.props.root
     if(this.props.rootQuestions[0] && prevProps.rootQuestions === this.props.rootQuestions){
       return false;
     } else return true;
@@ -84,7 +91,7 @@ class Pdf extends Component {
     );
 
     if (this.props.rootQuestions[0] && this.props.rootQuestions[0].questions) {
-      renderedRounds = storedRounds.map(round => {
+      renderedRounds = storedRounds.map(round=> {
         return (
           <Page style={{ paddingTop: 25, paddingBottom: 25 }} size="A4" wrap>
             <View style={{ color: "black", textAlign: "center", margin: 30 }}>
@@ -99,7 +106,7 @@ class Pdf extends Component {
               >
                 {round.roundName}
               </Text>
-              {round.questions.map(question => {
+              {round.questions.map((question, index) => {
                 function shuffle(array) {
                   var currentIndex = array.length,
                     temporaryValue,
@@ -150,7 +157,7 @@ class Pdf extends Component {
                 return (
                   <View wrap={false}>
                     <Text style={{ margin: 30 }}>
-                      {he.decode(decodedQuestion)}
+                      {index + 1}. {he.decode(decodedQuestion)}
                     </Text>
                     <View>
                       {mixedAnswers.map((answer, index) => {
