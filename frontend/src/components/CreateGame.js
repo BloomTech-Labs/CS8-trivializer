@@ -127,8 +127,7 @@ class CreateGame extends Component {
         let { date, name } = this.state;
         let game;
         let d = Date();
-       console.log("date", date.toString().split('').splice(0,10).join('')); 
-       console.log("Date()", d.toString().split('').splice(0,10).join(''));
+      
         if (name.length > 0 && date.toString().split('').splice(0,10).join('') !== d.toString().split('').splice(0,10).join('') ) {
           game = { name, date };
         }
@@ -140,31 +139,10 @@ class CreateGame extends Component {
         if (name.length === 0 && date.toString().split('').splice(0,10).join('') !== d.toString().split('').splice(0,10).join('') ) {
             game = { date }
           }
-  //       if (name.length === 0 && date !== new Date() ) {
-  //           game = { date }
-  //      }
-  //      console.log("name length:",name.length)
-  //      if ( name.length > 0 && date !== new Date()) {
-  //           game = { name, date }   
-  //           localStorage.setItem(`gameName${this.props.match.params.id}`, name);
-  //      }
-
-  //      if ( name.length > 0 ) {
-  //       game = { name, date }   
-  //       localStorage.setItem(`gameName${this.props.match.params.id}`, name);
-  //  }
-
-  //      if ( name.length > 0 && date === new Date())  {
-  //       game = { name }   
-  //       localStorage.setItem(`gameName${this.props.match.params.id}`, name);
-  //  }
-
-       
-
-
-    this.props.saveGame(this.props.match.params.id, game, ()=> {
+ 
+      this.props.saveGame(this.props.match.params.id, game, ()=> {
       this.props.history.push('/games');
-  })
+    })
   };
 
   logOut = async event => {

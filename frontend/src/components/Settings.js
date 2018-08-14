@@ -27,14 +27,15 @@ import {
   PositionMenu
 } from "./primitives/Settings";
 
+
 class Settings extends Component {
   constructor(props){
     super(props);
     this.state = {
-        orgName: '' ,
-        email: '',
-        oldPassword: '',
-        password: '',
+        orgName: undefined ,
+        email: undefined,
+        oldPassword: undefined,
+        password: undefined,
         menu: false
     }
  
@@ -62,18 +63,6 @@ class Settings extends Component {
   }
   
 
-
-
-  componentDidMount(){
-    const token = localStorage.getItem('token');
-    const decoded = jwt_decode(token);
-    const email = decoded.email;
-    const orgName = decoded.orgName;
-
-    console.log("USER_TYPE", decoded.user_type)
-    this.setState({ orgName, email })
-  }
-
     handleInput(event) {
     const { name, value } = event.target;
     this.setState({ [name]: value })
@@ -82,8 +71,24 @@ class Settings extends Component {
 
   onSubmit = event => {
     event.preventDefault();
+    const token = localStorage.getItem("token");
+    const decoded = jwt_decode(token);
+    const userId = decoded.sub;
 
-    let formProps = this.state;
+
+
+    let { orgName, email, oldPassword, password } = this.state;
+    if (email === undefined || email === null) {
+      email = decoded.email;
+    }
+    let formProps = { orgName, email, oldPassword, password }
+   
+
+    localStorage.setItem(`orgName${userId}`, orgName);
+    localStorage.setItem(`email${userId}`, email);
+
+
+    
     console.log("FORMPROPS IN SUBMING", formProps)
     this.props.updateSettings(formProps, () => {
       this.props.history.push('/games');
@@ -93,11 +98,32 @@ class Settings extends Component {
   
   render() {
 
-    // const token = localStorage.getItem('token');
-    // const decoded = jwt_decode(token);
-    // const email = decoded.email;
-    // const orgName = decoded.orgName;
+    const token = localStorage.getItem('token');
+    const decoded = jwt_decode(token);
+    const userId = decoded.sub;
+    const email = decoded.email;
     
+    let tempEmail;
+
+    if(localStorage.getItem(`email${userId}`) === undefined || localStorage.getItem(`email${userId}`) === null){
+      tempEmail = email;
+    } else {
+      tempEmail = localStorage.getItem(`email${userId}`);
+    }
+
+
+
+    let tempOrg;
+
+    if(this.props.settings.orgName === undefined) {
+      tempOrg = "Organization"
+    }
+
+    if(this.props.orgName !== null) {
+      tempOrg = localStorage.getItem(`orgName${userId}`)
+    }
+
+
     let hamburger;
 
             if (this.state.menu === true) {
@@ -133,6 +159,9 @@ class Settings extends Component {
 
                 <PositionMenu>{hamburger}</PositionMenu>
 
+
+        {console.log("SETTINGS REDUCER", this.props.settings)}
+
         <Title>SETTINGS PAGE</Title>
         <form onSubmit={(e)=> this.onSubmit(e)} >
           <fieldset>
@@ -141,7 +170,7 @@ class Settings extends Component {
             </LabelWrapper>
             <Input
               name="orgName"
-              placeholder={this.state.orgName}
+              placeholder={tempOrg}
               type="text"
               component="input"
               autoComplete="none"
@@ -158,7 +187,7 @@ class Settings extends Component {
               type="text"
               component="input"
               autoComplete="none"
-              placeholder={this.state.email}
+              placeholder={tempEmail}
               onChange={this.handleInput}
               value={this.state.email}
             />
@@ -198,7 +227,9 @@ class Settings extends Component {
   }
 }
 function mapStateToProps(state) {
-  return { errorMessage: state.auth.errorMessage };
+  return { 
+    settings: state.settings.settings,
+    errorMessage: state.auth.errorMessage };
 }
 export default
   connect( mapStateToProps, { updateSettings, signOut })(withRouter(Settings));
