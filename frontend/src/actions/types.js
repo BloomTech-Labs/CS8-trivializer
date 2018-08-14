@@ -1,5 +1,8 @@
 export const AUTH_USER = "auth_user";
 
+export const PAYING = "paying";
+export const PAID = "paid";
+
 export const UPDATE_SETTINGS = "update_settings";
 export const UPDATING_SETTINGS = "updating_settings";
 

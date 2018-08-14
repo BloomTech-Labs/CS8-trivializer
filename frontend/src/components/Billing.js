@@ -9,6 +9,8 @@ import { signOut } from "../actions";
 import { Hamburger, NavText, NavUl, NavLi } from "./primitives/Nav";
 
 import Nav from "./UI/Nav";
+
+
 // import './primitives/css/Billing.css';
 
 import {
@@ -21,35 +23,32 @@ import {
   Li,
   Price,
   Button,
-  PositionMenu
+  PositionMenu,
+  Modal
 
 } from "./primitives/Billing";
+
+import { PAYING, PAID } from '../actions/types';
+
 
 const tier1Price = 999;
 const tier2Price = 2999;
 
 class Billing extends Component {
-  state = {
+  constructor() {
+    super();
+  this.state = {
     quantity: 1,
     description: "Test",
     tier: "No Tier Selected",
     menu: false,
-    newTier: ""
+    newTier: "",
   };
 
-  // componentDidMount() {
-  //   const localToken = localStorage.getItem("token");
-  //   const decoded = jwt_decode(localToken);
-  //   const userId = decoded.sub;
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+  }
 
-  //   console.log("INSIDE BILLING ID",localStorage.getItem(`Tier${userId}`));
-  //   if(this.state.newTier === ''){
-  //   this.setState({ newTier: localStorage.getItem(`Tier${userId}`) })
-  //   }
-
-   
-  // }
- 
   componentDidUpdate() {
     const localToken = localStorage.getItem("token");
     const decoded = jwt_decode(localToken);
@@ -65,6 +64,19 @@ class Billing extends Component {
       console.log("inside if", this.state.newTier)
     }
   }
+
+
+  openModal() {
+    let x = document.getElementById("modal")
+    x.style.display = "block";
+  }
+
+  closeModal() {
+    let x = document.getElementById("modal")
+    x.style.display = "none";
+  }
+
+
 
 
   openNav() {
@@ -96,9 +108,27 @@ class Billing extends Component {
 
 
 
-
   render() {
-    console.log(this.state.type);
+    const localToken = localStorage.getItem("token");
+    const decoded = jwt_decode(localToken);
+    const userId = decoded.sub;
+
+    let basicButton;
+    let premButton;
+
+    if(localStorage.getItem(`Tier${userId}`)=== "Tier 1"){
+      basicButton =  ( <div /> )
+    } else {
+      basicButton =  ( <div>{this.checkoutButton()}</div> )
+    }
+    
+    if(localStorage.getItem(`Tier${userId}`)=== "Tier 2"){
+    premButton = ( <div /> )
+    basicButton =  ( <div /> )
+    } else {
+      premButton = ( <div>{this.checkoutButton2()} </div> )
+
+    }
 
     let hamburger;
 
@@ -133,6 +163,8 @@ class Billing extends Component {
     }
     return (
       <BillingWrapper id="main" className="Billing">
+      <Modal />
+
         <Nav id="mySidenav">
           <NavUl>
             <NavLi>
@@ -162,9 +194,8 @@ class Billing extends Component {
               <Li>3 Rounds</Li>
               <Li> 5 questions</Li>
             </Top>
-            <Bot>
-              {/* <div>{this.checkoutButton2()}</div> */}
-            </Bot>
+            <Bot />
+             
           </PriceDiv>
 
 
@@ -178,7 +209,8 @@ class Billing extends Component {
               <Li>Up to 50 questions</Li>
             </Top>
             <Bot>
-              <div>{this.checkoutButton()}</div>
+              {basicButton}
+              
             </Bot>
           </PriceDiv>
               
@@ -193,13 +225,13 @@ class Billing extends Component {
               <Li>Up to 50 questions</Li>
             </Top>
             <Bot>
-              <div>{this.checkoutButton2()}</div>
+              {premButton}
             </Bot>
           </PriceDiv>
 
        </PriceContainer>
         
-        
+
       </BillingWrapper>
     );
   }
@@ -266,6 +298,8 @@ class Billing extends Component {
   
 
   onToken = (amount, description) => token => {
+    
+
     const localToken = localStorage.getItem("token");
     const decoded = jwt_decode(localToken);
     const userId = decoded.sub;
@@ -279,15 +313,15 @@ class Billing extends Component {
         userId
       })
       .then(res => {
+    
         alert("Payment successful");
-        // this.props.updateUser(res.data.user);
-        console.log(res.data)
-        console.log(res);
-        console.log("state before rerender", this.state.newTier)
+        
+        
+
         localStorage.setItem(`Tier${res.data._id}`, res.data.user_type);
-        console.log("userID in action", res.data._id ) 
+        
         this.setState({newTier: res.data.user_type });
-        console.log("state after rerender", this.state.newTier)
+        this.props.history.push('/games');
       })
       .catch(data => {
         alert("Payment declined");

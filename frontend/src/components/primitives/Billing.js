@@ -140,3 +140,14 @@ export const PositionMenu = styled.div`
     transition:  0.5s; 
 
 `
+
+export const Modal = styled.div`
+    display: none;
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    z-index: -1;
+    background: rgba(0, 0, 0, 0.6);
+    
+
+`

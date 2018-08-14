@@ -1,8 +1,9 @@
-import {AUTH_USER, ERROR, SIGNING_IN, SIGNING_UP} from '../actions/types';
+import { AUTH_USER, ERROR, SIGNING_IN, SIGNING_UP, PAYING, PAID } from '../actions/types';
 
 const INITIAL_STATE = {
     authenticated: '',
     errorMessage: '',
+    paying: false,
     signingIn: false,
     signingUp: false,
 };
@@ -10,9 +11,13 @@ const INITIAL_STATE = {
 export default function(state=INITIAL_STATE, action) {
     switch(action.type) {
         case SIGNING_IN:
-            return { ...state, signingIn: true};
+            return { ...state, signingIn: true };
         case SIGNING_UP:
-            return { ...state, signingUp: true};
+            return { ...state, signingUp: true };
+        case PAYING:
+            return { ...state, paying: true };
+        case PAID:
+            return { ...state, paying: false };
         case AUTH_USER:
             return {...state, authenticated: action.payload };
         case ERROR:
