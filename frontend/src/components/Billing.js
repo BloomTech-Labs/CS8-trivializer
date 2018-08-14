@@ -33,8 +33,39 @@ class Billing extends Component {
     quantity: 1,
     description: "Test",
     tier: "No Tier Selected",
-    menu: false
+    menu: false,
+    newTier: ""
   };
+
+  // componentDidMount() {
+  //   const localToken = localStorage.getItem("token");
+  //   const decoded = jwt_decode(localToken);
+  //   const userId = decoded.sub;
+
+  //   console.log("INSIDE BILLING ID",localStorage.getItem(`Tier${userId}`));
+  //   if(this.state.newTier === ''){
+  //   this.setState({ newTier: localStorage.getItem(`Tier${userId}`) })
+  //   }
+
+   
+  // }
+ 
+  componentDidUpdate() {
+    const localToken = localStorage.getItem("token");
+    const decoded = jwt_decode(localToken);
+    const userId = decoded.sub;
+
+    console.log("INSIDE CDU ID",localStorage.getItem(`Tier${userId}`));
+
+    console.log("outside if", this.state.newTier)
+
+    if(this.state.newTier !== localStorage.getItem(`Tier${userId}`)){
+    this.setState({ newTier: localStorage.getItem(`Tier${userId}`) })
+
+      console.log("inside if", this.state.newTier)
+    }
+  }
+
 
   openNav() {
     document.getElementById("mySidenav").style.width = "25%";
@@ -61,6 +92,10 @@ class Billing extends Component {
     await this.props.signOut();
     this.props.history.push("/");
   };
+
+
+
+
 
   render() {
     console.log(this.state.type);
@@ -228,6 +263,8 @@ class Billing extends Component {
     );
   };
 
+  
+
   onToken = (amount, description) => token => {
     const localToken = localStorage.getItem("token");
     const decoded = jwt_decode(localToken);
@@ -244,7 +281,13 @@ class Billing extends Component {
       .then(res => {
         alert("Payment successful");
         // this.props.updateUser(res.data.user);
+        console.log(res.data)
         console.log(res);
+        console.log("state before rerender", this.state.newTier)
+        localStorage.setItem(`Tier${res.data._id}`, res.data.user_type);
+        console.log("userID in action", res.data._id ) 
+        this.setState({newTier: res.data.user_type });
+        console.log("state after rerender", this.state.newTier)
       })
       .catch(data => {
         alert("Payment declined");

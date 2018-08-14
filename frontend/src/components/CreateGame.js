@@ -64,6 +64,7 @@ class CreateGame extends Component {
       date: new Date(),
       name: "",
       localGameName: null,
+      priorDate: null,
       user_type: null,
       menu: false
     };
@@ -85,8 +86,10 @@ class CreateGame extends Component {
   componentDidMount() {
     const token = localStorage.getItem("token");
     const decoded = jwt_decode(token);
-    this.setState({ user_type: decoded.user_type });
-    console.log("USER TYPE", decoded.user_type);
+    let  userId = decoded.sub
+    // this.setState({ user_type: decoded.user_type });
+    this.setState({ user_type: localStorage.getItem(`Tier${userId}`) });
+   
 
     let gameId = this.props.match.params.id;
     this.props.getRounds(gameId);
@@ -101,36 +104,58 @@ class CreateGame extends Component {
     console.log("CreateGame CDM rounds", this.props.storedRound);
   }
 
-  // shouldComponentUpdate(prevProps){
-  //   return prevProps.storedRound === this.props.storedRound;
-  // }
+  componentDidUpdate(){
+    const localToken = localStorage.getItem("token");
+    const decoded = jwt_decode(localToken);
+    const userId = decoded.sub;
+    console.log("INSIDE CDU ID",localStorage.getItem(`Tier${userId}`));
+  }
+
+
 
   saveGameHandler = event => {
-    // event.preventDefault();
-    // let { files, date, name } = this.state;
-    // let game = { files, date, name };
+    event.preventDefault()
+        let { date, name } = this.state;
+        let game;
+        let d = Date();
+       console.log("date", date.toString().split('').splice(0,10).join('')); 
+       console.log("Date()", d.toString().split('').splice(0,10).join(''));
+        if (name.length > 0 && date.toString().split('').splice(0,10).join('') !== d.toString().split('').splice(0,10).join('') ) {
+          game = { name, date };
+        }
+        
+        if (name.length > 0 && date.toString().split('').splice(0,10).join('') === d.toString().split('').splice(0,10).join('') ) {
+          game = { name };
+        }
 
-    // localStorage.setItem(`gameName${this.props.match.params.id}`, name);
-    event.preventDefault();
-    let { date, name } = this.state;
-    let game;
+        if (name.length === 0 && date.toString().split('').splice(0,10).join('') !== d.toString().split('').splice(0,10).join('') ) {
+            game = { date }
+          }
+  //       if (name.length === 0 && date !== new Date() ) {
+  //           game = { date }
+  //      }
+  //      console.log("name length:",name.length)
+  //      if ( name.length > 0 && date !== new Date()) {
+  //           game = { name, date }   
+  //           localStorage.setItem(`gameName${this.props.match.params.id}`, name);
+  //      }
 
-    if (name === "") {
-      game = { date };
-    }
+  //      if ( name.length > 0 ) {
+  //       game = { name, date }   
+  //       localStorage.setItem(`gameName${this.props.match.params.id}`, name);
+  //  }
 
-    if (name.length > 0) {
-      game = { name };
-      localStorage.setItem(`gameName${this.props.match.params.id}`, name);
-    }
+  //      if ( name.length > 0 && date === new Date())  {
+  //       game = { name }   
+  //       localStorage.setItem(`gameName${this.props.match.params.id}`, name);
+  //  }
 
-    //  if(name && date){
+       
 
-    //  }
 
-    this.props.saveGame(this.props.match.params.id, game, () => {
-      this.props.history.push("/games");
-    });
+    this.props.saveGame(this.props.match.params.id, game, ()=> {
+      this.props.history.push('/games');
+  })
   };
 
   logOut = async event => {

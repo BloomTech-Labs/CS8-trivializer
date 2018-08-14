@@ -46,6 +46,9 @@ import {
 export const signUp = (formProps, callback) => dispatch => {
   dispatch({ type: SIGNING_UP }); 
 
+ 
+
+
   axios
       .post ("http://localhost:5000/signup", //MUST be http for localhost: not https
     //   .post ("https://fathomless-lowlands-45973.herokuapp.com/signup", //MUST be http for localhost: not https
@@ -53,7 +56,11 @@ export const signUp = (formProps, callback) => dispatch => {
       )
       .then(response => {
           dispatch({ type: AUTH_USER, payload: response.data.token })
+          let decoded = jwt_decode(response.data.token);
+          let  userId = decoded.sub
+
           localStorage.setItem("token", response.data.token)
+          localStorage.setItem(`Tier${userId}`, "Free")
           callback();
       })
       

@@ -50,9 +50,10 @@ class CreateRoundCard extends Component {
   componentDidMount() {
     const token = localStorage.getItem("token");
     const decoded = jwt_decode(token);
-
-    this.setState({ user_type: decoded.user_type });
-    console.log("USER TYPE", decoded.user_type);
+    let  userId = decoded.sub
+    
+    this.setState({ user_type: localStorage.getItem(`Tier${userId}`) });
+    // console.log("USER TYPE", decoded.user_type);
   }
 
   openNav() {
@@ -181,6 +182,8 @@ class CreateRoundCard extends Component {
             value={this.state.numberOfQuestions}
             type="number"
             set="1"
+            max="50"
+            min="1"
           />
         </fieldset>
       );
