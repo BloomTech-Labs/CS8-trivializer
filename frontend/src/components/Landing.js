@@ -81,8 +81,6 @@ class Landing extends Component {
 
           <BotDiv>
             <SignUpButton type="button" onClick={this.showSignUp}>
-              Hosting trivia night has never been easier.
-              <br />
               Sign up here!
             </SignUpButton>
           </BotDiv>

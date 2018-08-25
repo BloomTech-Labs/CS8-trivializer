@@ -46,9 +46,6 @@ import {
 export const signUp = (formProps, callback) => dispatch => {
   dispatch({ type: SIGNING_UP }); 
 
- 
-
-
   axios
       .post ("http://localhost:5000/signup", //MUST be http for localhost: not https
     //   .post ("https://fathomless-lowlands-45973.herokuapp.com/signup", //MUST be http for localhost: not https
