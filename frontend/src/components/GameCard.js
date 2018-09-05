@@ -7,13 +7,21 @@ import {
     ViewIconWrapper,
     TrashIconWrapper,
     TrashIcon,
-    ViewIcon
+    ViewIcon,
+    TopCard,
+    TopCard2,
+    TextFormatWrapper,
+    NameWrapper,
+    DateWrapper,
+    OutterDate,
     } from './primitives/GameCard';
 
 import trashIcon from '../assets/trashIcon.png'
 import viewIcon from '../assets/view.png'
 
 import { deleteGame } from '../actions';
+
+import './primitives/css/GameCard.css'
 
 const GameCard = (props) => {
 
@@ -25,23 +33,28 @@ const GameCard = (props) => {
     }  
 
     let createdOn = props.created.slice(0, 10)
-    let playedOn = props.date.slice(0, 10)
+    let playedOn = props.datePlayed.slice(0, 10)
     return (
-            <GameCardWrapper>
-                <div> {props.name} </div>
+            <GameCardWrapper className="card-1 hvr-rectangle-out ">
+             <TopCard onClick={()=> {props.history.push(`/create-game/${props.id}`)}}>
+                <TextFormatWrapper>
+                <NameWrapper><p> {props.name}</p> </NameWrapper>
                 {console.log(props)}
-                <div>created on:{createdOn}</div>
-                <div>played on:{playedOn}</div>
-                
+               <OutterDate> 
+                <DateWrapper><p>created on:{createdOn}</p></DateWrapper>
+                <DateWrapper><p>played on:{playedOn}</p></DateWrapper>
+               </OutterDate>  
+                </TextFormatWrapper>
 
-                <IconContainer>
-                    <TrashIconWrapper>
+                </TopCard>
+                <TopCard2 onClick={()=> {props.history.push(`/create-game/${props.id}`)}}  />
+                <IconContainer >
+                   
+                    <TrashIconWrapper >
                         <TrashIcon src={trashIcon} onClick={()=> delGameAndRounds()}/>
                     </TrashIconWrapper>
 
-                    <ViewIconWrapper>
-                        <ViewIcon src={viewIcon} onClick={()=> {props.history.push(`/create-game/${props.id}`)}}/> 
-                    </ViewIconWrapper>
+            
                 </IconContainer>
             </GameCardWrapper>
         )

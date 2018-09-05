@@ -4,12 +4,43 @@ export const RCardWrapper = styled.div`
    display: flex;
     flex-direction: column;
     justify-content: center;
-    border: solid black;
+    
     border-radius: 4%;
     font-size: 2rem;
-    width: 300px;
+    width: 280px;
     height: auto;
-    margin: 10px;
+    margin: 30px 30px;
+
+
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+
+  &:after {
+  content: "";
+  border-radius: 5px;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+    &:hover {
+  -webkit-transform: scale(1.15, 1.15);
+  transform: scale(1.15, 1.15);
+}
+
+    &:hover::after {
+    opacity: 1;
+}
 `;
 
 export const LabelWrapper = styled.div`
@@ -31,14 +62,14 @@ export const Button = styled.button`
 
 export const Label = styled.label`
   font-weight: 900;
-  font-size: 1rem;
-  color: white;
+  font-size: 1.3rem;
+  /* color: white; */
 `;
 
 export const TitleLabel = styled.label`
   font-weight: 900;
   font-size: 2rem;
-  color: white;
+  /* color: white; */
   position: relative;
   top: 15px;
 `;
@@ -46,7 +77,7 @@ export const TitleLabel = styled.label`
 export const Title = styled.h1`
   font-size: 2rem;
   font-weight: 900;
-  color: white;
+  /* color: white; */
 `;
 
 export const Select = styled.select`
@@ -57,10 +88,11 @@ export const Select = styled.select`
 `
 
 export const Input = styled.input`
-  width: 100%;
-  padding: 12px;
+  width: 80%;
+  /* padding: 12px; */
   border-radius: 4px;
   resize: vertical;
+
 `
 
 export const IconContainer = styled.div`
@@ -110,3 +142,5 @@ export const FormWrap = styled.div`
   /* resize: vertical;
   height: auto; */
 `
+
+

@@ -24,8 +24,11 @@ import {
     ViewIconWrapper,
     ViewIcon,
     RedoIcon,
-    FormWrap
+    FormWrap,
+    
   } from "./primitives/RCard";
+
+  import './primitives/css/RCard.css'
 
 class RCard extends Component {
     constructor(props){
@@ -51,6 +54,7 @@ class RCard extends Component {
      
         this.setState({ user_type: decoded.user_type});
         console.log("USER TYPE", decoded.user_type)
+
     }  
 
 
@@ -62,7 +66,20 @@ class RCard extends Component {
 
     updateRound(event) {
         event.preventDefault()
-        const formProps = this.state;
+        const {roundName, numberOfQuestions, category, difficulty, type} = this.state;
+        let formProps;
+
+        if (roundName === "" || roundName === '' ) {
+            formProps = { numberOfQuestions, category, difficulty, type }
+       }
+
+       if (roundName.length > 0) {
+        formProps = {  roundName, numberOfQuestions, category, difficulty, type};
+       }
+
+        
+
+
       
         this.props.getThreeUpdate(formProps, () => {
                 (console.log("ROUND IN RCCARD",this.props.round))
@@ -73,23 +90,28 @@ class RCard extends Component {
     render(){
         let renderNumQuestions;
 
+        if(this.state.numberOfQuestions === 'a' ){
+            this.props.history.push('/billing')
+          }
+
     if (this.state.user_type === "Free" ){
       renderNumQuestions = (  
       <fieldset>
       <LabelWrapper>
-      <Label># of Questions</Label>
+      <Label>Number of questions</Label>
       </LabelWrapper>
       <Select  
         name="numberOfQuestions" 
         onChange={this.handleInput} 
         value={this.state.numberOfQuestions} 
       >
-        <option  value={this.props.numberOfQuestions}>{this.props.numberOfQuestions}</option>
+        <option value="1">Select # of questions</option>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
         <option value="4">4</option>
         <option value="5">5</option>
+        <option value="a">click here to upgrade</option>
       </Select>
       </fieldset>
       )
@@ -99,14 +121,14 @@ class RCard extends Component {
       renderNumQuestions = (  
       <fieldset>
       <LabelWrapper>
-      <Label># of Questions</Label>
+      <Label>Number of questions</Label>
       </LabelWrapper>
       <Select  
         name="numberOfQuestions" 
         onChange={this.handleInput} 
         value={this.state.numberOfQuestions} 
-      >
-        <option value={this.props.numberOfQuestions}>{this.props.numberOfQuestions}</option>
+      ><option value="1">Select # of questions</option>
+        
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -117,16 +139,17 @@ class RCard extends Component {
         <option value="8">8</option>
         <option value="9">9</option>
         <option value="10">10</option>
+        <option value="a">upgrade to Premium</option>
       </Select>
       </fieldset>
       )
     }
    
-    if (this.state.user_type === "Premium" ){
+    if (this.state.user_type === "Tier 2" ){
       renderNumQuestions = (  
       <fieldset>
       <LabelWrapper>
-      <Label>Please enter # of Questions: 1-50</Label>
+      <Label>Number of questions: 1-50</Label>
       </LabelWrapper>
       <Input  
         name="numberOfQuestions" 
@@ -135,21 +158,53 @@ class RCard extends Component {
         placeholder={this.props.numberOfQuestions}
         type="number"
         set="1" 
+        max="50"
+        min="1"
       />
       </fieldset>
       )
     }
 
+        let title;
+        if(this.state.roundName === '') {
+            title = this.props.roundName;
+        }
 
+        if(this.state.roundName.length > 2) {
+            title = this.state.roundName;
+        }
 
         return (
         
-            <RCardWrapper>
+            <RCardWrapper className="card-1 hvr-rectangle-out">
                 
+                
+
               <form>  
                 <FormWrap>   
-                  <TitleLabel>{this.props.roundName}</TitleLabel>
+                  <TitleLabel>
+                    {title}
+                    
+                  
+                  </TitleLabel>
                      
+                  <fieldset>
+                    <LabelWrapper>
+                    <Label>Round Name</Label>
+                    </LabelWrapper>
+                    <Input
+                    name="roundName"
+                    placeholder="update round name"
+                    type="text"
+                    component="input"
+                    autoComplete="none"
+                    onChange={this.handleInput}
+                    value={this.state.roundName}
+                    maxLength="15"
+                    />
+                </fieldset>
+
+
                   {renderNumQuestions}
     
                 <fieldset>
@@ -157,7 +212,7 @@ class RCard extends Component {
                         <Label>Category</Label>
                     </LabelWrapper>
                     <Select name="category" onChange={this.handleInput} value={this.state.category}>
-                        <option value={this.props.category}>{this.props.category}</option>
+                        <option>any category</option>
                         <option value="9">General Knowledge</option>
                         <option value="10">Entertainment: Books</option>
                         <option value="11">Entertainment: Film</option>
@@ -190,7 +245,7 @@ class RCard extends Component {
                         <Label>Difficulty</Label>
                     </LabelWrapper>
                     <Select name="difficulty" onChange={this.handleInput} value={this.state.difficulty}>
-                        <option value={this.props.difficulty}>{this.props.difficulty}</option>
+                        <option>any difficulty</option>
                         <option value="easy">easy</option>
                         <option value="medium">medium</option>
                         <option value="hard">hard</option>
@@ -202,7 +257,7 @@ class RCard extends Component {
                         <Label>Type</Label>
                     </LabelWrapper>
                     <Select name="type" onChange={this.handleInput} value={this.state.type}>
-                        <option value={this.props.type}>{this.props.type}</option>
+                        <option>any type</option>
                         <option value="multiple">Multiple Choice</option>
                         <option value="boolean">True / False</option>
                     </Select>
@@ -225,6 +280,9 @@ class RCard extends Component {
                     </ViewIconWrapper>
                 </IconContainer>
 
+
+ 
+    
             </RCardWrapper>
         )
         

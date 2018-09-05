@@ -139,9 +139,31 @@ export const getThree = (formProps, callback) => dispatch => {
   dispatch({ type: FETCHING_THREE });
   let questions = formProps.numberOfQuestions; 
   let { roundName, numberOfQuestions, category, difficulty, type } = formProps;
+
+  let categoryData, difficultyData, typeData;
+  
+    if (category === undefined) {
+        categoryData = undefined;
+    }else {
+        categoryData = `&category=${category}`; 
+    }
+
+    if (difficulty === undefined) {
+        difficultyData = undefined;
+    }else {
+        difficultyData = `&difficulty=${difficulty}`; 
+    }
+
+    if (type === undefined) {
+        typeData = undefined;
+    }else {
+        typeData = `&difficulty=${difficulty}`; 
+    }
+
   console.log("INSIDE THREE", roundName)
   axios
-      .get(`https://opentdb.com/api.php?amount=${questions}&category=${formProps.category}&difficulty=${formProps.difficulty}&type=${formProps.type}`)
+    //   .get(`https://opentdb.com/api.php?amount=${questions}&category=${formProps.category}&difficulty=${formProps.difficulty}&type=${formProps.type}`)
+      .get(`https://opentdb.com/api.php?amount=${questions}${categoryData}${difficultyData}${typeData}`)
       .then(response => {
           dispatch({ type: FETCHED_THREE, payload: { roundName, numberOfQuestions, category, difficulty, type, questions: response.data.results }})
           callback();
@@ -204,13 +226,13 @@ export const addGame = (userId, callback) => dispatch => {
         });
 };
 
-export const saveGame = (gameId, game) => dispatch => {
+export const saveGame = (gameId, game, callback) => dispatch => {
     dispatch({ type: SAVING_GAME })
     axios
         .put('http://localhost:5000/api/game/update-game', {gameId, game})
         .then( response => {
             dispatch({type: SAVED_GAME, payload: response.data })
-            console.log(response.data)
+            callback();
         })
         .catch(err => {
             dispatch({type: ERROR, errorMessage: "error updating game", err})

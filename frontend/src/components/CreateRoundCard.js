@@ -2,7 +2,7 @@ import React, { Component } from "react";
 // import { reduxForm, Field } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { getThree, addRound } from '../actions';// delete later
+import { getThree, addRound, signOut } from '../actions';// delete later
 
 import { withRouter } from 'react-router';
 
@@ -13,26 +13,47 @@ import {
   LabelWrapper,
   ButtonWrapper,
   Button,
-  Label
+  Label,
+  Input,
+  Select,
+  FormWrapper,
+  Upgrade,
+  PositionMenu
 } from "./primitives/CreateRoundCard";
 
-import './primitives/CreateRoundCard';
+import { 
+  Hamburger,
+  NavText,
+  NavUl,
+  NavLi
+  } from './primitives/Nav'; 
+
+import Nav from './UI/Nav';
+
+import './primitives/css/CreateRoundCard.css'
+
 
 class CreateRoundCard extends Component {
   constructor(props){
     super(props);
     this.state = {
         roundName: '' ,
-        numberOfQuestions: '',
+        numberOfQuestions: '1',
         category: '',
         difficulty: '',
         type: '',
-        user_type: null  
+        user_type: null,
+        menu: false  
     }
 
     this.handleInput = this.handleInput.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.openNav = this.openNav.bind(this);
+    this.closeNav = this.closeNav.bind(this);
   }
+
+  
+
 
   componentDidMount() {
     const token = localStorage.getItem('token');
@@ -43,6 +64,17 @@ class CreateRoundCard extends Component {
 }
 
 
+    openNav() {
+      document.getElementById("mySidenav").style.width = "25%";
+      document.getElementById("main").style.marginLeft = "25%";
+      this.setState({ menu: true})
+    }
+
+    closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+      document.getElementById("main").style.marginLeft = "0";
+      this.setState({ menu: false})
+    }
 
     handleInput(event) {
     const { name, value } = event.target;
@@ -53,11 +85,17 @@ class CreateRoundCard extends Component {
 
   onSubmit = (event) => {
     event.preventDefault();
-    let formProps = this.state;
+    let { roundName, numberOfQuestions, category, difficulty, type } = this.state;
     const gameId = this.props.match.params.id;
     let round = this.props.round;
     console.log(this.state.roundName);
   
+    if (roundName === '' || roundName === "") {
+      roundName = "New Round";
+    }
+    
+    let formProps = { roundName, numberOfQuestions, category, difficulty, type }
+
     this.props.getThree( formProps, () => {
       
         this.props.addRound(gameId, this.props.round, (id)=> {
@@ -67,10 +105,18 @@ class CreateRoundCard extends Component {
      
   }
 
+  logOut = async event => {
+    await this.props.signOut();
+    this.props.history.push("/")
+}
 
 
   render() {
     let renderNumQuestions;
+
+    if(this.state.numberOfQuestions === 'a' ){
+      this.props.history.push('/billing')
+    }
 
     if (this.state.user_type === "Free" ){
       renderNumQuestions = (  
@@ -78,18 +124,18 @@ class CreateRoundCard extends Component {
       <LabelWrapper>
       <Label># of Questions</Label>
       </LabelWrapper>
-      <select  
+      <Select  
         name="numberOfQuestions" 
         onChange={this.handleInput} 
         value={this.state.numberOfQuestions} 
       >
-        <option>Number of Questions</option>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
         <option value="4">4</option>
         <option value="5">5</option>
-      </select>
+        <option value="a"><Upgrade>click here to upgrade</Upgrade></option>
+      </Select>
       </fieldset>
       )
     }
@@ -100,12 +146,11 @@ class CreateRoundCard extends Component {
       <LabelWrapper>
       <Label># of Questions</Label>
       </LabelWrapper>
-      <select  
+      <Select  
         name="numberOfQuestions" 
         onChange={this.handleInput} 
         value={this.state.numberOfQuestions} 
       >
-        <option>Number of Questions</option>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -116,38 +161,70 @@ class CreateRoundCard extends Component {
         <option value="8">8</option>
         <option value="9">9</option>
         <option value="10">10</option>
-      </select>
+        <option value="a"><Upgrade>upgrade to premium</Upgrade></option>
+      </Select>
       </fieldset>
       )
     }
    
-    if (this.state.user_type === "Premium" ){
+    if (this.state.user_type === "Tier 2" ){
       renderNumQuestions = (  
       <fieldset>
       <LabelWrapper>
       <Label>Please enter # of Questions: 1-50</Label>
       </LabelWrapper>
-      <select  
+      <Input  
         name="numberOfQuestions" 
         onChange={this.handleInput} 
         value={this.state.numberOfQuestions}
         type="number"
-        set="1" 
+        set="1"
       />
       </fieldset>
       )
     }
     
+    let hamburger;
 
+          if (this.state.menu === true) {
+              hamburger = <Hamburger onClick={()=> this.state.menu ? this.closeNav() : this.openNav()} class="col">
+                            <div class="con">
+                            <div class="bar arrow-top-r"></div>
+                            <div class="bar arrow-middle-r"></div>
+                            <div class="bar arrow-bottom-r"></div>
+                            </div>
+                          </Hamburger>
+            }
+            
+            if (this.state.menu === false) {
+                hamburger = <Hamburger onClick={()=> this.state.menu ? this.closeNav() : this.openNav()} class="col">
+                            <div class="con">
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            </div>
+                         </Hamburger>
+            }
     
     return (
-      <CreateRoundCardWrapper>
+      <CreateRoundCardWrapper className="select-wrapper" id="main">
+        <FormWrapper>
+            <Nav id="mySidenav">
+              <NavUl>
+              <NavLi><NavText onClick={()=> this.props.history.push('/games')}>Games</NavText></NavLi>
+                  <NavLi><NavText onClick={()=> this.props.history.push('/settings')}>Settings</NavText></NavLi>
+                  <NavLi><NavText onClick={()=> this.props.history.push('/billing')}>Upgrade</NavText></NavLi>
+                  <NavLi><NavText onClick={()=> this.logOut()}>Log Out</NavText></NavLi>
+              </NavUl>    
+            </Nav>
+        <PositionMenu>{hamburger}</PositionMenu>
+        
         <form onSubmit={(e)=> this.onSubmit(e)}>
           <fieldset>
             <LabelWrapper>
               <Label>Round Name</Label>
             </LabelWrapper>
-            <input
+            <Input
               name="roundName"
               placeholder="Round Name"
               type="text"
@@ -164,7 +241,7 @@ class CreateRoundCard extends Component {
             <LabelWrapper>
               <Label>Category</Label>
             </LabelWrapper>
-            <select name="category" onChange={this.handleInput} value={this.state.category}>
+            <Select name="category" onChange={this.handleInput} value={this.state.category}>
               <option>Any Category</option>
               <option value="9">General Knowledge</option>
               <option value="10">Entertainment: Books</option>
@@ -190,37 +267,37 @@ class CreateRoundCard extends Component {
               <option value="30">Science: Gadgets</option>
               <option value="31">Entertainment: Japanese Anime & Manga</option>
               <option value="32">Entertainment: Cartoon & Animation</option>
-            </select>
+            </Select>
           </fieldset>
           <fieldset>
             <LabelWrapper>
               <Label>Difficulty</Label>
             </LabelWrapper>
-            <select name="difficulty" onChange={this.handleInput} value={this.state.difficulty}>
+            <Select name="difficulty" onChange={this.handleInput} value={this.state.difficulty}>
               <option>Any Difficulty</option>
               <option value="easy">Easy</option>
               <option value="medium">Medium</option>
               <option value="hard">Hard</option>
-            </select>
+            </Select>
           </fieldset>
           <fieldset>
             <LabelWrapper>
               <Label>Type</Label>
             </LabelWrapper>
-            <select name="type" onChange={this.handleInput} value={this.state.type}>
+            <Select name="type" onChange={this.handleInput} value={this.state.type}>
             <option>Any Type</option>
               <option value="multiple">Multiple Choice</option>
               <option value="boolean">True / False</option>
-            </select>
+            </Select>
           </fieldset>
         
           <ButtonWrapper>
-            <button>get questions</button>
+            <Button>get questions</Button>
           </ButtonWrapper>
           
       
         </form>
-
+      </FormWrapper>
 
       </CreateRoundCardWrapper>
     );
@@ -236,4 +313,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { getThree, addRound } )(withRouter(CreateRoundCard));
+export default connect(mapStateToProps, { getThree, addRound, signOut } )(withRouter(CreateRoundCard));
