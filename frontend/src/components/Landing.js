@@ -20,6 +20,8 @@ import {
   SignUpButton,
   SignInButton,
   BotDiv,
+  ButtonWrap,
+  TitleWrap,
   Subtitle
 } from "./primitives/Landing.js";
 
@@ -71,11 +73,14 @@ class Landing extends Component {
           <SignUp show={this.state.show1} handleClose={this.hideModal} />
           <SignIn show={this.state.show2} handleClose={this.hideModal} />
           <TopDiv>
-            <MainTitle className="ml6">
-              <span className="letters textShadow">Trivializer</span>
-            </MainTitle>
-
-            <SignInButton onClick={this.showSignIn}> Sign In</SignInButton>
+            <TitleWrap style={{border: 'solid white'}}>
+              <MainTitle className="ml6">
+                <span className="letters textShadow">Trivializer</span>
+              </MainTitle>
+            </TitleWrap>  
+            <ButtonWrap style={{border: 'solid yellow'}}>
+              <SignInButton onClick={this.showSignIn}> Sign In</SignInButton>
+            </ButtonWrap>
           </TopDiv>
 
           <BotDiv>

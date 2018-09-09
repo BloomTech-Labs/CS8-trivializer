@@ -9,7 +9,10 @@ export const TopDiv = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 10px;
-  /* border: solid black; */
+  
+  @media (max-width: 769px ) {
+    flex-direction: column;
+  }
 `;
 export const BotDiv = styled.div`
   display: flex;
@@ -18,6 +21,23 @@ export const BotDiv = styled.div`
   padding: 10px;
   /* border: solid white; */
   height: 80%;
+`;
+
+export const TitleWrap = styled.div`
+   @media (max-width: 769px ) {
+    display: flex;
+    justify-content: center;
+  }
+`;
+
+export const ButtonWrap = styled.div`
+  width: 20%;
+  @media (max-width: 769px ) {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
 `;
 
 export const Img = styled.div`
@@ -68,7 +88,7 @@ export const SignInButton = styled.button`
   font-size: 2rem;
   font-weight: 900;
   height: 90px;
-  width: 20%;
+  width: 100%;
   border-radius: 3%;
 
 
@@ -81,6 +101,10 @@ export const SignInButton = styled.button`
     border: solid 6px #83487e;
     background: white;
     cursor: pointer;
+  }
+
+    @media (max-width: 769px ) {
+    width: 40%;
   }
 `;
 
