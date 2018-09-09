@@ -49,8 +49,8 @@ export const MainTitle = styled.h1`
 `
 
 export const SignInButton = styled.button`
-    border: solid 6px #83487e;
-    color: #83487e;
+    border: solid 6px white;
+    color: white;
     background: #52132e;
     font-size: 2rem;
     font-weight: 900;
@@ -68,8 +68,8 @@ export const SignInButton = styled.button`
 `
 
 export const SignUpButton = styled.button`
-    border: solid 6px #83487e;
-    color: #83487e;
+    border: solid 6px white;
+    color: white;
     background: #52132e;
     font-size: 2.3rem;
     font-weight: 900;
