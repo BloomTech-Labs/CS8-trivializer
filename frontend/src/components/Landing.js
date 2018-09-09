@@ -67,7 +67,6 @@ class Landing extends Component {
   render() {
     return (
       <LandingWrapper>
-        {/* {console.log("LANDING PROPS", this.props.auth)} */}
         <Img>
           <SignUp show={this.state.show1} handleClose={this.hideModal} />
           <SignIn show={this.state.show2} handleClose={this.hideModal} />
