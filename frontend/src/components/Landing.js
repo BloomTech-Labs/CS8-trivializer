@@ -22,7 +22,6 @@ import {
   BotDiv,
   ButtonWrap,
   TitleWrap,
-  Subtitle
 } from "./primitives/Landing.js";
 
 import "./primitives/css/Landing.css";
@@ -73,12 +72,12 @@ class Landing extends Component {
           <SignUp show={this.state.show1} handleClose={this.hideModal} />
           <SignIn show={this.state.show2} handleClose={this.hideModal} />
           <TopDiv>
-            <TitleWrap style={{border: 'solid white'}}>
+            <TitleWrap>
               <MainTitle className="ml6">
                 <span className="letters textShadow">Trivializer</span>
               </MainTitle>
             </TitleWrap>  
-            <ButtonWrap style={{border: 'solid yellow'}}>
+            <ButtonWrap>
               <SignInButton onClick={this.showSignIn}> Sign In</SignInButton>
             </ButtonWrap>
           </TopDiv>
@@ -89,7 +88,6 @@ class Landing extends Component {
             </SignUpButton>
           </BotDiv>
         </Img>
-        {console.log("SHOW RIGHT BEFORE MODAL", this.state.show)}
         <Modal show={this.state.show} handleClose={this.hideModal} />
       </LandingWrapper>
     );

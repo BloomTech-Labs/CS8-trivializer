@@ -19,7 +19,6 @@ export const BotDiv = styled.div`
   justify-content: center;
   align-items: flex-end;
   padding: 10px;
-  /* border: solid white; */
   height: 80%;
 `;
 
@@ -52,7 +51,7 @@ export const Img = styled.div`
   -o-background-size: cover;
 
   background-size: cover;
-  height: 100vh;
+  height: 100%;
 `;
 export const MainTitle = styled.h1`
   font-family: "Luckiest Guy", cursive;
@@ -60,28 +59,10 @@ export const MainTitle = styled.h1`
   letter-spacing: 2px;
   padding-top: 10px;
   padding-left: 10px;
-  /* font-kerning: normal; */
-`;
-
-export const Subtitle = styled.h3`
-  /* position: absolute;
-  top: 120px;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  margin-left: 60px;
-  margin-top: 20px;
-  font-size: 2rem;
-  padding: 10px;
-  max-width: 35%;
-  height: 65px;
-  background: white;
-  border-radius: 2%; */
-
+  
 `;
 
 export const SignInButton = styled.button`
-  /* border: solid 6px #83487e; */
   border: solid 6px white;
   color: white;
   background: #52132e;
@@ -105,11 +86,15 @@ export const SignInButton = styled.button`
 
     @media (max-width: 769px ) {
     width: 40%;
+    height: 70px;
   }
+
+    /* @media (max-width: 635px) {
+    
+  } */
 `;
 
 export const SignUpButton = styled.button`
-  /* border: solid 6px #83487e; */
   border: solid 6px white;
   color: white;
   background: #52132e;
@@ -118,6 +103,7 @@ export const SignUpButton = styled.button`
   height: 120px;
   width: 30%;
   border-radius: 3%;
+  margin-bottom: 10%;
 
   &:focus {
     outline: 0;
@@ -129,4 +115,10 @@ export const SignUpButton = styled.button`
     border: solid 6px #52132e;
     cursor: pointer;
   }
+
+     @media (max-width: 769px ) {
+    width: 40%;
+    height: 70px;
+  }
+
 `;
