@@ -121,4 +121,9 @@ export const SignUpButton = styled.button`
     height: 70px;
   }
 
+       @media (max-width: 493px ) {
+    width: 50%;
+    height: 70px;
+  }
+
 `;

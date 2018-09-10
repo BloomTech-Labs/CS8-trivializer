@@ -84,7 +84,7 @@ class Settings extends Component {
     event.preventDefault();
 
     let formProps = this.state;
-    console.log("FORMPROPS IN SUBMING", formProps)
+   
     this.props.updateSettings(formProps, () => {
       this.props.history.push('/games');
   });
@@ -92,11 +92,6 @@ class Settings extends Component {
 
   
   render() {
-
-    // const token = localStorage.getItem('token');
-    // const decoded = jwt_decode(token);
-    // const email = decoded.email;
-    // const orgName = decoded.orgName;
     
     let hamburger;
 
