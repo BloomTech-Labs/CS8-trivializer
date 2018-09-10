@@ -121,21 +121,17 @@ export const AddIconWrapper = styled.div`
 `;
 
 export const Text = styled.p``;
+
 export const TextWrapper = styled.div`
-  /* display: flex;
-    justify-content: center;
-    height: 50%; */
 `;
+
 export const CGListWrapper = styled.div`
   display: flex;
-  /* width: 100%; */
   height: 100vh;
   flex-wrap: wrap;
   flex-direction: row-reverse;
   justify-content: center;
   align-items: center;
-
-  /* border: solid black; */
 `;
 
 export const TopContainer = styled.div`
@@ -144,17 +140,13 @@ export const TopContainer = styled.div`
   align-items: center;
   width: 60%;
   height: 100%;
-  /* margin-bottom: 100px;                                      */
-  /* border: solid black; */
 `;
 
 export const CenterSpinner = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  /* width: 100%; */
   height: auto;
-
   position: fixed;
   top: 0;
   left: 0;
@@ -168,22 +160,14 @@ export const OutterButton = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-
-  /* height: 100%; */
-
-  /* border: solid black; */
+  
+  border: solid white;
 `;
 
 export const Center = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* align-items: center;
-  position: relative;
-  right: 30px; */
-
-  /* border: solid black; */
-  /* width: 100%; */
 `;
 
 export const NewRoundButton = styled.img`

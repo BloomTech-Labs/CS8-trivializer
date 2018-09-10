@@ -211,7 +211,7 @@ class Pdf extends Component {
           </Button>
         </div>
       );
-    } else return <div>Loading...</div>;
+    } else return <div></div>;
   }
 }
 

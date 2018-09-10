@@ -129,33 +129,12 @@ class CreateGame extends Component {
         }
 
         if (name.length === 0 && date.toString().split('').splice(0,10).join('') !== d.toString().split('').splice(0,10).join('') ) {
-            game = { date }
-          }
-  //       if (name.length === 0 && date !== new Date() ) {
-  //           game = { date }
-  //      }
-  //      console.log("name length:",name.length)
-  //      if ( name.length > 0 && date !== new Date()) {
-  //           game = { name, date }   
-  //           localStorage.setItem(`gameName${this.props.match.params.id}`, name);
-  //      }
-
-  //      if ( name.length > 0 ) {
-  //       game = { name, date }   
-  //       localStorage.setItem(`gameName${this.props.match.params.id}`, name);
-  //  }
-
-  //      if ( name.length > 0 && date === new Date())  {
-  //       game = { name }   
-  //       localStorage.setItem(`gameName${this.props.match.params.id}`, name);
-  //  }
-
-       
-
+          game = { date }
+        }
 
     this.props.saveGame(this.props.match.params.id, game, ()=> {
       this.props.history.push('/games');
-  })
+    })
   };
 
   logOut = async event => {
@@ -286,7 +265,6 @@ class CreateGame extends Component {
       );
     }
     let storedRounds = this.props.storedRound;
-    console.log("STORED ROUNDS CREATE GAME", storedRounds);
 
     let load;
     if (this.props.updatingRound) {
@@ -325,20 +303,6 @@ class CreateGame extends Component {
         <PositionMenu>{hamburger}</PositionMenu>
 
         <TopContainer>
-          {console.log("STORED ROUND", this.props.storedRound)}
-          {console.log("STATE", this.state)}
-
-          {/* <div>
-                <fieldset>        
-                    <Dropzone
-                    onDrop={this.onDrop.bind(this)}
-                    accept="image/jpeg, image/png, image/gif"
-                    >
-                    <p>Try dropping some files here, or click to select files to upload.</p>
-                    </Dropzone>
-                </fieldset>
-            </div> */}
-
           <Center>
             <fieldset>
               <DatePicker
@@ -347,7 +311,7 @@ class CreateGame extends Component {
                 value={this.state.date}
               />
             </fieldset>
-            {console.log("games", this.props.storedGames)}
+          
             <fieldset>
               <LabelWrapper>
                 <Label>Game Name</Label>
