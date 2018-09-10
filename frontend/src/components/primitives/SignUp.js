@@ -11,12 +11,19 @@ export const SignUpWrapper = styled.div`
     right: 0;
     margin: auto;
     z-index: 1;
-    max-width: 30%;
+    max-width: 35%;
     height: 450px;
     background: white;
     border-radius: 2%;
 
+    @media(max-width: 888px){
+        max-width: 50%;
+    }
 
+     @media(max-width: 688px){
+        max-width: 100%;
+        border-radius: 0;
+    }
 `;
 
 export const InputWrapper = styled.div`
