@@ -65,13 +65,25 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
-height: 45vh;
+height: auto;
 width: 35%;
-/* background: #696969; */
+padding: 2% 0;
 background: #571633;
 border-radius: 3%;
 box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 
+@media (max-width: 741px) {
+  width: 60%;
+}
+
+@media (max-width: 467px) {
+  width: 90%;
+}
+
+@media (max-width: 324px) {
+  width: 100%;
+  border-radius: 0%;
+}
 `
 export const Input = styled.input `
     width: 200px;

@@ -16,21 +16,19 @@ export const ListWrapper = styled.div`
     flex-direction: row-reverse;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    
-
-    
+    width: 100%;  
 `
 
 export const NGW = styled.h1`
     font-size: 4rem;
+    width: 100%;
+    text-align: center;
 `
 export const ButtonWrapper = styled.div`
  display: flex;
  justify-content: center;
  align-items: center;
  padding-top: 20px;
- 
 `;
 
 export const Button = styled.div`
@@ -71,7 +69,8 @@ export const TextWrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50%;
+    height: 50%; 
+
 `
 
 
@@ -79,7 +78,9 @@ export const NewGameDiv = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     height: auto;
+    width: 100%;
 `
 export const NewGameButton = styled.img`
     border-radius: 50%;
@@ -108,8 +109,8 @@ export const NameWrapper = styled.div`
   font-size: 3rem;
   margin: 4px;
   margin-top: 20px;
-  font-weight: 800;
-  
+  font-weight: 800; 
+ 
 `
 
 export const PositionMenu = styled.div`
@@ -119,10 +120,7 @@ export const PositionMenu = styled.div`
     z-index: 1; 
     top: 0;
     left: 0;
-    
     overflow-x: hidden; 
-    padding: 10px;
-    
+    padding: 10px;  
     transition:  0.5s; 
-
 `
