@@ -2,116 +2,143 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { getQuestions } from "../actions";
 import Pdf from "./Pdf";
+import QuestionCard from "./QuestionCard";
+import PdfBlanksRound from "./PdfBlanksRound";
+import Nav from './UI/Nav';
 
-import jsPDF from "jspdf";
+import { 
+  Hamburger,
+  NavText,
+  NavUl,
+  NavLi
+  } from './primitives/Nav'; 
 
-import { QuestionsWrapper, CorrectAnswer, QuestionsLine, Text } from "./primitives/Questions";
+  import './primitives/css/Questions.css'
+  import './primitives/css/GameList.css'
 
-let he = require("he");
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
-const alphabet = ["a","b","c","d"]
+import { QuestionsWrapper, QuestionCardWrapper, OuterMostWrapper,
+   pdfWrapper, TestDiv, Bold, PositionMenu, ButtonWrap, QuestionsText} from "./primitives/Questions";
 
 class Questions extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      menu: false
+    };
+    this.openNav = this.openNav.bind(this);
+    this.closeNav = this.closeNav.bind(this);
+  }
+
+
+  openNav() {
+    document.getElementById("mySidenav").style.width = "25%";
+    document.getElementById("main").style.marginLeft = "25%";
+    this.setState({ menu: true });
+  }
+
+  closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("main").style.marginLeft = "0";
+    this.setState({ menu: false });
+  }
+
+
+
   componentDidMount = props => {
     const questionId = this.props.match.params.id;
     this.props.getQuestions(questionId);
   };
 
-  // printDocument() {
-  //   var x = window.open();
-  //   const input = document.getElementById("divToPrint");
-  //   const pdf = new jsPDF();
-  //   pdf.fromHTML(input);
-  //   var string = pdf.output("dataurlstring");
 
-  //   var iframe =
-  //     "<iframe width='100%' height='100%' src='" + string + "'></iframe>";
-  //   x.document.open();
-  //   x.document.write(iframe);
-  //   x.document.close();
-  // }
 
   render() {
-    function shuffle(array) {
-      var currentIndex = array.length,
-        temporaryValue,
-        randomIndex;
-
-      // While there remain elements to shuffle...
-      while (0 !== currentIndex) {
-        // Pick a remaining element...
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-
-        // And swap it with the current element.
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-      }
-      return array;
-    }
-
-    // console.log("STORED QUESTIONS", this.props.storedQuestions);
-    // console.log("STOREDQUESTIONS[0]", this.props.storedQuestions[0]);
-
+    let storedQuestions = this.props.storedQuestions;
     let subQuestions = null;
-    let mixedQuestionsCheck = null;
-    console.log("STORED QUESTIONS", this.props.storedQuestions);
+    let numberOfQuestions = 0;
+    let difficulty = "";
+    let errMessage = "";
+    let errMsgFormat = "0"
 
-    
 
-
-    this.props.storedQuestions.map((q, i) => {
+    storedQuestions.map(q => {
+      numberOfQuestions = q.length;
+      if(numberOfQuestions === 0){
+        errMessage = "The trivia database does not contain enough questions of that difficulty in that category. Please try a different combination.";
+        errMsgFormat = "200px";
+      }
       subQuestions = q.map((subQ, subI) => {
-        // console.log("SUB QUESTIONS", subQ);
-        subQ.incorrect_answers.push(subQ.correct_answer); // adds the correct answer to the array of incorrect
-        let mixedAnswers = shuffle(subQ.incorrect_answers); //shuffles them up on page load
-        
-        // checks to see if the answer is a boolean type and displays accordingly (prevent mixing).
-        if (mixedAnswers[0] === "True" || mixedAnswers[0] === "False"){
-          mixedAnswers = ["True", "False"];
-        } 
-        console.log("MIXED", mixedAnswers);
-
-        return (
-          <div>
-            <br />
-            <h1>{he.decode(subQ.question)}</h1>
-            {/* converts the HTML special character encoding to plain text; i.e &quote = "" */}
-            <br />
-            {mixedAnswers.map((answer, index) => {
-              var letter = alphabet[index];
-              if (answer === subQ.correct_answer) {
-                console.log("CORRECT ANSWER", subQ.correct_answer);
-                answer = he.decode(answer);
-                return <CorrectAnswer key={index}><span>{letter}. </span>{answer}</CorrectAnswer>;
-              } else {
-                answer = he.decode(answer);
-                return <div key={index}><span>{letter}.   </span>{answer}</div>;
-              }
-            })}
-            {/* <QuestionsLine /> */}
-          </div>
-        );
+        return <QuestionCard key={subI} question={subQ} index={subI} />;
       });
     });
-    // console.log("QUESTIONS MAPPED", questions);
+
+
+
+    let hamburger;
+
+    if (this.state.menu === true) {
+      hamburger = (
+        <Hamburger
+          onClick={() => (this.state.menu ? this.closeNav() : this.openNav())}
+          class="col"
+        >
+          <div class="con">
+            <div class="bar arrow-top-r" />
+            <div class="bar arrow-middle-r" />
+            <div class="bar arrow-bottom-r" />
+          </div>
+        </Hamburger>
+      );
+    }
+
+    if (this.state.menu === false) {
+      hamburger = (
+        <Hamburger
+          onClick={() => (this.state.menu ? this.closeNav() : this.openNav())}
+          class="col"
+        >
+          <div class="con">
+            <div className="bar" />
+            <div className="bar" />
+            <div className="bar" />
+          </div>
+        </Hamburger>
+      );
+    }
 
     return (
-      
-        <QuestionsWrapper >
-          <Pdf id={"divToPrint"}/>
-          <div id="divToPrint">
-            <br />
-            <Text>{subQuestions}</Text>
-            <br />
-          </div>
-           
+      <OuterMostWrapper id="main">
+            <Nav id="mySidenav">
+                <NavUl>
+                    <NavLi><NavText onClick={()=> this.props.history.push('/games')}>Games</NavText></NavLi>
+                    <NavLi><NavText onClick={()=> this.props.history.push('/settings')}>Settings</NavText></NavLi>
+                    <NavLi><NavText onClick={()=> this.props.history.push('/billing')}>Upgrade</NavText></NavLi>
+                    <NavLi><NavText onClick={()=> this.logOut()}>Log Out</NavText></NavLi>
+                </NavUl>    
+            </Nav>
 
-        {/* <button onClick={this.printDocument}>Print</button> */}
+            <PositionMenu>{hamburger}</PositionMenu>
+
+        <ButtonWrap>
+          <Pdf rootQuestions={storedQuestions}/> 
+          <PdfBlanksRound rootQuestionsBlank={storedQuestions} />
+        </ButtonWrap>
+        <QuestionsWrapper>
+          <QuestionsText>Questions: {numberOfQuestions}</QuestionsText>
+          {/* <DifficultyText>Difficulty: {difficulty}</DifficultyText> */}
+          <Bold><h2> Please note: Correct answers displayed in bold.</h2></Bold>
+          <Bold><h2 style={{marginTop: errMsgFormat}}>{errMessage}</h2></Bold>
+
+       <QuestionCardWrapper>
+          {subQuestions}
+      </QuestionCardWrapper>
+        
+
+
+        
         </QuestionsWrapper>
-       
-      
+      </OuterMostWrapper>
     );
   }
 }
@@ -119,7 +146,7 @@ class Questions extends Component {
 function mapStateToProps(state) {
   return {
     storedQuestions: state.round.storedQuestions,
-    erorrMessage: state.auth.erorrMessage
+    errorMessage: state.auth.errorMessage
   };
 }
 

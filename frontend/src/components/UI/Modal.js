@@ -1,0 +1,19 @@
+import React from "react";
+
+import { SignUpWrapper } from '../primitives/Landing';
+import { ModalWrapper } from './primitives/Modal';
+
+
+const Modal = ({ handleClose, show, children}) => {
+    const showHideClassname = show ? "modal display-block" : "display-none";
+    
+    return (
+        
+        <ModalWrapper onClick={handleClose} className={showHideClassname}> 
+                {children}
+            </ModalWrapper>
+       
+    );
+};
+
+export default Modal;

@@ -3,88 +3,127 @@ import { reduxForm, Field } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
 
-import { withRouter } from 'react-router';
-import { Nav, Link } from './primitives/Nav';
+import { withRouter } from "react-router";
+import { Nav, Link } from "./primitives/Nav";
 import {
-  SignupWrapper,
+  SignUpWrapper,
   Label,
   LabelWrapper,
   ButtonWrapper,
-  Button,
-  Title
+  Title,
+  LogButton,
+  InputWrapper,
+  Input,
+  ErrorMessage
 } from "./primitives/SignUp";
 import { signUp } from "../actions/index";
 
+import "./primitives/css/Landing.css";
 //#TODO: ADD FORMAT VERIFICATION FOR EMAIL AND PASSWORD FIELDS
 
-
 class SignUp extends Component {
-  onSubmit = formProps => {
-    this.props.signUp(formProps, () => {
-      this.props.history.push("/games");
-    });
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: "",
+      password: "",
+      confirmPassword: "",
+      signUpError: ""
+    };
+
+    this.handleInput = this.handleInput.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  handleInput(event) {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+  }
+
+  onSubmit = event => {
+    event.preventDefault();
+    let formProps = this.state;
+
+    if (this.state.password === this.state.confirmPassword) {
+      this.props.signUp(formProps, () => {
+        this.props.history.push("/games");
+      });
+    this.setState({errorMessage: ""})
+    } else this.setState({ errorMessage: "Passwords must match." });
+    console.log("SIGNUP STATE", this.state);
   };
+
+
   render() {
-    const { handleSubmit } = this.props;
+    let errorMessageVar;
+    if(this.props.errorMessage !== "User not found."){
+      errorMessageVar = this.props.errorMessage;
+    } else errorMessageVar = "";
+
+    const showHideClassname = this.props.show
+      ? "display display-block"
+      : "modal display-none";
     return (
-      <SignupWrapper>
-
-          <Nav>
-                <Link onClick={()=> this.props.history.push('/games')}>Games List</Link>
-                <Link onClick={()=> this.props.history.push('/settings')}>Settings</Link>
-                <Link onClick={()=> this.props.history.push('/sign-in')}>Sign-In</Link>
-                <Link onClick={()=> this.props.history.push('/billing')}>Billing</Link>
-          </Nav> 
-
-        <Title>SIGN UP PAGE</Title>
-        <form onSubmit={handleSubmit(this.onSubmit)}>
-          <fieldset>
-            <LabelWrapper>
-              {" "}
-              <Label>Email</Label>
-            </LabelWrapper>
-            <Field
-              name="email"
-              placeholder="Enter your Email"
-              type="text"
-              component="input"
-              autoComplete="none"
-            />
-          </fieldset>
-          <fieldset>
-            <LabelWrapper>
-              <Label>Password</Label>
-            </LabelWrapper>
-            <Field
-              name="password"
-              placeholder="Enter your Password"
-              type="password"
-              component="input"
-              autoComplete="none"
-            />
-          </fieldset>
-          <ButtonWrapper>
-            <Button>Sign Up</Button>
-          </ButtonWrapper>
-          <ButtonWrapper>
-            <Button
-              onClick={() => {
-                this.props.history.push("/");
-              }}
-            >
-              {" "}
-              Home{" "}
-            </Button>
-          </ButtonWrapper>
-        </form>
-      </SignupWrapper>
+      <SignUpWrapper className={[showHideClassname, "slide-in-top"].join(" ")}>
+        <InputWrapper>
+          <Title>SIGN UP </Title>
+          <form onSubmit={this.onSubmit}>
+            <fieldset>
+              <LabelWrapper>
+                <Label>Email</Label>
+              </LabelWrapper>
+              <Input
+                name="email"
+                type="email"
+                component="input"
+                autoComplete="none"
+                onChange={this.handleInput}
+                value={this.state.email}
+              />
+            </fieldset>
+            <fieldset>
+              <LabelWrapper>
+                <Label>Password</Label>
+              </LabelWrapper>
+              <Input
+                name="password"
+                type="password"
+                component="input"
+                autoComplete="none"
+                onChange={this.handleInput}
+                value={this.state.password}
+              />
+            </fieldset>
+            <fieldset>
+              <LabelWrapper>
+                <Label>Confirm Password</Label>
+              </LabelWrapper>
+              <Input
+                name="confirmPassword"
+                type="password"
+                component="input"
+                autoComplete="none"
+                onChange={this.handleInput}
+                value={this.state.confirmPassword}
+              />
+            </fieldset>
+            <ErrorMessage >{errorMessageVar}</ErrorMessage>
+            <ErrorMessage >{this.state.errorMessage}</ErrorMessage>
+            <ButtonWrapper>
+              <LogButton>Sign Up</LogButton>
+            </ButtonWrapper>
+          </form>
+        </InputWrapper>
+      </SignUpWrapper>
     );
   }
 }
 
-//TODO: MAP STATE TO PROPS
 function mapStateToProps(state) {
-  return { erorrMessage: state.auth.erorrMessage };
+  return {
+    errorMessage: state.auth.errorMessage,
+    auth: state.auth.authenticated
+  };
 }
 
 export default compose(

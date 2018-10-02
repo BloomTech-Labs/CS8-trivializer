@@ -4,13 +4,14 @@ import {
     NewGameCardWrapper,
     } from './primitives/NewCard';
 
+import './primitives/css/NewCard.css'
 
 const NewGameCard = (props) => {
 
 
     
     return (
-            <NewGameCardWrapper>
+            <NewGameCardWrapper className="card-1 hvr-rectangle-out ">
                 {props.children}
             </NewGameCardWrapper>
         )
